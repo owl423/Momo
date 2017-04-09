@@ -1,0 +1,73 @@
+@import 'config';
+
+.menu-wrap {
+    position: absolute;
+    top: 0;
+    width: 420px;
+    height: 100%;
+    padding-right: 30px;
+    transition: all 0.3s ease-in-out; 
+    z-index: 999;
+}
+.menu {
+    background: #eee;   
+    width: 100%;     
+    height: 100%;
+    position:relative;
+}
+.menu__button {
+    position: absolute;
+    right: -30px;
+    width: 30px;
+    height: 60px;
+    cursor: pointer;
+}
+.pin-info__header {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: $color-main;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+.pin-info__bg {
+    height: 200px;
+    background: url(./assets/sample_cafe.jpg) no-repeat 50% 30%;
+    background-size: cover;    
+    width: 100%;
+}
+.post-register {
+    position: absolute;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    top: -40px;
+    box-shadow: 1px 5px 9px 3px darken($color-main, 40%);
+    border: 0;
+    background: $color-main-dark;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 5px;
+}
+.pin-info__header--title {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.pin-info__header--category {
+    display: inline-block;
+    font-size: 13px;
+    background: $color-main-bright;
+    padding: 0 5px;
+    border-radius: 4px;
+    margin-right: 3px;
+    font-weight: bold;
+}
+.pin-info__header--nick {
+    color: #fff;
+    font-size: 14px; 
+    display: inline-block;
+}

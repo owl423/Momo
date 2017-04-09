@@ -1,0 +1,39 @@
+.slide_button{
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: 30px;
+    height: 60px;
+}
+@keyframes slide-in{
+    from{
+        transform: translateX(-480px)
+    }
+    to{
+        transform: translateX(0px);
+        opacity: 1
+    }
+}
+
+@keyframes slide-out{
+    from{
+        transform: translateX(0px)
+    }
+    to{
+        transform: translateX(-480px);
+        opacity: 0
+    }
+}
+.slide-enter{
+    opacity: 0
+}
+.slide-enter-active{
+    animation: slide-in 0.5s 
+}
+
+.slide-leave{
+    opacity: 1
+}
+.slide-leave-active{
+    animation: slide-out 0.5s
+}

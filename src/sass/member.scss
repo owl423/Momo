@@ -1,0 +1,25 @@
+
+.signin--form {
+    margin-bottom: 50px;
+}
+.signin--facebook{
+    text-align: center;
+}
+
+.container form label {
+    display: inline-block;
+    width: 70px;
+}
+
+
+.signin--form button,
+.signup--form button {
+    color: #000;
+    text-align: center;
+    display: block;
+    padding: 3px 0;
+    width: 230px;
+    margin: 10px auto;
+    background: #eee;
+    font-size: 15px;
+}

@@ -1,0 +1,35 @@
+    .search-bar {
+        background: #fff;
+        width: 350px;
+        position: absolute;
+        top: 7px;
+        left: 40px;
+        border-radius: 3%;
+        border: 1px #ddd solid;
+        z-index: 99999
+    }
+    .search-bar .input-box {
+        height: 50px;
+        border-bottom: 1px #ddd solid;
+    }
+    .search-bar .input-box input {
+        width: 300px;
+        height: 100%;
+        padding: 0 3%;
+        box-sizing: border-box;
+    }
+    .search-bar ul {
+        display: none;
+    }
+    .search-bar ul li {
+        border-bottom: 1px #ddd solid;
+    }
+    .search-bar ul li a {
+        width: 100%;
+        height: 30px; 
+        line-height: 30px;
+        padding: 0 5%;
+        box-sizing: border-box;
+        display: block;
+        font-size: 12px;
+    }
