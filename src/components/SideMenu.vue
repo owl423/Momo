@@ -17,13 +17,18 @@
 
                 <div class="pin-info__core">
                     <p>주소 : 서울시 강남구 신사동 블라블라~</p>
-                    <p>번호 : 010-2345-1123  </p>
+                    <p>번호 : 010-2345-1123 </p>
                 </div>
                 <div class="pin-info__review">
                     <div class="pin-info__review__photo">
-                        
+                        <strong>사진</strong>
+                        <button type="button">사진관리</button>
+                        <a href="" title="전체 사진 슬라이드로 보기"><img src="../assets/sample_cafe.jpg" alt="대표사진"></a>
                     </div>
                     <div class="pin-info__review__comment">
+                        <strong>코멘트</strong>
+                        <button type="button">코멘트 관리</button>
+                        <a href="" title="전체 코멘트 보기"></a>
                     </div>                    
                 </div>
             </div>
