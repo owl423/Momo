@@ -15,10 +15,10 @@
                     @click="$emit('pinRegister')"> Pin </button>
                 </div>
 
-                <div class="pin-info__core">
-                    <p>주소 : 서울시 강남구 신사동 블라블라~</p>
-                    <p>번호 : 010-2345-1123 </p>
-                </div>
+                <ul class="pin-info__core">
+                    <li>주소 : 서울시 강남구 신사동 블라블라~</li>
+                    <li>번호 : 010-2345-1123 </li>
+                </ul>
                 <div class="pin-info__review">
                     <div class="pin-info__review__photo">
                         <strong>사진</strong>
