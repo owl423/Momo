@@ -6,8 +6,8 @@
                 <form action="">
                     <legend>Sign in</legend>
                     <fieldset>
-                        <p><label for="signin_id">아이디</label><input id="signin_id" type="text"></p>
-                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password"></p>
+                        <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id"></p>
+                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw"></p>
                     </fieldset>
                     <!--<button class="signin__btn--signin" type="button" @click="signinCheck"> 로그인 </button>-->
                     <router-link to="/map" tag="button"> 로그인 </router-link>
@@ -24,6 +24,8 @@ export default {
     name: 'SignIn',
     data(){
             return{
+                input_id: null,
+                input_pw: null,
                 user_id: null,
                 access_token: null
             };
@@ -48,11 +50,12 @@ export default {
                     if( res.status ==='connected'){
                         _this.user_id = res.authResponse.userID;
                         _this.access_token = res.authResponse.accessToken;
+                        console.log('res:', res);
                         _this.$router.push({path: '/map'});
-                        console.log(res);
                     }else{
                         FB.login(function(res){
-                            console.log(res);
+                            console.log('login.res:', res);
+                            _this.$router.push({path: '/map'});
                         });
                     }
                 });
