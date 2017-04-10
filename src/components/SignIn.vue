@@ -22,6 +22,7 @@
 <script>
 export default {
     name: 'SignIn',
+    props: ['user_profile_url', 'user_name'],
     data(){
             return{
                 input_id: null,
@@ -50,12 +51,18 @@ export default {
                     if( res.status ==='connected'){
                         _this.user_id = res.authResponse.userID;
                         _this.access_token = res.authResponse.accessToken;
-                        console.log('res:', res);
+                        FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+                            console.log('로그인한 유저 정보 가져옴')
+                            console.log(response);
+                            _this.$emit('signInInfo', response.name, response.picture_small.data.url);
+                        });
                         _this.$router.push({path: '/map'});
                     }else{
                         FB.login(function(res){
-                            console.log('login.res:', res);
-                            _this.$router.push({path: '/map'});
+                            // _this.$router.push({path: '/map'});
+                            FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+                                console.log(response);
+                            });
                         });
                     }
                 });

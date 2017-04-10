@@ -10,6 +10,7 @@
         <Modal-pin-register @closeModal="is_modal_open= false"></Modal-pin-register>
     </Modal>
     <Search></Search>
+    <UserInfo :user_name="user_name" :user_profile_url="user_profile_url"></UserInfo>
 </div>
 </template>
 
@@ -18,14 +19,16 @@ import Sidemenu from './SideMenu.vue';
 import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
 import Modal from './Modal.vue';
+import UserInfo from './UserInfo.vue';
 export default {
    name: 'map',
-    props: ['is_open'],
+    props: ['user_name', 'user_profile_url'],
     components: {
         Sidemenu,
         Modal,
         ModalPinRegister,
-        Search
+        Search,
+        UserInfo
     },
     data (){
         return {
