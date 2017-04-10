@@ -1,22 +1,22 @@
 @import 'config';
 
-.menu-wrap {
+.sidemenu-wrap {
     position: absolute;
     top: 0;
-    width: 420px;
+    width: $side-menu-size;
     height: 100%;
     padding-right: 30px;
     transition: all 0.3s ease-in-out; 
     z-index: 999;
 }
-.menu {
+.sidemenu {
     background: #fff; 
     width: 100%;     
     height: 100%;
     position:relative;
     box-shadow: 2px 0px 20px 2px #aaa;
 }
-.menu__button {
+.sidemenu__button {
     position: absolute;
     right: -30px;
     width: 30px;
@@ -28,7 +28,7 @@
     width: 100%;
     height: 100px;
     background: $color-main;
-    padding: 20px 30px;
+    padding: 20px 40px;
     box-sizing: border-box;
 }
 
@@ -40,7 +40,7 @@
 }
 .post-register {
     position: absolute;
-    right: 30px;
+    right: 40px;
     width: 80px;
     height: 80px;
     border-radius: 50px;
@@ -74,4 +74,65 @@
     color: #fff;
     font-size: 14px; 
     display: inline-block;
+}
+
+
+.pin-info__view {
+    padding: 40px;
+    font-size: 13px;    
+}
+
+.pin-info__view img {
+    width: 100%;
+}
+
+.pin-info__view--core {
+    margin-bottom: 30px;
+}
+.pin-info__view--core li {
+    margin-bottom: 10px;
+}
+.pin-info__view--review {
+    display: flex;
+    justify-content: space-between;
+}
+.pin-info__view--review>div {
+    width: 47%;
+    position: relative;
+    height: 100%;
+}
+
+.pin-info__view--review>div strong {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.pin-info__view--review>div button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.pin-info__view--review__photo--view {
+    background: url(./assets/sample_cafe.jpg);
+    width: 100%;
+    height: 100px;  
+    margin-top: 10px;  
+    display: block;
+}
+
+.pin-info__view--review__comment--view {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.pin-info__view--review--comment--list {
+    height: 100px;
+    margin-top: 10px;
+}
+
+.pin-info__view--review--comment--list li {
+    margin-bottom: 6px;
 }

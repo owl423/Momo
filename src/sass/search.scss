@@ -1,28 +1,39 @@
     .search-bar {
-        background: #fff;
-        width: 350px;
+        width: 390px;
         position: absolute;
         top: 7px;
         left: 40px;
-        border-radius: 3%;
-        border: 1px #ddd solid;
         z-index: 99999
+    }
+    .search-bar .menu--user {
+        width: 50px;
+        height: 50px;
+        float: left;
+        cursor: pointer;
+    }
+    .search-bar .button--search {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
     }
     .search-bar .input-box {
         height: 50px;
-        border-bottom: 1px #ddd solid;
     }
-    .search-bar .input-box input {
-        width: 300px;
+    .search-bar .input-box input[type=text] {
+        width: 260px;
         height: 100%;
         padding: 0 3%;
         box-sizing: border-box;
+        border: none;
+        float: left;
+        margin-left: 5px;
     }
     .search-bar ul {
         display: none;
+        border-radius: 0 0 3% 3%;
     }
     .search-bar ul li {
-        border-bottom: 1px #ddd solid;
+        border-top: 1px #ddd solid;
     }
     .search-bar ul li a {
         width: 100%;
