@@ -1,4 +1,4 @@
-.slide_button{
+.side_button{
     position: absolute;
     left: 0;
     top: 0px;
@@ -7,7 +7,7 @@
 }
 @keyframes slide-in{
     from{
-        transform: translateX(-480px)
+        transform: translateX(-$side-menu-size)
     }
     to{
         transform: translateX(0px);

@@ -2,7 +2,7 @@
 <div>
     <div id='map' ref="map" @click="addMarker">
     </div>
-    <button type="button" class="slide_button" @click="is_menu_open=true"> > </button>
+    <button type="button" class="side_button" @click="is_menu_open=true"> > </button>
     <transition name="slide" mode="out-in">
         <Sidemenu @pinRegister="is_modal_open=true" v-if="is_menu_open" @sideClose="is_menu_open=false"></Sidemenu>
     </transition>
