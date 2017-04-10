@@ -6,8 +6,8 @@
                 <form action="">
                     <legend>Sign in</legend>
                     <fieldset>
-                        <p><label for="signin_id">아이디</label><input id="signin_id" type="text"></p>
-                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password"></p>
+                        <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id"></p>
+                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw"></p>
                     </fieldset>
                     <!--<button class="signin__btn--signin" type="button" @click="signinCheck"> 로그인 </button>-->
                     <router-link to="/map" tag="button"> 로그인 </router-link>
@@ -22,8 +22,11 @@
 <script>
 export default {
     name: 'SignIn',
+    props: ['user_profile_url', 'user_name'],
     data(){
             return{
+                input_id: null,
+                input_pw: null,
                 user_id: null,
                 access_token: null
             };
@@ -48,11 +51,18 @@ export default {
                     if( res.status ==='connected'){
                         _this.user_id = res.authResponse.userID;
                         _this.access_token = res.authResponse.accessToken;
+                        FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+                            console.log('로그인한 유저 정보 가져옴')
+                            console.log(response);
+                            _this.$emit('signInInfo', response.name, response.picture_small.data.url);
+                        });
                         _this.$router.push({path: '/map'});
-                        console.log(res);
                     }else{
                         FB.login(function(res){
-                            console.log(res);
+                            // _this.$router.push({path: '/map'});
+                            FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+                                console.log(response);
+                            });
                         });
                     }
                 });
