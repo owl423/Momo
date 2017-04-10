@@ -8,6 +8,15 @@
 <script>
     export default {
         name: 'UserInfo',
-        props: ['user_name', 'user_profile_url']
+        data(){
+            return {
+                user_name : null,
+                user_profile_url : null
+            }
+        },
+        mounted(){
+            this.user_name = this.$store.state.user.user_name;
+            this.user_profile_url = this.$store.state.user.user_profile_url;
+        }
     }
 </script>
