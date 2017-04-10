@@ -1,7 +1,7 @@
 <template>
-    <div class="menu-wrap">
-        <div class="menu">
-            <button class="menu__button" @click="$emit('sideClose')"> < </button>
+    <div class="sidemenu-wrap">
+        <div class="sidemenu">
+            <button class="sidemenu__button" @click="$emit('sideClose')"> < </button>
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">
