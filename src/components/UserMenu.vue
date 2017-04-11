@@ -1,8 +1,10 @@
 <template>
     <div class="usermenu-wrap">
         <div class="usermenu">
-            <h1>나의 장소</h1>
-            <button class="usermenu__button" @click="$emit('menuClose')"> < </button>
+            <div class="usermenu__header">
+                <h1>나의 장소</h1>
+                <button class="usermenu__button" @click="$emit('menuClose')"> < </button>
+            </div>
         </div>
     </div>
 </template>
