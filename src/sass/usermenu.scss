@@ -29,7 +29,52 @@
     background: $color-main; 
     padding: $menu-padding; 
 }
-.usermenu h1 {
+.usermenu__header h1 {
     color: #fff;
     font-size: 20px;
+}
+
+.usermenu__view {
+    padding: $menu-padding; 
+}
+
+.usermenu__view h2 {
+    color: $color-main;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.tabmenu-wrap {
+}
+.tabmenu__navi {
+}
+.tabmenu__navi ul {
+    overflow: hidden;
+}
+.tabmenu__navi li {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.tabmenu__navi__button a {
+    border: 2px $color-main solid;
+    padding: 7px 0;
+    color: $color-main;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.tabmenu__navi--active a{
+    background: $color-main;
+    color: #fff;
+}
+
+.tabmenu__view {
+    padding: 10px;
+}
+
+.tabmenu__view--map li {
+    margin-top: 10px;
+    font-size: 12px;
 }
