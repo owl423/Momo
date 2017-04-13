@@ -15,7 +15,7 @@
     position:relative;
     box-shadow: 2px 0px 20px 2px #aaa;
     box-sizing: border-box;
-    background: #fff;
+    background: #eee;
 }
 .usermenu__button {
     position: absolute;
@@ -36,14 +36,16 @@
 
 .usermenu__view {
     padding: $menu-padding; 
+    background: #ddd;
+    height: 100%;
 }
 
 .usermenu__view h2 {
-    color: $color-main;
     font-weight: 600;
     margin-bottom: 20px;
 }
 .tabmenu-wrap {
+    border-bottom: 1px #aaa solid;
 }
 .tabmenu__navi {
 }
@@ -54,24 +56,39 @@
     width: 50%;
     float: left;
     text-align: center;
+    border-right: 1px #aaa solid;
+    border-top: 1px #aaa solid;
+    border-radius: 10px 10px 0 0;
+    box-sizing: border-box; 
+    background: #0075bf;
 }
+
+ .tabmenu__navi li:first-child {
+    border-left: 1px #aaa solid;
+}
+
 .tabmenu__navi__button a {
-    border: 2px $color-main solid;
-    padding: 7px 0;
-    color: $color-main;
+    padding: 11px 0;
+    color: #fff;
     display: block;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2px;
 }
 
-.tabmenu__navi--active a{
-    background: $color-main;
-    color: #fff;
+.tabmenu__navi .tabmenu__navi--active{
+    background: #fff;
+    border-bottom: none;
+}
+.tabmenu__navi .tabmenu__navi--active a{
+    color: #555;
 }
 
 .tabmenu__view {
-    padding: 10px;
+    padding: 20px;
+    border-left: 1px #aaa solid;
+    border-right: 1px #aaa solid;
+    background: #fff;
 }
 
 .tabmenu__view--map li {

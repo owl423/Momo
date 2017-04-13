@@ -1,30 +1,43 @@
 <template>
     <div class='pin-register'>
-        <h1>{{ this.place_name }}</h1>
-        <div>
-            <label>지도선택
-                <select class="map-select">
-                    <option v-for="map of map_list">{{map}}</option>
-                </select>
-            </label>
-        </div>
-        <div>
-            <label>
+        <strong class="pin-register__name">{{ this.place_name }}</strong>
+        <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
+
+        <p class="pin-register__list pin-register__select--map">
+            <label for="map-select">지도선택</label>
+            <select id="map-select" class="map-select">
+                <option v-for="map of map_list">{{map}}</option>
+            </select>
+        </p>
+        <p class="pin-register__list pin-register__select--category">
+            <label for="category-group">
                 카테고리 선택
             </label>
-            <div role="group" class="category-group">
+            <div role="group" id="category-group" class="category-group">
                 <button @click="selected_color=0" :class="['food-btn', {'select' : selected_color === 0}]">음식</button>
                 <button @click="selected_color=1" :class="['shopping-btn', {'select' : selected_color === 1}]">쇼핑</button>
                 <button @click="selected_color=2" :class="['stay-btn', {'select' : selected_color === 2}]">숙박</button>
                 <button @click="selected_color=3" :class="['cafe-btn', {'select' : selected_color === 3}]">카페</button>
                 <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
             </div>
-        </div>
-        <div>
+        </p>
+        <p>
+            <label for="">공개 여부</label>
+
+            <span>
+                <label for="chk_open">공개</label>
+                <input id="chk_open" type="checkbox">
+            </span>
+
+            <span>
+                <label for="chk_close">비공개</label>
+                <input id="chk_close" type="checkbox">
+            </span>
+        </p>
+        <p>
             <button type="button" class="ok_btn">등록</button>
             <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
-        </div>
-        <button class="close_btn" @click="$emit('closeModal')">X</button>
+        </p>
     </div>
 </template>
 
@@ -49,8 +62,3 @@ export default {
     }
 }
 </script>
-
-<style lang="sass">
-
-
-</style>

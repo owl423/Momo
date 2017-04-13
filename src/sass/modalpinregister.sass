@@ -1,22 +1,31 @@
 .pin-register
-    width: 500px
-    position: absolute
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
-    background: #fff
+    &__name
+        font-size: 20px
+        font-weight: bold
+        margin-bottom: 20px
+        display: block
 
-.map-select
-    position: relative
-    top: -1px
 
-.category-group button
-    border: 0
-    border-radius: 100%
-    width: 50px
-    height: 50px
-    margin: 10px
-    outline: none
+    &__button--close
+        position: absolute
+        top: 0
+        right: 0
+    &__list
+        margin-top: 10px
+
+        label
+            width: 100px
+            display: inline-block
+            margin-right: 10px
+
+    .category-group
+            button
+                border: 0
+                border-radius: 100%
+                width: 50px
+                height: 50px
+                margin: 10px
+                outline: none
 
 .food-btn
     background: #ff6b6b

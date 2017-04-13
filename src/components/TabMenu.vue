@@ -1,7 +1,7 @@
 <template>
     <div class="tabmenu-wrap">
         <div class="tabmenu">
-            <h2>내 지도 리스트</h2>
+            <!--<h2>내 지도 리스트</h2>-->
             <div class="tabmenu__navi">
                 <ul>
                     <li class="tabmenu__navi__button tabmenu__navi--active"><a href="">지도</a></li>
