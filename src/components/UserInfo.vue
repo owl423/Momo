@@ -1,7 +1,9 @@
 <template>
-    <div class="user--info">
-        <img :src="user_profile_url" alt="사용자 사진" class="user--info__image">
-        <p class="user--info__name">{{user_name}}</p>
+    <div class="user-info">
+        <img :src="user_profile_url" alt="사용자 사진" class="user-info__image">
+        <p class="user-info__name">{{user_name}}</p>
+        <button class="user-info__edit">Edit</button>
+        
     </div>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
-    <div class="modal">
-        <slot></slot>
+    <div class="modal-wrap">
+        <div class="modal">
+            <slot></slot>
+        </div>
     </div>
 </template> 
 
@@ -14,6 +16,3 @@ export default {
     }
 }
 </script>
-
-<style>
-</style>
