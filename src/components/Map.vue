@@ -2,9 +2,9 @@
 <div>
     <div id='map' ref="map" @click="addMarker">
     </div>
-    <button type="button" class="side_button" @click="is_menu_open=true"> > </button>
+    <!--<button type="button" class="side_button" @click="is_side_open=true"> > </button>-->
     <transition name="slide" mode="out-in">
-        <Sidemenu @pinRegister="is_modal_open=true" v-if="is_menu_open" @sideClose="is_menu_open=false"></Sidemenu>
+        <Sidemenu @pinRegister="is_modal_open=true" v-if="is_side_open" @sideClose="is_side_open=false"></Sidemenu>
     </transition>
     <Modal v-if="is_modal_open">
         <Modal-pin-register @closeModal="is_modal_open= false"></Modal-pin-register>
@@ -16,12 +16,13 @@
 
 <script>
 import Sidemenu from './SideMenu.vue';
+import Usermenu from './UserMenu.vue';
 import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
 import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 export default {
-   name: 'map',
+    name: 'map',
     props: ['user_name', 'user_profile_url'],
     components: {
         Sidemenu,
@@ -33,6 +34,7 @@ export default {
     data (){
         return {
             is_menu_open: false,
+            is_side_open: false,
             is_modal_open: false,
             map: null,
             markers: [],
@@ -41,6 +43,7 @@ export default {
         }
     },
     mounted(){
+        console.log(sessionStorage.getItem('user_name'));
         var _this = this;
         // var url = `http://api.ipinfodb.com/v3/ip-city/?key=268f7c0ca68536bba778befedb85b36bdd25275de6a21cffe648a7cdbe698e57&ip=${ip()}&format=json`
         // $.get(url, function(data, status, xhr){
@@ -113,7 +116,7 @@ export default {
                 _this.check = false;
                 _this.addMarker();
             }
-            this.is_menu_open=true;
+            this.is_side_open=true;
         },
         setMarkers: function(){
             var _this = this;

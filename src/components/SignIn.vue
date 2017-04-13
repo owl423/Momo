@@ -52,16 +52,16 @@ export default {
                         _this.user_id = res.authResponse.userID;
                         _this.access_token = res.authResponse.accessToken;
                         FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
-                            console.log('로그인한 유저 정보 가져옴')
-                            console.log(response);
-                            _this.$emit('signInInfo', response.name, response.picture_small.data.url);
+                            sessionStorage.setItem('user_name', response.name);
+                            sessionStorage.setItem('user_profile_url', response.picture_small.data.url);
+                            _this.$store.commit('setUserInfo', {user_name : response.name, user_profile_url : response.picture_small.data.url});
+                            _this.$router.push({path: '/map'});
                         });
-                        _this.$router.push({path: '/map'});
                     }else{
                         FB.login(function(res){
-                            // _this.$router.push({path: '/map'});
                             FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
-                                console.log(response);
+                                _this.$store.commit('setUserInfo', {user_name : response.name, user_profile_url : response.picture_small.data.url});
+                                _this.$router.push({path: '/map'});
                             });
                         });
                     }
