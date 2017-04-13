@@ -15,8 +15,13 @@
             }
         },
         mounted(){
-            this.user_name = this.$store.state.user.user_name;
-            this.user_profile_url = this.$store.state.user.user_profile_url;
+            if( !this.$store.state.user.user_name || !this.$store.state.user.user_profile_url){
+                this.user_name = sessionStorage.getItem('user_name');
+                this.user_profile_url = sessionStorage.getItem('user_profile_url');
+            }else{
+                this.user_name = this.$store.state.user.user_name;
+                this.user_profile_url = this.$store.state.user.user_profile_url;
+            }
         }
     }
 </script>

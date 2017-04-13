@@ -52,16 +52,15 @@ export default {
                         _this.user_id = res.authResponse.userID;
                         _this.access_token = res.authResponse.accessToken;
                         FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
-                            console.log(response);
+                            sessionStorage.setItem('user_name', response.name);
+                            sessionStorage.setItem('user_profile_url', response.picture_small.data.url);
                             _this.$store.commit('setUserInfo', {user_name : response.name, user_profile_url : response.picture_small.data.url});
-                            console.log(_this.$store);                            
                             _this.$router.push({path: '/map'});
                         });
                     }else{
                         FB.login(function(res){
                             FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
                                 _this.$store.commit('setUserInfo', {user_name : response.name, user_profile_url : response.picture_small.data.url});
-                                console.log(_this.$store);
                                 _this.$router.push({path: '/map'});
                             });
                         });
