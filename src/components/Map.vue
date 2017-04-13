@@ -43,6 +43,7 @@ export default {
         }
     },
     mounted(){
+        console.log(sessionStorage.getItem('user_name'));
         var _this = this;
         // var url = `http://api.ipinfodb.com/v3/ip-city/?key=268f7c0ca68536bba778befedb85b36bdd25275de6a21cffe648a7cdbe698e57&ip=${ip()}&format=json`
         // $.get(url, function(data, status, xhr){
