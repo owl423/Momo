@@ -15,7 +15,10 @@
     position:relative;
     box-shadow: 2px 0px 20px 2px #aaa;
     box-sizing: border-box;
-    background: #eee;
+    /*
+    background: rgba(51, 51, 51, 0.6);
+    */
+    background: #ddd;
 }
 .usermenu__button {
     position: absolute;
@@ -36,7 +39,6 @@
 
 .usermenu__view {
     padding: $menu-padding; 
-    background: #ddd;
     height: 100%;
 }
 
@@ -63,7 +65,7 @@
     background: #0075bf;
 }
 
- .tabmenu__navi li:first-child {
+.tabmenu__navi li:first-child {
     border-left: 1px #aaa solid;
 }
 
@@ -85,13 +87,52 @@
 }
 
 .tabmenu__view {
-    padding: 20px;
+    padding: 30px;
     border-left: 1px #aaa solid;
     border-right: 1px #aaa solid;
     background: #fff;
+    position: relative;
 }
 
-.tabmenu__view--map li {
-    margin-top: 10px;
+.tabmenu__view dl {
+    margin-top: 25px;
+}
+.tabmenu__view dl:first-child {
+    margin-top: 0;
+}
+
+.tabmenu__view dl dd {
     font-size: 12px;
+    margin-top: 8px;
+}
+
+.tabmenu__view dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.tabmenu__view__button__edit {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    right: 20px;
+}
+
+.tabmenu__view--image ul {
+    overflow: hidden
+}
+.tabmenu__view--image li {
+    width: 48%;
+    float: left;
+}
+.tabmenu__view--image li:nth-child(odd){
+    margin-right: 4%;
+}
+
+.tabmenu__view--image li img {
+    width: 100%;
+}
+
+.tabmenu__view--image li:first-child {
 }
