@@ -19,7 +19,7 @@ import Indicator from './Carousel-Indicator.vue';
 import ButtonSet from './Carousel-button.vue';
 import Slide from './Carousel-slide.vue';
 export default {
-  name: 'app',
+  name: 'carousel',
   data () {
     return {
       slide_index: 0,

@@ -9,8 +9,7 @@
                         <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id"></p>
                         <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw"></p>
                     </fieldset>
-                    <!--<button class="signin__btn--signin" type="button" @click="signinCheck"> 로그인 </button>-->
-                    <router-link to="/map" tag="button"> 로그인 </router-link>
+                    <button class="signin__btn--signin" type="button" @click="signInCheck"> 로그인 </button>
                     <router-link to="/signup" tag="button"> 회원가입 </router-link>
                 </form>
             </div>
@@ -69,7 +68,18 @@ export default {
 
             },
             signInCheck (){
-                this.$router.push({path: '/map'});
+                let url = this.$store.state.url + '/api/member/login/'
+                let _this = this;
+                this.$http.post(url, {
+                    username: _this.input_id,
+                    password: _this.input_pw
+                })
+                .then(function(res){
+                    console.log(res);
+                })
+                .catch(function(err){
+                    console.log(err.response);
+                })
             }
         }
 }

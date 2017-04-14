@@ -7,10 +7,12 @@ import App from './App.vue'
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.prototype.$http = axios;
 
 const store = new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    url : 'https://www.yeoptest.com'
   },
   mutations: {
     setUserInfo (state, userData) {
