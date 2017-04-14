@@ -45,9 +45,15 @@ export default {
                 _this.$router.push({path: '/'});
             })
             .catch(function(err){
+                let data = err.response.data;
                 console.log('error');
-                console.log(err.response.data);
-                
+                console.log(data);
+                if(data.username){
+                    window.alert(data.username[0]);
+                }
+                if(data.email){
+                    window.alert(data.email[0]);
+                }
             })
         }
     }
