@@ -4,13 +4,13 @@
         <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
 
         <p class="pin-register__list pin-register__select--map">
-            <label for="map-select">지도선택</label>
+            <label class="pin-register__list--title" for="map-select">지도선택</label>
             <select id="map-select" class="map-select">
                 <option v-for="map of map_list">{{map}}</option>
             </select>
         </p>
         <p class="pin-register__list pin-register__select--category">
-            <label for="category-group">
+            <label class="pin-register__list--title" for="category-group">
                 카테고리 선택
             </label>
             <div role="group" id="category-group" class="category-group">
@@ -21,20 +21,20 @@
                 <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
             </div>
         </p>
-        <p>
-            <label for="">공개 여부</label>
+        <p class="pin-register__list">
+            <label class="pin-register__list--title" for="">공개 여부</label>
 
             <span>
-                <label for="chk_open">공개</label>
-                <input id="chk_open" type="checkbox">
+                <label for="chk_public">공개</label>
+                <input name="chk" id="chk_public" type="radio">
             </span>
 
             <span>
-                <label for="chk_close">비공개</label>
-                <input id="chk_close" type="checkbox">
+                <label for="chk_private">비공개</label>
+                <input name="chk" id="chk_private" type="radio">
             </span>
         </p>
-        <p>
+        <p class="pin-register__list">
             <button type="button" class="ok_btn">등록</button>
             <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
         </p>

@@ -76,6 +76,7 @@ export default {
                 })
                 .then(function(res){ // 그냥 this를 쓰면 axios객체를 가리키게 되므로.
                     console.log(res);
+                    _this.$router.push({path: '/map'})
                 })
                 .catch(function(err){
                     console.log(err.response);
