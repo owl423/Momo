@@ -6,9 +6,9 @@
                 <form action="">
                     <legend>Sign Up</legend><!-- css 숨김(position) -->
                     <fieldset>
-                        <p><label for="">아이디</label> <input v-model="username" type="text"></p>
-                        <p><label for="">이메일</label> <input v-model="email" type="email"></p>
-                        <p><label for="">비밀번호</label> <input v-model="password" type="password"></p>
+                        <p><label for="">아이디</label> <input v-model="username" type="text" required></p>
+                        <p><label for="">이메일</label> <input v-model="email" type="email" required></p>
+                        <p><label for="">비밀번호</label> <input v-model="password" type="password" required></p>
                     </fieldset>
                     <button type="button" @click="signUpSubmit"> 동의하고 회원가입 </button>
                     <router-link to="/" tag="button"> 취소</router-link>

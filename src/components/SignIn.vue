@@ -6,8 +6,8 @@
                 <form action="">
                     <legend>Sign in</legend>
                     <fieldset>
-                        <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id"></p>
-                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw"></p>
+                        <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id" required></p>
+                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw" required></p>
                     </fieldset>
                     <button class="signin__btn--signin" type="button" @click="signInCheck"> 로그인 </button>
                     <router-link to="/signup" tag="button"> 회원가입 </router-link>
@@ -69,12 +69,12 @@ export default {
             },
             signInCheck (){
                 let url = this.$store.state.url + '/api/member/login/'
-                let _this = this;
+                let _this = this; // this는 signin이라는 컴포넌트를 말함. arrow function을 쓸 경우에는 필요없음
                 this.$http.post(url, {
-                    username: _this.input_id,
+                    username: _this.input_id, 
                     password: _this.input_pw
                 })
-                .then(function(res){
+                .then(function(res){ // 그냥 this를 쓰면 axios객체를 가리키게 되므로.
                     console.log(res);
                 })
                 .catch(function(err){

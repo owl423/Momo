@@ -63,7 +63,7 @@
     background: #0075bf;
 }
 
- .tabmenu__navi li:first-child {
+.tabmenu__navi li:first-child {
     border-left: 1px #aaa solid;
 }
 
@@ -89,9 +89,30 @@
     border-left: 1px #aaa solid;
     border-right: 1px #aaa solid;
     background: #fff;
+    position: relative;
 }
 
-.tabmenu__view--map li {
-    margin-top: 10px;
+.tabmenu__view dl {
+    margin-top: 15px;
+}
+.tabmenu__view dl:first-child {
+    margin-top: 0;
+}
+
+.tabmenu__view dl dd {
     font-size: 12px;
+    margin-top: 5px;
+}
+
+.tabmenu__view dl dt {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.tabmenu__view__button__edit {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    right: 20px;
 }
