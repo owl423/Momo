@@ -4,13 +4,22 @@
     </div>
     <!--<button type="button" class="side_button" @click="is_side_open=true"> > </button>-->
     <transition name="slide" mode="out-in">
-        <Sidemenu @pinRegister="is_modal_open=true" v-if="is_side_open" @sideClose="is_side_open=false"></Sidemenu>
+        <Sidemenu 
+         @pinRegister="is_pin_regist_modal_open = true" 
+         @imageRegister="is_image_regist_modal_open = true"
+         v-if="is_side_open"
+         @sideClose="is_side_open = false"></Sidemenu>
     </transition>
-    <Modal v-if="is_modal_open">
-        <Modal-pin-register @closeModal="is_modal_open= false"></Modal-pin-register>
+    <Modal v-if="is_pin_regist_modal_open">
+        <Modal-pin-register 
+         @closeModal="is_pin_regist_modal_open = false"></Modal-pin-register>
+    </Modal>
+    <Modal v-if="is_image_regist_modal_open">
+        <ModalImageRegister
+         @closeModal = "is_image_regist_modal_open = false"></ModalImageRegister>
     </Modal>
     <Search></Search>
-    <UserInfo :user_name="user_name" :user_profile_url="user_profile_url"></UserInfo>
+    <UserInfo></UserInfo>
 </div>
 </template>
 
@@ -19,23 +28,34 @@ import Sidemenu from './SideMenu.vue';
 import Usermenu from './UserMenu.vue';
 import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
+import ModalImageRegister from'./ModalImageRegister.vue';
 import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 export default {
     name: 'map',
-    props: ['user_name', 'user_profile_url'],
     components: {
         Sidemenu,
         Modal,
         ModalPinRegister,
+        ModalImageRegister,
         Search,
         UserInfo
+    },
+    beforeRouteEnter (to, from, next) {
+        next(function(vm){
+            if(vm.$store.state.user.user_token || sessionStorage.getItem('user_token')){
+                vm.$router.push('/map');
+            }else{
+                vm.$router.push('/');
+            }
+        });
     },
     data (){
         return {
             is_menu_open: false,
             is_side_open: false,
-            is_modal_open: false,
+            is_pin_regist_modal_open: false,
+            is_image_regist_modal_open: false,
             map: null,
             markers: [],
             check: false,
@@ -43,7 +63,6 @@ export default {
         }
     },
     mounted(){
-        console.log(sessionStorage.getItem('user_name'));
         var _this = this;
         // var url = `http://api.ipinfodb.com/v3/ip-city/?key=268f7c0ca68536bba778befedb85b36bdd25275de6a21cffe648a7cdbe698e57&ip=${ip()}&format=json`
         // $.get(url, function(data, status, xhr){
@@ -95,9 +114,6 @@ export default {
             _this.lat_lng = e.latLng;
         })
         // });
-    },
-    updated(){
-        console.log('update');
     },
     methods: {
         addMarker : function(){

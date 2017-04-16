@@ -23,7 +23,7 @@
                     <div class="pin-info__view--review">
                         <div class="pin-info__view--review--photo">
                             <strong>사진</strong>
-                            <button type="button">사진관리</button>
+                            <button type="button" @click="$emit('imageRegister')">사진관리</button>
                             
                             <a class="pin-info__view--review__photo--view"
                                 title="전체 사진 슬라이드로 보기">
