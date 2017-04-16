@@ -10,9 +10,6 @@
 export default {
     name: 'modal',
     methods:{
-        closeModal(){
-            this.$emit('closeModal');
-        }
     }
 }
 </script>
