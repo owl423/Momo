@@ -26,7 +26,7 @@
     import Usermenu from './UserMenu.vue';
 
     export default {
-        name: 'search',
+        name: 'Search',
         components: {
             Usermenu
         },
@@ -37,7 +37,27 @@
             }
         },
         updated(){
-            console.log('update');
+            this.searchPlace();
+        },
+        methods : {
+            searchPlace(){
+                let _this = this;
+                let url = this.$store.state.url + '/api/search/place/';
+                let keyword = '?keyword='+_this.search_val;
+                url += keyword;
+                console.log('url:', url);
+
+                // axios에서 헤더 인증정보 토큰 설정
+                this.$http.defaults.headers.common['Authorization'] = "Token "+_this.$store.state.user.user_token;
+                console.log(url);
+                this.$http.get(url)
+                .then(function(res){
+                    console.log(res);
+                })
+                .catch(function(err){
+                    console.log(err.response);
+                })
+            }
         }
             
     }
