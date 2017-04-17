@@ -33,7 +33,7 @@
                         </div>
                         <div class="pin-info__view--review__comment">
                             <strong>코멘트</strong>
-                            <button type="button">코멘트 관리</button>
+                            <button type="button" @click="$emit('commentRegister')">코멘트 관리</button>
                             <a class="pin-info__view--review__comment--view" href="">
                                 전체 코멘트보기
                             </a>                                             
