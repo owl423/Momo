@@ -1,5 +1,5 @@
     .search-bar {
-        width: 390px;
+        width: 365px;
         position: absolute;
         top: 7px;
         left: 40px;
@@ -29,8 +29,8 @@
         margin-left: 5px;
     }
     .search-bar ul {
-        display: none;
         border-radius: 0 0 3% 3%;
+        background: #fff;
     }
     .search-bar ul li {
         border-top: 1px #ddd solid;
