@@ -2,42 +2,37 @@
     <div class='pin-register'>
         <strong class="pin-register__name">{{ this.place_name }}</strong>
         <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
-
-        <p class="pin-register__list pin-register__select--map">
-            <label class="pin-register__list--title" for="map-select">지도선택</label>
-            <select id="map-select" class="map-select">
-                <option v-for="map of map_list">{{map}}</option>
-            </select>
-        </p>
-        <p class="pin-register__list pin-register__select--category">
-            <label class="pin-register__list--title" for="category-group">
-                카테고리 선택
-            </label>
-            <div role="group" id="category-group" class="category-group">
-                <button @click="selected_color=0" :class="['food-btn', {'select' : selected_color === 0}]">음식</button>
-                <button @click="selected_color=1" :class="['shopping-btn', {'select' : selected_color === 1}]">쇼핑</button>
-                <button @click="selected_color=2" :class="['stay-btn', {'select' : selected_color === 2}]">숙박</button>
-                <button @click="selected_color=3" :class="['cafe-btn', {'select' : selected_color === 3}]">카페</button>
-                <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
-            </div>
-        </p>
-        <p class="pin-register__list">
-            <label class="pin-register__list--title" for="">공개 여부</label>
-
-            <span>
+        <dl class="pin-register__list">
+            <dt class="pin-register__list__title">지도선택</dt>
+            <dd class="pin-register__list__select">
+                <select id="map-select" class="map-select">
+                    <option v-for="map of map_list">{{map}}</option>
+                </select>
+            </dd>
+            <dt class="pin-register__list__title">카테고리 선택</dt>
+            <dd>
+                <div role="group" id="category-group" class="category-group">
+                    <button @click="selected_color=0" :class="['food-btn', {'select' : selected_color === 0}]">음식</button>
+                    <button @click="selected_color=1" :class="['shopping-btn', {'select' : selected_color === 1}]">쇼핑</button>
+                    <button @click="selected_color=2" :class="['stay-btn', {'select' : selected_color === 2}]">숙박</button>
+                    <button @click="selected_color=3" :class="['cafe-btn', {'select' : selected_color === 3}]">카페</button>
+                    <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
+                </div>
+            </dd>
+            <dt class="pin-register__list__title">공개 여부</dt>
+            <dd class="pin-register__list__select--float">
                 <label for="chk_public">공개</label>
                 <input name="chk" id="chk_public" type="radio">
-            </span>
-
-            <span>
+            </dd>
+            <dd>
                 <label for="chk_private">비공개</label>
                 <input name="chk" id="chk_private" type="radio">
-            </span>
-        </p>
-        <p class="pin-register__list">
+            </dd>
+        </dl>
+        <div class="pin-register__button--confirm">
             <button type="button" class="ok_btn">등록</button>
             <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
-        </p>
+        </div>
     </div>
 </template>
 

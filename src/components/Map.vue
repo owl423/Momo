@@ -7,6 +7,7 @@
         <Sidemenu 
          @pinRegister="is_pin_regist_modal_open = true" 
          @imageRegister="is_image_regist_modal_open = true"
+         @commentRegister="is_comment_regist_modal_open = true"
          v-if="is_side_open"
          @sideClose="is_side_open = false"></Sidemenu>
     </transition>
@@ -16,7 +17,11 @@
     </Modal>
     <Modal v-if="is_image_regist_modal_open">
         <ModalImageRegister
-         @closeModal = "is_image_regist_modal_open = false"></ModalImageRegister>
+            @closeModal = "is_image_regist_modal_open = false"></ModalImageRegister>
+    </Modal>
+    <Modal v-if="is_comment_regist_modal_open">
+        <ModalCommentRegister
+            @closeModal="is_comment_regist_modal_open = false"></ModalCommentRegister>
     </Modal>
     <Search></Search>
     <UserInfo></UserInfo>
@@ -29,6 +34,7 @@ import Usermenu from './UserMenu.vue';
 import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
 import ModalImageRegister from'./ModalImageRegister.vue';
+import ModalCommentRegister from'./ModalCommentRegister.vue';
 import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 export default {
@@ -38,6 +44,7 @@ export default {
         Modal,
         ModalPinRegister,
         ModalImageRegister,
+        ModalCommentRegister,
         Search,
         UserInfo
     },
@@ -56,6 +63,7 @@ export default {
             is_side_open: false,
             is_pin_regist_modal_open: false,
             is_image_regist_modal_open: false,
+            is_comment_regist_modal_open: false,
             map: null,
             markers: [],
             check: false,
