@@ -7,9 +7,11 @@
         <Sidemenu 
          @pinRegister="is_pin_regist_modal_open = true" 
          @imageRegister="is_image_regist_modal_open = true"
+         @carouselImage="is_carousel_open = true"
+         @sideClose="is_side_open = false"
          @commentRegister="is_comment_regist_modal_open = true"
          v-if="is_side_open"
-         @sideClose="is_side_open = false"></Sidemenu>
+         ></Sidemenu>
     </transition>
     <Modal v-if="is_pin_regist_modal_open">
         <Modal-pin-register 
@@ -25,6 +27,8 @@
     </Modal>
     <Search></Search>
     <UserInfo></UserInfo>
+    <Carousel v-if="is_carousel_open" @closeCarousel=" is_carousel_open = false "></Carousel>
+    <PinCheckMenu></PinCheckMenu>
 </div>
 </template>
 
@@ -37,6 +41,8 @@ import ModalImageRegister from'./ModalImageRegister.vue';
 import ModalCommentRegister from'./ModalCommentRegister.vue';
 import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
+import Carousel from './Carousel.vue';
+import PinCheckMenu from './PinCheckMenu.vue';
 export default {
     name: 'map',
     components: {
@@ -46,7 +52,9 @@ export default {
         ModalImageRegister,
         ModalCommentRegister,
         Search,
-        UserInfo
+        UserInfo,
+        Carousel,
+        PinCheckMenu
     },
     beforeRouteEnter (to, from, next) {
         next(function(vm){
@@ -63,6 +71,7 @@ export default {
             is_side_open: false,
             is_pin_regist_modal_open: false,
             is_image_regist_modal_open: false,
+            is_carousel_open: false,
             is_comment_regist_modal_open: false,
             map: null,
             markers: [],

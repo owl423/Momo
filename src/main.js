@@ -17,7 +17,7 @@ const store = new Vuex.Store({
       user_token: '',
       user_pk: '',
     },
-    url : 'https://www.yeoptest.com',
+    url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com/',
   },
   mutations: {
     setUserInfo (state, user_data) {

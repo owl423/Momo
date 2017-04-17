@@ -7,7 +7,9 @@
                     <legend>Sign Up</legend><!-- css 숨김(position) -->
                     <fieldset>
                         <p><label for="">아이디</label> <input v-model="username" type="text" required></p>
+                        <p>{{error_msg_id}}</p>
                         <p><label for="">이메일</label> <input v-model="email" type="email" required></p>
+                        <p>{{error_msg_email}}</p>
                         <p><label for="">비밀번호</label> <input v-model="password" type="password" required></p>
                     </fieldset>
                     <button type="button" @click="signUpSubmit"> 동의하고 회원가입 </button>
@@ -25,7 +27,9 @@ export default {
         return {
             username : '',
             email : '',
-            password: ''
+            password: '',
+            error_msg_id: '',
+            error_msg_email: ''
         }
     },
     methods : {
@@ -49,10 +53,14 @@ export default {
                 console.log('error');
                 console.log(data);
                 if(data.username){
-                    window.alert(data.username[0]);
+                    _this.error_msg_id = data.username[0];
+                }else{
+                    _this.error_msg_id = '';    
                 }
                 if(data.email){
-                    window.alert(data.email[0]);
+                    _this.error_msg_email = data.email[0];
+                }else{
+                    _this.error_msg_email = '';    
                 }
             })
         }

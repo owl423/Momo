@@ -43,9 +43,9 @@ export default {
     },
     methods: {
         setUserSession(name, profile, token){
-            sessionStorage.setItem('user_name', name);
-            sessionStorage.setItem('user_profile', profile);
-            sessionStorage.setItem('user_token', token);
+            window.sessionStorage.setItem('user_name', name);
+            window.sessionStorage.setItem('user_profile', profile);
+            window.sessionStorage.setItem('user_token', token);
             return {
                 user_name: name,
                 user_profile: profile,
@@ -58,6 +58,14 @@ export default {
                 let access_token = res.authResponse.accessToken;
                 if( res.status ==='connected'){
                     FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+                        let url = _this.$store.state.url + '/api/member/fb/';
+                        _this.$http.post(url, {
+                            access_token
+                        }).then(function(res){
+                            console.log(res);
+                        }).catch(function(err){
+                            console.log(err.response.data);
+                        });
                         let user_session = _this.setUserSession(response.name, response.picture_small.data.url, access_token);
                         _this.$store.commit('setUserInfo', user_session);
                         _this.$router.push({path: '/map'});
@@ -88,7 +96,7 @@ export default {
                 _this.$router.push({path: '/map'});
             })
             .catch(function(err){
-                console.log(err);
+                console.log(err.response);
             })
         }
     }
