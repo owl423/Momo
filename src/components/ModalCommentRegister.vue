@@ -30,7 +30,6 @@
                             <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
                         </div>
                     </dd>
-                    
                 </dl>
             </fieldset>
         </form>
