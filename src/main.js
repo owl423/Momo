@@ -17,6 +17,16 @@ const store = new Vuex.Store({
       user_token: '',
       user_pk: '',
     },
+    main_state:{
+      is_menu_open: false,
+      is_side_open: false,
+      is_modal_pin_register_open: false,
+      is_modal_image_register_open: false,
+      is_modal_map_register_open: false,
+      is_modal_comment_register_open: false,
+      is_pincheck_menu_open: false,
+      is_carousel_open: false,
+    },
     url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com/',
   },
   mutations: {

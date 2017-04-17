@@ -18,8 +18,8 @@
         },
         mounted(){
             if( !this.$store.state.user.user_name || !this.$store.state.user.user_profile){
-                this.user_name = sessionStorage.getItem('user_name');
-                this.user_profile = sessionStorage.getItem('user_profile');
+                this.$store.state.user.user_name = this.user_name = sessionStorage.getItem('user_name');
+                this.$store.state.user.user_profile = this.user_profile = sessionStorage.getItem('user_profile');
             }else{
                 this.user_name = this.$store.state.user.user_name;
                 this.user_profile = this.$store.state.user.user_profile;

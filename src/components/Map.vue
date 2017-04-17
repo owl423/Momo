@@ -5,30 +5,29 @@
     <!--<button type="button" class="side_button" @click="is_side_open=true"> > </button>-->
     <transition name="slide" mode="out-in">
         <Sidemenu 
-         @pinRegister="is_pin_regist_modal_open = true" 
-         @imageRegister="is_image_regist_modal_open = true"
-         @carouselImage="is_carousel_open = true"
-         @sideClose="is_side_open = false"
-         @commentRegister="is_comment_regist_modal_open = true"
-         v-if="is_side_open"
+         v-if="$store.state.main_state.is_side_open"
          ></Sidemenu>
     </transition>
-    <Modal v-if="is_pin_regist_modal_open">
+    <Modal v-if="$store.state.main_state.is_modal_pin_register_open">
         <Modal-pin-register 
-         @closeModal="is_pin_regist_modal_open = false"></Modal-pin-register>
+         @closeModal="$store.state.main_state.is_modal_pin_register_open = false"></Modal-pin-register>
     </Modal>
-    <Modal v-if="is_image_regist_modal_open">
+    <Modal v-if="$store.state.main_state.is_modal_image_register_open">
         <ModalImageRegister
-            @closeModal = "is_image_regist_modal_open = false"></ModalImageRegister>
+            @closeModal = "$store.state.main_state.is_modal_image_register_open = false"></ModalImageRegister>
     </Modal>
-    <Modal v-if="is_comment_regist_modal_open">
+    <Modal v-if="$store.state.main_state.is_modal_comment_register_open">
         <ModalCommentRegister
-            @closeModal="is_comment_regist_modal_open = false"></ModalCommentRegister>
+            @closeModal="$store.state.main_state.is_modal_comment_register_open = false"></ModalCommentRegister>
+    </Modal>
+    <Modal v-if="$store.state.main_state.is_modal_map_register_open">
+        <ModalMapRegister v-if="$store.state.main_state.is_modal_map_register_open">
+        </ModalMapRegister>
     </Modal>
     <Search></Search>
     <UserInfo></UserInfo>
-    <Carousel v-if="is_carousel_open" @closeCarousel=" is_carousel_open = false "></Carousel>
-    <PinCheckMenu></PinCheckMenu>
+    <Carousel v-if="$store.state.main_state.is_carousel_open" @closeCarousel=" $store.state.main_state.is_carousel_open = false "></Carousel>
+    <PinCheckMenu v-if="$store.state.main_state.is_pincheck_menu_open" @pinOK="$store.state.main_state.is_modal_pin_register_open = true" ></PinCheckMenu>
 </div>
 </template>
 
@@ -39,6 +38,7 @@ import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
 import ModalImageRegister from'./ModalImageRegister.vue';
 import ModalCommentRegister from'./ModalCommentRegister.vue';
+import ModalMapRegister from './ModalMapRegister.vue';
 import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 import Carousel from './Carousel.vue';
@@ -51,6 +51,7 @@ export default {
         ModalPinRegister,
         ModalImageRegister,
         ModalCommentRegister,
+        ModalMapRegister,
         Search,
         UserInfo,
         Carousel,
@@ -67,12 +68,6 @@ export default {
     },
     data (){
         return {
-            is_menu_open: false,
-            is_side_open: false,
-            is_pin_regist_modal_open: false,
-            is_image_regist_modal_open: false,
-            is_carousel_open: false,
-            is_comment_regist_modal_open: false,
             map: null,
             markers: [],
             check: false,
@@ -85,6 +80,7 @@ export default {
         // $.get(url, function(data, status, xhr){
             // var lat = data.latitude;
             // var lng = data.longitude;
+        this.$http.defaults.headers.common['Authorization'] = "Token "+_this.$store.state.user.user_token;        
         var lat = 37.516271;
         var lng = 127.020171;
         var zoom		= 16;
@@ -149,7 +145,7 @@ export default {
                 _this.check = false;
                 _this.addMarker();
             }
-            this.is_side_open=true;
+            this.$store.state.main_state.is_pincheck_menu_open = true;
         },
         setMarkers: function(){
             var _this = this;
