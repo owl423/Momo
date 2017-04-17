@@ -1,7 +1,7 @@
 <template>
     <div class="sidemenu-wrap">
         <div class="sidemenu">
-            <button class="sidemenu__button" @click="$emit('sideClose')"> < </button>
+            <button class="sidemenu__button" @click="$store.state.main_state.is_side_open = false"> < </button>
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">
@@ -12,7 +12,7 @@
                     </p>
                     <button
                     class="post-register"
-                    @click="$emit('pinRegister')"> Pin </button>
+                    @click="$store.state.main_state.is_modal_pin_register_open = true"> Pin </button>
                 </div>
 
                 <div class="pin-info__view">
@@ -23,17 +23,16 @@
                     <div class="pin-info__view--review">
                         <div class="pin-info__view--review--photo">
                             <strong>사진</strong>
-                            <button type="button" @click="$emit('imageRegister')">사진관리</button>
-                            
+                            <button type="button" @click="$store.state.main_state.is_modal_image_register_open = true">사진관리</button>
                             <a class="pin-info__view--review__photo--view"
                             title="전체 사진 슬라이드로 보기" 
-                            @click="$emit('carouselImage')">
+                            @click="$store.state.main_state.is_carousel_open = true">
                                 대표사진
                             </a>
                         </div>
                         <div class="pin-info__view--review__comment">
                             <strong>코멘트</strong>
-                            <button type="button" @click="$emit('commentRegister')">코멘트 관리</button>
+                            <button type="button" @click="$store.state.main_state.is_modal_comment_register_open = true">코멘트 관리</button>
                             <a class="pin-info__view--review__comment--view" href="">
                                 전체 코멘트보기
                             </a>                                             

@@ -1,6 +1,6 @@
 <template>
     <div class='pin-register'>
-        <strong class="pin-register__name">{{ this.place_name }}</strong>
+        <input class="pin-register__name" v-model="place_name">
         <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
         <dl class="pin-register__list">
             <dt class="pin-register__list__title">지도선택</dt>
@@ -41,7 +41,7 @@ export default {
     name: 'pin-register',
     data(){
         return {
-            place_name: '수수커피',
+            place_name: '',
             my_place_name: null,
             map_list: ['맛집', '여행', '쇼핑', '기타'],
             pin_color: [
