@@ -1,15 +1,23 @@
 <template>
     <div>
         <div class="search-bar">
-            <button class="search-bar__button--user" 
-                    type="button" @click="is_menu_open=true" 
-                    aria-label="사용자 메뉴">
-                유저메뉴
-            </button>
-            <p class="input-box">
+            <span class="search-bar__button search-bar__input--text">
+                <button class="button--user" 
+                        type="button" @click="is_menu_open=true" 
+                        aria-label="사용자 메뉴">
+                    유저메뉴
+                </button>
+            </span>
+            <p class="search-bar__input--text">
                 <input type="text" v-model="search_val" @keyup="searchPlace"> 
-                <button class="search-bar__button--search" type="button" aria-label="검색">검색</button>
             </p>
+            <span class="search-bar__button search-bar__button--search">
+                <button class="button--search"
+                        type="button"
+                        aria-label="검색">
+                    검색
+                </button>
+            </span>
             <ul>
                 <li v-for="search of search_list"><a href="">{{search.name}}</a></li>
             </ul>
