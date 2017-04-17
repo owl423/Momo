@@ -9,7 +9,8 @@
                 </button>
             </span>
             <p class="search-bar__input--text">
-                <input type="text" v-model="search_val" @keyup="searchPlace"> 
+                <input type="text" placeholder="지도 검색"
+                        v-model="search_val" @keyup="searchPlace"> 
             </p>
             <span class="search-bar__button search-bar__button--search">
                 <button class="button--search"
@@ -19,7 +20,12 @@
                 </button>
             </span>
             <ul>
-                <li v-for="search of search_list"><a href="">{{search.name}}</a></li>
+                <li v-for="search of search_list">
+                    <a href="">
+                        <span class="name">{{search.name}}</span> 
+                        <span class="address">{{search.address}}</span> 
+                    </a>
+                </li>
             </ul>
         </div>
         <transition name="slide" mode="out-in">
