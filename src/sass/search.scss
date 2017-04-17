@@ -21,12 +21,6 @@
         text-indent: -99999px;
         padding: 25px;
     }
-    .search-bar__button--search {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 13px;
-    }
     .button--search {
         width: 24px;
         height: 24px;
@@ -35,6 +29,12 @@
         border: none;
         text-indent: -999px;
         background-size: 72px 24px;
+    }
+    .search-bar__button--search {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 13px;
     }
     .search-bar__input--text {
         height: 50px;
