@@ -26,7 +26,8 @@
                             <button type="button" @click="$emit('imageRegister')">사진관리</button>
                             
                             <a class="pin-info__view--review__photo--view"
-                                title="전체 사진 슬라이드로 보기">
+                            title="전체 사진 슬라이드로 보기" 
+                            @click="$emit('carouselImage')">
                                 대표사진
                             </a>
                         </div>
