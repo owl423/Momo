@@ -1,6 +1,8 @@
 <template>
     <div class="tabmenu__view tabmenu__view--map">
-        <button class="tabmenu__view__button__edit">Edit</button>
+        <button 
+        class="tabmenu__view__button__edit" 
+        @click="$store.state.main_state.is_modal_map_register_open = true">Edit</button>
         
         <dl>
             <dt><input id="tabmenu__view--chk1" type="checkbox">

@@ -1,7 +1,7 @@
 <template>
     <div class='pin-register'>
         <input class="pin-register__name" v-model="place_name">
-        <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
+        <button class="pin-register__button--close" @click="closeModal">X</button>
         <dl class="pin-register__list">
             <dt class="pin-register__list__title">지도선택</dt>
             <dd class="pin-register__list__select">
@@ -54,6 +54,12 @@ export default {
             selected_color: null
         }
         
+    },
+    methods: {
+        closeModal(){
+            this.$emit('closeModal');
+            this.$store.state.main_state.is_pincheck_menu_open = false;
+        }
     }
 }
 </script>
