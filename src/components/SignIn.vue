@@ -30,7 +30,7 @@ export default {
     created(){
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '487816804942698',
+                appId      : '1343238479083683',
                 cookie     : true,  // enable cookies to allow the server to access 
                                     // the session
                 xfbml      : true,  // parse social plugins on this page
@@ -55,6 +55,7 @@ export default {
         facebookLogin(){
             let _this = this;
             FB.getLoginStatus(function(res) {
+                console.log(res);
                 let access_token = res.authResponse.accessToken;
                 if( res.status ==='connected'){
                     FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
