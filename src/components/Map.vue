@@ -76,11 +76,9 @@ export default {
     },
     mounted(){
         var _this = this;
-        // var url = `http://api.ipinfodb.com/v3/ip-city/?key=268f7c0ca68536bba778befedb85b36bdd25275de6a21cffe648a7cdbe698e57&ip=${ip()}&format=json`
-        // $.get(url, function(data, status, xhr){
-            // var lat = data.latitude;
-            // var lng = data.longitude;
-        this.$http.defaults.headers.common['Authorization'] = "Token "+_this.$store.state.user.user_token;        
+        let user_token = window.sessionStorage.getItem('user_token');
+        this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
+        console.log('mounted header', this.$http.defaults.headers.common['Authorization'])
         var lat = 37.516271;
         var lng = 127.020171;
         var zoom		= 16;

@@ -55,19 +55,22 @@
             searchPlace(){
                 let _this = this;
                 let url = this.$store.state.url + '/api/search/place/';
-                let keyword = '?keyword='+_this.search_val;
-                url += keyword;
+                if(_this.search_val !== ''){
+                    let keyword = '?keyword='+_this.search_val;
+                    url += keyword;
 
-                // axios에서 헤더 인증정보 토큰 설정
-                this.$http.defaults.headers.common['Authorization'] = "Token "+_this.$store.state.user.user_token;
-                this.$http.get(url)
-                .then(function(res){
-                    console.log(res);
-                    _this.search_list = res.data;
-                })
-                .catch(function(err){
-                    console.log(err.response);
-                })
+                    // axios에서 헤더 인증정보 토큰 설정
+                    let user_token = window.sessionStorage.getItem('user_token');
+                    this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
+                    this.$http.get(url)
+                    .then(function(res){
+                        console.log(res);
+                        _this.search_list = res.data;
+                    })
+                    .catch(function(err){
+                        console.log(err.response);
+                    });
+                }
             }
         }
             

@@ -56,27 +56,35 @@ export default {
             let _this = this;
             FB.getLoginStatus(function(res) {
                 console.log(res);
-                let access_token = res.authResponse.accessToken;
                 if( res.status ==='connected'){
+                    let access_token = res.authResponse.accessToken;
                     FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
                         let url = _this.$store.state.url + '/api/member/fb/';
                         _this.$http.post(url, {
                             access_token
                         }).then(function(res){
                             console.log(res);
+                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token);
+                            _this.$store.commit('setUserInfo', user_session);
+                            _this.$router.push({path: '/map'});
                         }).catch(function(err){
                             console.log(err.response.data);
                         });
-                        let user_session = _this.setUserSession(response.name, response.picture_small.data.url, access_token);
-                        _this.$store.commit('setUserInfo', user_session);
-                        _this.$router.push({path: '/map'});
                     });
                 }else{
                     FB.login(function(res){
+                        let access_token = res.authResponse.accessToken;
                         FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
-                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, access_token);
-                            _this.$store.commit('setUserInfo', user_session);
-                            _this.$router.push({path: '/map'});
+                            let url = _this.$store.state.url + '/api/member/fb/';
+                            _this.$http.post(url, {
+                                access_token
+                            }).then(function(res){
+                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token);
+                                _this.$store.commit('setUserInfo', user_session);
+                                _this.$router.push({path: '/map'});
+                            }).catch(function(err){
+                                console.log(err.response.data);
+                            });
                         });
                     });
                 }
