@@ -38,13 +38,13 @@ export default {
         };
     },
     mounted(){
-        let url = this.$store.state.url + '/api/map/'
+        let url = this.$store.state.url + '/api/member/' + window.sessionStorage.getItem('user_pk');
         this.$http.get(url)
         .then(function(res){
             console.log('res: ', res);
         })
         .catch(function(err){
-            console.log(err);
+            console.log(err.response);
         });
     }
 }

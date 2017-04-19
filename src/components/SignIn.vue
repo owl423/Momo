@@ -42,14 +42,16 @@ export default {
         console.log(this.$store.state.user);
     },
     methods: {
-        setUserSession(name, profile, token){
+        setUserSession(name, profile, token, pk){
             window.sessionStorage.setItem('user_name', name);
             window.sessionStorage.setItem('user_profile', profile);
             window.sessionStorage.setItem('user_token', token);
+            window.sessionStorage.setItem('user_pk', pk);
             return {
                 user_name: name,
                 user_profile: profile,
-                user_token: token
+                user_token: token,
+                user_pk: pk
             };
         },
         facebookLogin(){
@@ -64,7 +66,7 @@ export default {
                             access_token
                         }).then(function(res){
                             console.log(res);
-                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token);
+                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
                             _this.$store.commit('setUserInfo', user_session);
                             _this.$router.push({path: '/map'});
                         }).catch(function(err){
@@ -79,7 +81,8 @@ export default {
                             _this.$http.post(url, {
                                 access_token
                             }).then(function(res){
-                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token);
+                                console.log(res);
+                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
                                 _this.$store.commit('setUserInfo', user_session);
                                 _this.$router.push({path: '/map'});
                             }).catch(function(err){
@@ -99,8 +102,9 @@ export default {
                 password: _this.input_pw
             })
             .then(function(res){ // 그냥 this를 쓰면 axios객체를 가리키게 되므로.
+                console.log(res);
                 const user_no_img_url = '/src/assets/no_img.png';
-                let user_session = _this.setUserSession(_this.input_id, user_no_img_url, res.data.token);
+                let user_session = _this.setUserSession(_this.input_id, user_no_img_url, res.data.token, res.data.user_pk);
                 _this.$store.commit('setUserInfo', user_session);
                 _this.$router.push({path: '/map'});
             })

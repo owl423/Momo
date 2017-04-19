@@ -34,6 +34,7 @@ const store = new Vuex.Store({
       state.user.user_name = user_data.user_name;
       state.user.user_profile = user_data.user_profile;
       state.user.user_token = user_data.user_token;
+      state.user.user_pk = user_data.user_pk;
     }
   }
 });

@@ -60,6 +60,7 @@ export default {
     beforeRouteEnter (to, from, next) {
         next(function(vm){
             if(vm.$store.state.user.user_token || sessionStorage.getItem('user_token')){
+                console.log('route guard');
                 vm.$router.push('/map');
             }else{
                 vm.$router.push('/');
