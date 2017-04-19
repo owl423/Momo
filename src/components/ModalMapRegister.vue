@@ -2,7 +2,7 @@
     <div class="map-register">
         <button class="map-register__button--close" @click="$store.state.main_state.is_modal_map_register_open = false">X</button>
         <button class="map-register__button--add" 
-                @click="is_map_add=!is_map_add">
+                @click="addMap">
             지도추가
         </button>
         <button class="map-register--map-remove-button">지도삭제</button>
@@ -11,13 +11,11 @@
         </div>
         <ul>
             <li v-for ="map in map_list">
-                {{map.map_name}}
+                {{map.map_name}} :
+                {{map.description}}
             </li>
         </ul>
-        <div>
-            {{map_register_name}}
-            {{map_register_info}}
-        </div>
+        <p v-if="is_map_empty">지도를 추가해주세요</p>
     </div>
 </template>
 
@@ -30,32 +28,58 @@ export default {
     },
     data(){
         return {
-            map_list: [
-            ],
+            map_list: [],
             is_map_add: false,
-            map_register_name: '',
-            map_register_info: ''
+            is_map_empty : false
         }
     },
-    created(){
-        let url = this.$store.state.url + '/api/member/';
-        
-        console.log(session.getItem('user_pk'));
+    mounted(){        
+        // sessionStorage에서 유저키 확인
+        // console.log(sessionStorage.getItem('user_pk'));
+        let _this = this;
+        let user_id = sessionStorage.getItem('user_pk');
+        let url = this.$store.state.url + '/api/member/'+user_id;
+
         this.$http.get(url)
         .then(function(res){
             console.log('res: ', res);
+
+            // map list 체크
+            console.log(res.data.map_list);
+
+            let map_chk = res.data.map_list;
+            console.log(map_chk.length);
+            if(map_chk.length === 0){
+                console.log('true');
+                _this.is_map_empty = true;
+            }else{
+                _this.map_list=map_chk;
+            }
         })
         .catch(function(err){
-            console.log(err.response);
+            // console.log(err.response);
         });
     },
     methods: {
         addMap: function() {
-
+            this.is_map_add=!this.is_map_add;
+            this.is_map_empty = false;
         },
         mapRegister(name, info){
+            // test를 위해 뿌려주는것 테스트하는 코드 (emit)
             this.map_register_name = name;
             this.map_register_info = info;
+
+
+            let url = this.$store.state.url + '/api/map/';
+            this.$http.post(url, {
+                map_name: name,
+                description: info,
+                is_private: 'false',
+            })
+            .then(function(res){
+                console.log(res);
+            })
         }
     }
 }
