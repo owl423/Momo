@@ -46,7 +46,7 @@ export default {
             console.log('res: ', res);
         })
         .catch(function(err){
-            console.log(err);
+            console.log(err.response);
         });
     },
     methods: {
