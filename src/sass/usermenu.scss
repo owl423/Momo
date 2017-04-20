@@ -11,7 +11,7 @@
 }
 .usermenu {
     width: 100%;     
-    height: 100%;
+    height: 100vh;
     position:relative;
     box-shadow: 2px 0px 20px 2px #aaa;
     box-sizing: border-box;
@@ -42,7 +42,6 @@
 
 .usermenu__view {
     padding: $menu-padding; 
-    height: 100%;
 }
 
 .usermenu__view h2 {

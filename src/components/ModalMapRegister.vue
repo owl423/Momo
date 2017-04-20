@@ -4,6 +4,7 @@
                        button__close" 
                 @click="$store.state.main_state.is_modal_map_register_open = false">
         </button>
+        <!--
         <button class="map-register__button__add" 
                 @click="addMap">
             지도추가
@@ -11,18 +12,25 @@
         <button class="map-register__button__remove">
             지도삭제
         </button>
-        <div class="map-register__button__add-group" 
-             v-if="is_map_add">
-            <ModalMapRegisterForm 
+        -->
+
+        <ModalMapRegisterForm 
+            class="map-register__add-group" 
+             v-if="is_map_add"
                 @mapRegister="mapRegister">
-            </ModalMapRegisterForm>
+        </ModalMapRegisterForm>
+
+        <div class="map-register__list">
+            <strong class="map-register__list__title">내 지도 목록</strong>
+            <ul>
+                <li v-for ="map in map_list">
+                    <a href="">
+                        <strong class="map-register__list__map-name">{{map.map_name}}</strong>
+                        <span>{{map.description}}</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <ul>
-            <li v-for ="map in map_list">
-                {{map.map_name}} :
-                {{map.description}}
-            </li>
-        </ul>
         <p v-if="is_map_empty">지도를 추가해주세요</p>
     </div>
 </template>
@@ -77,7 +85,7 @@ export default {
             // test를 위해 뿌려주는것 테스트하는 코드 (emit)
             this.map_name = name;
             this.map_info = info;
-
+            let _this = this;
 
             let url = this.$store.state.url + '/api/map/';
             this.$http.post(url, {
@@ -87,6 +95,7 @@ export default {
             })
             .then(function(res){
                 console.log(res);
+                _this.map_list.push(res.data);
             })
         }
     }
