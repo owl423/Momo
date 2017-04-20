@@ -124,6 +124,7 @@ export default {
         });
         _this.map.addListener('click', function(e){
             _this.lat_lng = e.latLng;
+            console.log(_this.lat_lng.lat());
         })
         // });
     },

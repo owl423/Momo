@@ -30,6 +30,7 @@ const store = new Vuex.Store({
     url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com/',
   },
   mutations: {
+    // VueX 유저 데이터 저장 함수
     setUserInfo (state, user_data) {
       state.user.user_name = user_data.user_name;
       state.user.user_profile = user_data.user_profile;

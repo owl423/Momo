@@ -5,16 +5,17 @@
                 <label for="map-register__input__name">나만의 지도 이름</label>
             </dt>
             <dd>
-                <input v-model="map_register_name" 
+                <input v-model="map_name" 
                     id="map-register__input__name" 
-                    class="map-register--map-add-group--map-title" type="text">
+                    class="map-register--map-add-group--map-title" 
+                    type="text">
             </dd>
             
             <dt class="map-register__list__title">
                 <label for="map-register__textarea__info">나만의 지도 설명</label>
             </dt>
             <dd>
-                <textarea v-model="map_register_info"
+                <textarea v-model="map_description"
                           id="map-register__textarea__info"
                           class="map-register--map-add-group--map-desc" cols="50" rows="3">
                 </textarea>
@@ -31,7 +32,7 @@
                 <input name="chk" id="chk_private" type="radio">
             </dd>
         </dl>
-        <button @click="$emit('mapRegister', map_register_name, map_register_info)">등록</button>        
+        <button type="button" @click="$emit('mapRegister', map_name, map_description)">등록</button>        
     </div>
 </template>
 <script>
@@ -39,8 +40,8 @@
         name : 'map-register-form',
         data(){
             return {
-                'map_register_name': '',
-                'map_register_info': ''
+                'map_name': '',
+                'map_description': ''
             }
         }
     }
