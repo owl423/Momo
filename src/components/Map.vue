@@ -10,7 +10,8 @@
     </transition>
     <Modal v-if="$store.state.main_state.is_modal_pin_register_open">
         <Modal-pin-register 
-         @closeModal="$store.state.main_state.is_modal_pin_register_open = false"></Modal-pin-register>
+         @closeModal="$store.state.main_state.is_modal_pin_register_open = false"
+         :lat_lng="lat_lng"></Modal-pin-register>
     </Modal>
     <Modal v-if="$store.state.main_state.is_modal_image_register_open">
         <ModalImageRegister
@@ -78,22 +79,47 @@ export default {
         }
     },
     mounted(){
-        var _this = this;
+        let _this = this;
         let user_token = window.sessionStorage.getItem('user_token');
         this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
-        console.log('mounted header', this.$http.defaults.headers.common['Authorization'])
-        var lat = 37.516271;
-        var lng = 127.020171;
-        var zoom		= 16;
-        var init_latlng = new google.maps.LatLng(lat, lng);
-        var map_options = {
+        let lat = 37.516271;
+        let lng = 127.020171;
+        let zoom		= 16;
+        let init_latlng = new google.maps.LatLng(lat, lng);
+        let map_options = {
             zoom: zoom,
             center: init_latlng,
             mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        _this.map = new google.maps.Map(_this.$refs.map, map_options);
-        $.get('http://localhost:3000/place_list', function(data, status, xhr){
+        let url = this.$store.state.url + `api/member/${sessionStorage.getItem('user_pk')}/`;
+        console.log(url);
+        this.map = new google.maps.Map(_this.$refs.map, map_options);
+        this.$http.get(url)
+        .then(function(res){
+            _this.$store.state.map.map_list = res.data.map_list;
+            res.data.map_list.forEach(function(map){
+                map.pin_list.forEach(function(pin){
+                    let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
+                    let marker = new google.maps.Marker({
+                        position: lat_lng,
+                        map : _this.map,
+                        title : map.map_name
+                    });
+                    _this.$store.state.map.markers.push(marker);
+                    console.log('marker', marker);
+                    google.maps.event.addListener(marker, 'click', function(e){
+                        console.log('markerinfo:', e);
+                        _this.$store.state.main_state.is_side_open = true;
+                    });
+                });
+            });
+        })
+        .catch(function(err){
+            console.log(err.response);
+        })
+        console.log(google.maps);
+        /*$.get('http://localhost:3000/place_list', function(data, status, xhr){
             data.forEach(function(item){
                 function toggleBounce() {
                     if (marker.getAnimation() !== null) {
@@ -123,41 +149,54 @@ export default {
                 });
                 _this.markers.push(marker);
             });
-        });
+        });*/
         _this.map.addListener('click', function(e){
-            _this.lat_lng = e.latLng;
-            console.log(_this.lat_lng.lat());
+            if(!_this.$store.state.main_state.is_pincheck_menu_open){
+                _this.lat_lng = e.latLng;
+                let marker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: _this.map
+                });
+                _this.$store.state.map.markers.push(marker);
+                _this.$store.state.main_state.is_pincheck_menu_open = true;
+            } else{
+                console.log('marker_list:',_this.$store.state.map.markers);
+                _this.removeMarkers();
+                _this.$store.state.map.markers.pop();
+                _this.setMarkers();
+                _this.$store.state.main_state.is_pincheck_menu_open = false;
+            }
         })
         // });
     },
     methods: {
         addMarker : function(){
-            var _this = this;
-            if(!_this.check){
-                var marker = new google.maps.Marker({
-                    position: _this.lat_lng,
-                    map: _this.map
-                });
-                _this.markers.push(marker);
-                _this.check = true;
-                _this.$store.state.main_state.is_pincheck_menu_open = true;
-            } else{
-                _this.$store.state.main_state.is_pincheck_menu_open = false;
-                _this.removeMarkers();
-                _this.markers.pop();
-                _this.setMarkers();
-                _this.check = false;
-            }
+            // var _this = this;
+            // if(!_this.check){
+            //     var marker = new google.maps.Marker({
+            //         position: _this.lat_lng,
+            //         map: _this.map
+            //     });
+            //     _this.markers.push(marker);
+            //     _this.check = true;
+            //     _this.$store.state.main_state.is_pincheck_menu_open = true;
+            // } else{
+            //     _this.$store.state.main_state.is_pincheck_menu_open = false;
+            //     _this.removeMarkers();
+            //     _this.markers.pop();
+            //     _this.setMarkers();
+            //     _this.check = false;
+            // }
         },
         setMarkers: function(){
             var _this = this;
-            _this.markers.forEach(function( marker ){
+            _this.$store.state.map.markers.forEach(function( marker ){
                 marker.setMap(_this.map);
             });
         },
         removeMarkers: function(){
             var _this = this;
-            _this.markers.forEach(function( marker ){
+            _this.$store.state.map.markers.forEach(function( marker ){
                 marker.setMap(null);
             });
         },

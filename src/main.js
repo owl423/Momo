@@ -27,6 +27,10 @@ const store = new Vuex.Store({
       is_pincheck_menu_open: false,
       is_carousel_open: false,
     },
+    map:{
+      map_list: [],
+      markers: []
+    },
     url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com/',
   },
   mutations: {
