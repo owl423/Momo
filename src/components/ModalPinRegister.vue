@@ -1,8 +1,11 @@
 <template>
-    <div class='pin-register'>
+    <div class="pin-register">
         <input class="pin-register__name" 
                v-model="pin_name">
-        <button class="pin-register__button--close" @click="closeModal">X</button>
+        <button class="pin-register__button__close
+                       button__close" 
+                @click="closeModal">
+        </button>
         <dl class="pin-register__list">
             <dt class="pin-register__list__title">지도선택</dt>
             <dd class="pin-register__list__select">
@@ -12,7 +15,7 @@
                     </option>
                 </select>
 
-                <p>선택!!!! {{selected}}</p>
+                <!--<p>선택!!!! {{selected}}</p>-->
             </dd>
             <dt class="pin-register__list__title">카테고리 선택</dt>
             <dd>
@@ -34,13 +37,18 @@
                 <input name="chk" id="chk_private" type="radio">
             </dd>
         </dl>
-        <div class="pin-register__button--confirm">
-            <button type="button" class="ok_btn"
+        <div class="pin-register__button">
+            <button type="button"
+                    class="pin-register__button__confirm"
                     @click="pinRegister()">
-                    등록
+                등록
             </button>        
 
-            <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
+            <button type="button"
+                    class="pin-register__button__cancel button__cancel"
+                    @click="$emit('closeModal')">
+                취소
+            </button>
         </div>
     </div>
 </template>

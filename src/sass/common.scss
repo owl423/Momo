@@ -24,6 +24,12 @@
     height: 100vh;
 }
 
+
+* {
+    box-sizing: border-box
+}
+
+
 fieldset  {
     border: none;
     background: #fff;
@@ -41,4 +47,8 @@ a {
 }
 button, input {
     outline: none;
+}
+
+input[type=text] {
+    padding: 0 5px
 }
