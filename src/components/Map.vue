@@ -27,7 +27,9 @@
     <Search></Search>
     <UserInfo></UserInfo>
     <Carousel v-if="$store.state.main_state.is_carousel_open" @closeCarousel=" $store.state.main_state.is_carousel_open = false "></Carousel>
-    <PinCheckMenu v-if="$store.state.main_state.is_pincheck_menu_open" @pinOK="$store.state.main_state.is_modal_pin_register_open = true" ></PinCheckMenu>
+    <transition name="bottom-slide" mode="out-in">
+    <PinCheckMenu class="pin-check-menu" v-if="$store.state.main_state.is_pincheck_menu_open" @pinOK="$store.state.main_state.is_modal_pin_register_open = true" ></PinCheckMenu>
+    </transition>
 </div>
 </template>
 
@@ -137,14 +139,14 @@ export default {
                 });
                 _this.markers.push(marker);
                 _this.check = true;
+                _this.$store.state.main_state.is_pincheck_menu_open = true;
             } else{
+                _this.$store.state.main_state.is_pincheck_menu_open = false;
                 _this.removeMarkers();
                 _this.markers.pop();
                 _this.setMarkers();
                 _this.check = false;
-                _this.addMarker();
             }
-            this.$store.state.main_state.is_pincheck_menu_open = true;
         },
         setMarkers: function(){
             var _this = this;

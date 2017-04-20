@@ -10,7 +10,7 @@
             </span>
             <p class="search-bar__input--text">
                 <input type="text" placeholder="지도 검색"
-                        v-model="search_val" @keyup="searchPlace"> 
+                        v-model="search_val" @input="searchPlace"> 
             </p>
             <span class="search-bar__button search-bar__button--search">
                 <button class="button--search"

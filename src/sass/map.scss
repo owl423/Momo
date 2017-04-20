@@ -20,9 +20,43 @@
         transform: translateX(0px)
     }
     to{
-        transform: translateX(-480px);
+        transform: translateX(-$side-menu-size);
         opacity: 0
     }
+}
+
+@keyframes bottom-slide-in{
+    from{
+        transform: translateY(100px);
+    }
+    to{
+        transform: translateY(0px);
+        opacity: 1
+    }
+}
+
+@keyframes bottom-slide-out{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(100px);
+    }
+}
+.bottom-slide-enter{
+    opacity: 0
+}
+
+.bottom-slide-enter-active{
+    animation: bottom-slide-in 0.5s
+}
+
+.bottom-slide-leave{
+    opacity: 1
+}
+
+.bottom-slide-leave-active{
+    animation: bottom-slide-out 0.2s
 }
 .slide-enter{
     opacity: 0
