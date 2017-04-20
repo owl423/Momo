@@ -42,6 +42,7 @@
 
 .usermenu__view {
     padding: $menu-padding; 
+    overflow-y: scroll;
 }
 
 .usermenu__view h2 {
@@ -50,8 +51,6 @@
 }
 .tabmenu-wrap {
     border-bottom: 1px #aaa solid;
-}
-.tabmenu__navi {
 }
 .tabmenu__navi ul {
     overflow: hidden;
@@ -64,7 +63,7 @@
     border-top: 1px #aaa solid;
     border-radius: 10px 10px 0 0;
     box-sizing: border-box; 
-    background: #0075bf;
+    background: $color-main;
 }
 
 .tabmenu__navi li:first-child {

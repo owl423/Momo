@@ -16,7 +16,6 @@
 
         <ModalMapRegisterForm 
             class="map-register__add-group" 
-             v-if="is_map_add"
                 @mapRegister="mapRegister">
         </ModalMapRegisterForm>
 
