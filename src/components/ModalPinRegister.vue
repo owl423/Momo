@@ -1,13 +1,18 @@
 <template>
     <div class='pin-register'>
-        <input class="pin-register__name" v-model="place_name">
+        <input class="pin-register__name" 
+               v-model="pin_name">
         <button class="pin-register__button--close" @click="closeModal">X</button>
         <dl class="pin-register__list">
             <dt class="pin-register__list__title">지도선택</dt>
             <dd class="pin-register__list__select">
-                <select id="map-select" class="map-select">
-                    <option v-for="map of map_list">{{map}}</option>
+                <select v-model="selected" id="map-select" class="map-select">
+                    <option v-for="map of map_list">
+                        {{map.map_name}}
+                    </option>
                 </select>
+
+                <p>선택!!!! {{selected}}</p>
             </dd>
             <dt class="pin-register__list__title">카테고리 선택</dt>
             <dd>
@@ -30,7 +35,11 @@
             </dd>
         </dl>
         <div class="pin-register__button--confirm">
-            <button type="button" class="ok_btn">등록</button>
+            <button type="button" class="ok_btn"
+                    @click="pinRegister()">
+                    등록
+            </button>        
+
             <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
         </div>
     </div>
@@ -41,9 +50,10 @@ export default {
     name: 'pin-register',
     data(){
         return {
-            place_name: '',
-            my_place_name: null,
-            map_list: ['맛집', '여행', '쇼핑', '기타'],
+            map_id: '',
+            pin_name: '',
+            map_list: [],
+            // mapping_pk: {},
             pin_color: [
                 '#ff6b6b',
                 '#ffa300', 
@@ -51,14 +61,66 @@ export default {
                 '#bc7fff',
                 '#767cfe'
             ],
-            selected_color: null
+            selected_color: null,
+            is_map_empty : false,
+            selected: ''      
         }
-        
+    },
+    mounted(){
+        let _this = this;
+        let user_id = sessionStorage.getItem('user_pk');
+        let url = this.$store.state.url + '/api/member/'+user_id;        
+
+        this.$http.get(url)
+        .then(function(res){
+            console.log('res: ', res);
+
+            // map list 체크
+            //console.log(res.data.map_list);
+
+            let map_list = res.data.map_list;
+            //console.log(map_list.length);
+            if(map_list.length === 0){
+                console.log('true');
+                _this.is_map_empty = true;
+            }else{
+                /* 일일히 맵이름과 아이디를 맵핑해주는 함수를 사용하는 방법.
+                  map_list.forEach(function(item){
+                    console.log(item);
+                    let map_name = item.map_name;
+                    _this.mapping_pk[map_name] = item.id;
+                })*/
+                _this.map_list=map_list;
+            }
+        })
+        .catch(function(err){
+            // console.log(err.response);
+        });
     },
     methods: {
         closeModal(){
             this.$emit('closeModal');
             this.$store.state.main_state.is_pincheck_menu_open = false;
+        },
+        pinRegister(){
+            let _this = this;
+            let url = this.$store.state.url + '/api/pin/';
+            let l = this.map_list.length;
+            for( let i = 0; i < l ; i++){
+                if(this.map_list[i].map_name === this.selected){
+                    this.map_id = this.map_list[i].id
+                    break;
+                }
+            }
+            console.log(this.map_id);
+            this.$http.post(url, {
+                pin_name: _this.pin_name,
+                map: _this.map_id,
+                pin_color: _this.pin_color[_this.selected_color]
+            })
+            .then(function(res){
+                console.log(res);
+            })
         }
     }
 }

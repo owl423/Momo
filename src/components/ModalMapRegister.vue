@@ -1,13 +1,21 @@
 <template>
     <div class="map-register">
-        <button class="map-register__button--close" @click="$store.state.main_state.is_modal_map_register_open = false">X</button>
+        <button class="map-register__button--close" 
+                @click="$store.state.main_state.is_modal_map_register_open = false">
+                X
+        </button>
         <button class="map-register__button--add" 
                 @click="addMap">
             지도추가
         </button>
-        <button class="map-register--map-remove-button">지도삭제</button>
-        <div class="map-register--map-add-group" v-if="is_map_add">
-            <ModalMapRegisterForm @mapRegister="mapRegister"></ModalMapRegisterForm>
+        <button class="map-register--map-remove-button">
+            지도삭제
+        </button>
+        <div class="map-register--map-add-group" 
+            v-if="is_map_add">
+            <ModalMapRegisterForm 
+                @mapRegister="mapRegister">
+            </ModalMapRegisterForm>
         </div>
         <ul>
             <li v-for ="map in map_list">
@@ -67,8 +75,8 @@ export default {
         },
         mapRegister(name, info){
             // test를 위해 뿌려주는것 테스트하는 코드 (emit)
-            this.map_register_name = name;
-            this.map_register_info = info;
+            this.map_name = name;
+            this.map_info = info;
 
 
             let url = this.$store.state.url + '/api/map/';
