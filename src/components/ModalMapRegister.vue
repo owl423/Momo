@@ -1,18 +1,18 @@
 <template>
     <div class="map-register">
-        <button class="map-register__button--close" 
+        <button class="map-register__button__close
+                       button__close" 
                 @click="$store.state.main_state.is_modal_map_register_open = false">
-                X
         </button>
-        <button class="map-register__button--add" 
+        <button class="map-register__button__add" 
                 @click="addMap">
             지도추가
         </button>
-        <button class="map-register--map-remove-button">
+        <button class="map-register__button__remove">
             지도삭제
         </button>
-        <div class="map-register--map-add-group" 
-            v-if="is_map_add">
+        <div class="map-register__button__add-group" 
+             v-if="is_map_add">
             <ModalMapRegisterForm 
                 @mapRegister="mapRegister">
             </ModalMapRegisterForm>

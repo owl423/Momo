@@ -28,7 +28,7 @@
                 <input name="chk" id="chk_public" type="radio">
             </dd>
             <dd>
-                <label for="chk_private">비공개</label>
+                <label for="chk_private">d공개</label>
                 <input name="chk" id="chk_private" type="radio">
             </dd>
         </dl>
