@@ -48,6 +48,7 @@
 <script>
 export default {
     name: 'pin-register',
+    props:['lat_lng'],
     data(){
         return {
             map_id: '',
@@ -104,8 +105,10 @@ export default {
         },
         pinRegister(){
             let _this = this;
-            let url = this.$store.state.url + '/api/pin/';
+            let url = this.$store.state.url + 'api/pin/';
             let l = this.map_list.length;
+            let lat = this.lat_lng.lat();
+            let lng = this.lat_lng.lng();
             for( let i = 0; i < l ; i++){
                 if(this.map_list[i].map_name === this.selected){
                     this.map_id = this.map_list[i].id
@@ -113,14 +116,27 @@ export default {
                 }
             }
             console.log(this.map_id);
-            this.$http.post(url, {
-                pin_name: _this.pin_name,
-                map: _this.map_id,
-                pin_color: _this.pin_color[_this.selected_color]
-            })
-            .then(function(res){
-                console.log(res);
-            })
+            if( !this.selected || !this.pin_name.trim() || !this.map_id){
+                window.alert('카테고리, 핀이름, 지도를 선택했는지 확인해 주세요');
+            }else {
+                this.$http.post(url, {
+                    pin:{
+                        pin_name: _this.pin_name,
+                        map: _this.map_id,
+                        pin_label: _this.selected_color,
+                    },
+                    place:{
+                        lat,
+                        lng
+                    }
+                })
+                .then(function(res){
+                    console.log(res);
+                })
+                .catch(function(err){
+                    console.log(err.response);
+                })
+            }
         }
     }
 }
