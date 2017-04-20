@@ -1,12 +1,17 @@
 <template>
     <div class="pin-register">
-        <input class="pin-register__name" 
-               v-model="pin_name">
         <button class="pin-register__button__close
                        button__close" 
                 @click="closeModal">
         </button>
         <dl class="pin-register__list">
+            <dt class="pin-register__list__title">
+                핀이름
+            </dt>
+            <dd>
+                <input class="pin-register__name" 
+                    v-model="pin_name">
+            </dd>
             <dt class="pin-register__list__title">지도선택</dt>
             <dd class="pin-register__list__select">
                 <select v-model="selected" id="map-select" class="map-select">
