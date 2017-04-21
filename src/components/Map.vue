@@ -92,7 +92,7 @@ export default {
             mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        let url = this.$store.state.url + `api/member/${sessionStorage.getItem('user_pk')}/`;
+        let url = this.$store.state.url + `/api/member/${sessionStorage.getItem('user_pk')}/`;
         console.log(url);
         this.map = new google.maps.Map(_this.$refs.map, map_options);
         this.$http.get(url)

@@ -31,7 +31,7 @@ const store = new Vuex.Store({
       map_list: [],
       markers: []
     },
-    url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com/',
+    url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com',
   },
   mutations: {
     // VueX 유저 데이터 저장 함수
@@ -40,6 +40,12 @@ const store = new Vuex.Store({
       state.user.user_profile = user_data.user_profile;
       state.user.user_token = user_data.user_token;
       state.user.user_pk = user_data.user_pk;
+    },
+    mapListUpdate(state, axios){
+      let user_id = sessionStorage.getItem('user_pk');
+      let url = state.url + '/api/member/'+user_id;
+      console.log('url : ',url);
+      console.log(axios);
     }
   }
 });

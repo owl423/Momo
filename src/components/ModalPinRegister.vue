@@ -78,15 +78,9 @@ export default {
     mounted(){
         let _this = this;
         let user_id = sessionStorage.getItem('user_pk');
-        let url = this.$store.state.url + '/api/member/'+user_id;        
-
+        let url = this.$store.state.url + '/api/member/'+user_id;
         this.$http.get(url)
         .then(function(res){
-            console.log('res: ', res);
-
-            // map list 체크
-            //console.log(res.data.map_list);
-
             let map_list = res.data.map_list;
             //console.log(map_list.length);
             if(map_list.length === 0){
@@ -126,6 +120,7 @@ export default {
             console.log(this.map_id);
             if( !this.selected || !this.pin_name.trim() || !this.map_id){
                 window.alert('카테고리, 핀이름, 지도를 선택했는지 확인해 주세요');
+                this.$store.commit('mapListUpdate', _this.$http);
             }else {
                 this.$http.post(url, {
                     pin:{
@@ -139,7 +134,12 @@ export default {
                     }
                 })
                 .then(function(res){
-                    console.log(res);
+                    let user_id = sessionStorage.getItem('user_pk');
+                    let url = _this.$store.state.url + '/api/member/'+user_id;  
+                    _this.$http.get(url)
+                    .then(function(res){
+
+                    })
                 })
                 .catch(function(err){
                     console.log(err.response);
