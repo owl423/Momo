@@ -1,20 +1,28 @@
 <template>
     <div class="pin-register">
         <button class="pin-register__button__close
-                       button__close" 
+                       button__modal__close" 
                 @click="closeModal">
         </button>
-        <dl class="pin-register__list">
-            <dt class="pin-register__list__title">
-                핀이름
+        <dl class="pin-register__form register__form">
+            <dt class="pin-register__form__title">
+                <label for="pin-register_name">
+                    핀이름
+                </label>
             </dt>
             <dd>
-                <input class="pin-register__name" 
-                    v-model="pin_name">
+                <input v-model="pin_name"
+                        id="pin-register_name"
+                        class="pin-register__name"
+                        type="text">
             </dd>
-            <dt class="pin-register__list__title">지도선택</dt>
-            <dd class="pin-register__list__select">
-                <select v-model="selected" id="map-select" class="map-select">
+            <dt class="pin-register__form__title">
+                <label for="map-select">지도선택</label>
+            </dt>
+            <dd class="pin-register__form__select">
+                <select v-model="selected" 
+                        id="map-select" 
+                        class="map-select">
                     <option v-for="map of map_list">
                         {{map.map_name}}
                     </option>
@@ -22,18 +30,19 @@
 
                 <!--<p>선택!!!! {{selected}}</p>-->
             </dd>
-            <dt class="pin-register__list__title">카테고리 선택</dt>
+            <dt class="pin-register__form__title">카테고리 선택</dt>
             <dd>
-                <div role="group" id="category-group" class="category-group">
-                    <button @click="selected_color=0" :class="['food-btn', {'select' : selected_color === 0}]">음식</button>
-                    <button @click="selected_color=1" :class="['shopping-btn', {'select' : selected_color === 1}]">쇼핑</button>
-                    <button @click="selected_color=2" :class="['stay-btn', {'select' : selected_color === 2}]">숙박</button>
-                    <button @click="selected_color=3" :class="['cafe-btn', {'select' : selected_color === 3}]">카페</button>
-                    <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
+                <div role="group" id="pin-register_category-group" 
+                    class="pin-register__form__category-group">
+                    <button @click="selected_color=0" :class="['food-btn', {'selected' : selected_color === 0}]">음식</button>
+                    <button @click="selected_color=1" :class="['shopping-btn', {'selected' : selected_color === 1}]">쇼핑</button>
+                    <button @click="selected_color=2" :class="['stay-btn', {'selected' : selected_color === 2}]">숙박</button>
+                    <button @click="selected_color=3" :class="['cafe-btn', {'selected' : selected_color === 3}]">카페</button>
+                    <button @click="selected_color=4" :class="['etc-btn', {'selected' : selected_color === 4}]">기타</button>
                 </div>
             </dd>
-            <dt class="pin-register__list__title">공개 여부</dt>
-            <dd class="pin-register__list__select--float">
+            <dt class="pin-register__form__title">공개 여부</dt>
+            <dd class="pin-register__form__select--float">
                 <label for="chk_public">공개</label>
                 <input name="chk" id="chk_public" type="radio">
             </dd>
@@ -42,7 +51,8 @@
                 <input name="chk" id="chk_private" type="radio">
             </dd>
         </dl>
-        <div class="pin-register__button">
+        <div class="pin-register__button__submit
+                    button__submit">
             <button type="button"
                     class="pin-register__button__confirm"
                     @click="pinRegister()">
@@ -50,7 +60,7 @@
             </button>        
 
             <button type="button"
-                    class="pin-register__button__cancel button__cancel"
+                    class="pin-register__button__cancel"
                     @click="$emit('closeModal')">
                 취소
             </button>

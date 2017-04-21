@@ -3,7 +3,7 @@
         <div class="usermenu">
             <div class="usermenu__header">
                 <h1>나의 장소</h1>
-                <button class="usermenu__button" 
+                <button class="usermenu__button button__panel__close" 
                         @click="$emit('menuClose')">
                 </button>
             </div>
