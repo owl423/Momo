@@ -75,7 +75,6 @@ export default {
         axios.get(url)
         .then(function(res){
           state.map_list = res.data.map_list;
-          console.log('map_list', state.map_list);
         })
         .catch(function(err){
           console.error('mapListUpdate get error msg : ', err.response);
@@ -85,7 +84,15 @@ export default {
       
     },
     actions: {
-      mapPinMark({state, rootState}){
+      addMarkerClickEvent({state, rootState}, marker){
+        google.maps.event.addListener(marker, 'click', function(e){
+          rootState.view_state.is_side_state = true;
+          console.log('lat:', e.latLng.lat());
+          console.log('lng:', e.latLng.lng());
+          
+        });
+      },
+      mapPinMark({state, rootState, dispatch}){
         state.map_list.forEach(function(map){
           map.pin_list.forEach(function(pin){
             let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
@@ -95,9 +102,7 @@ export default {
               title : map.map_name
             });
             state.markers.push(marker);
-            google.maps.event.addListener(marker, 'click', function(e){
-              rootState.view_state.is_side_state = true;
-            })
+            dispatch('addMarkerClickEvent', marker);
           })
         })
       },
@@ -123,7 +128,6 @@ export default {
           is_private: false
         })
         .then(function(res){
-          console.log('mapRegister res', res);
           commit('pushMapList', res.data);
         })
         .catch(function(err){
@@ -131,8 +135,7 @@ export default {
         })
       },
       // 지도에 마커를 찍을 때 해당 마커를 하나씩만 찍게 해주는 함수
-      oneMarker({state, commit, rootState}){
-        console.log(rootState);
+      oneMarker({state, commit, rootState, dispatch}){
         state.map.addListener('click', function(e){
           console.log(e);
           if(!rootState.view_state.is_pincheck_menu_state){
@@ -151,13 +154,11 @@ export default {
           }
         })
       },
-      pinRegister({state, commit, rootState}, payload){
+      pinRegister({state, commit, rootState, dispatch}, payload){
         let url = `${rootState.url}/api/pin/`;
-        console.log(payload);
         let lat = state.lat_lng.lat();
         let lng = state.lat_lng.lng();
         commit('setMapPK', payload.selected);
-        console.log(state.map_pk);
         if(!payload.selected || !payload.pin_name.trim() || !state.map_pk){
           window.alert('카테고리, 핀이름, 지도를 선택했는지 확인해 주세요');
         }else{
@@ -173,8 +174,13 @@ export default {
             }
           })
           .then(function(res){
-            console.log(res);
             commit('setMapPin', {map_pk : state.map_pk, pin : res.data});
+            let marker = new google.maps.Marker({
+              position: state.lat_lng,
+              map: state.map,
+              title: payload.selected
+            });
+            dispatch('addMarkerClickEvent', marker);
             window.alert('위치가 등록 됐습니다.');
             rootState.view_state.is_pincheck_menu_state = false;
             rootState.view_state.is_modal_pin_register_state = false;
