@@ -22,7 +22,8 @@
                             <input id="signin_password" 
                                     type="password" 
                                     placeholder="Password를 입력해주세요"
-                                    v-model="input_pw" required>
+                                    v-model="input_pw" 
+                                    required>
                         </p>
                         <!--
                         <p><label for="signin_email">Email</label>
@@ -33,18 +34,20 @@
                         </p>
                         -->
                     </fieldset>
-                    <button type="button" 
+                    <button class="member__button"
+                            type="button" 
                             @click="signInCheck"> 
                         Sign In
                     </button>
-                    <router-link to="/signup" tag="button">
+                    <router-link class="member__button"
+                            to="/signup" tag="button">
                         Sign Up 
                     </router-link>
+                    <button class="signin__facebook"
+                            @click="facebookLogin">
+                        Facebook Sign In
+                    </button>
                 </form>
-                <button class="signin__facebook"
-                        @click="facebookLogin">
-                    Facebook Sign In
-                </button>
             </div>
         </section>
     </div>
