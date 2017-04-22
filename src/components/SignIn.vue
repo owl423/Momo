@@ -53,6 +53,7 @@
 <script>
 
 import bgVideo from './bgVideo.vue';
+import {mapMutations} from 'vuex';
 
 export default {
     name: 'SignIn',
@@ -66,6 +67,9 @@ export default {
             };
     },
     created(){
+        
+    },
+    mounted(){
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1343238479083683',
@@ -76,10 +80,10 @@ export default {
             });
         };
     },
-    mounted(){
-        console.log(this.$store.state.user);
-    },
     methods: {
+        ...mapMutations([
+            'setUserInfo'
+        ]),
         setUserSession(name, profile, token, pk){
             window.sessionStorage.setItem('user_name', name);
             window.sessionStorage.setItem('user_profile', profile);
@@ -105,7 +109,8 @@ export default {
                         }).then(function(res){
                             console.log(res);
                             let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
-                            _this.$store.commit('setUserInfo', user_session);
+                            //_this.$store.commit('setUserInfo', user_session);
+                            _this.setUserInfo(user_session);
                             _this.$router.push({path: '/map'});
                         }).catch(function(err){
                             console.log(err.response.data);
@@ -121,7 +126,8 @@ export default {
                             }).then(function(res){
                                 console.log(res);
                                 let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
-                                _this.$store.commit('setUserInfo', user_session);
+                                // _this.$store.commit('setUserInfo', user_session);
+                                _this.setUserInfo(user_session);
                                 _this.$router.push({path: '/map'});
                             }).catch(function(err){
                                 console.log(err.response.data);
