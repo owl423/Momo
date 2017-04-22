@@ -15,28 +15,34 @@
                         <p><label for="signup_id">I  D</label> 
                             <input v-model="username" 
                                    id="signup_id"
+                                   placeholder="Id을 입력해주세요"
                                    type="text" required>
                         </p>
                         <p>{{error_msg_id}}</p>
                         <p><label for="signup_email">Email</label>
                             <input v-model="email" 
                                    id="signup_email"
-                                   type="email" required>
+                                   type="email"
+                                    placeholder="Email를 입력해주세요"
+                                    required>
                         </p>
                         <p>{{error_msg_email}}</p>
                         <p><label for="signup_password">Password</label>
                             <input v-model="password"
                                    id="signup_password"
+                                   placeholder="Password를 입력해주세요"
                                    type="password" required>
                         </p>
+                        <button class="member__button"
+                                type="button" 
+                                @click="signUpSubmit">
+                            동의하고 회원가입
+                        </button>
+                        <router-link class="member__button"
+                                    to="/" tag="button">
+                            취소
+                        </router-link>
                     </fieldset>
-                    <button type="button" 
-                            @click="signUpSubmit">
-                        동의하고 회원가입
-                    </button>
-                    <router-link to="/" tag="button">
-                        취소
-                    </router-link>
                 </form>
             </div>
         </section>

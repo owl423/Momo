@@ -43,11 +43,11 @@
     width: 100%;
     margin: 5px 0;
 }
-.member_form {
+.member_form form {
     border: none;
     background: #fff;
     border-radius: 20px;
-    padding: 20px;    
+    padding: 20px;
 }
 
 .member_form h1 {
@@ -56,7 +56,7 @@
     margin: 5px 0 10px;
 }
 
-.member_wrap form button {
+.member_wrap .member__button {
     color: #000;
     text-align: center;
     display: block;
