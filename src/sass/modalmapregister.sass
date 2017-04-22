@@ -22,46 +22,49 @@
             margin-bottom: 7px
             display: block  
 
-        ul        
+        ul       
             padding: 16px
             font-size: 12px
             border: 1px $color-main solid
             border-radius: 5px
 
-            li 
-                padding: 7px
-                position: relative
 
-                &.nomap
-                    margin: 20px 0 
+        &__items 
+            padding: 7px
+            position: relative
 
-                &:first-child
-                    margin-top: 0
+            &:first-child
+                margin-top: 0
 
-                &:hover
-                    background: $color-main-bright
+            &:hover
+                background: $color-main-bright
 
-                button
-                    background: url(./assets/button_list_close2.png) no-repeat center center
-                    position: absolute
-                    top: 50% 
-                    margin-top: -10px
-                    right: 2px
-                    background-size: 100%
-                    width: 20px
-                    height: 20px
-                    text-indent: -9999px
+            &--nomap 
+                text-align: center
+                padding: 7px 
 
-        &__map-name
-            width: 110px
-            display: inline-block
-            float: left
-            font-size: 13px
-            font-weight: bold
 
-        &__select--float
-            float: left
-            margin-right: 22px
+            button
+                background: url(./assets/button_list_close2.png) no-repeat center center
+                position: absolute
+                top: 50% 
+                margin-top: -10px
+                right: 2px
+                background-size: 100%
+                width: 20px
+                height: 20px
+                text-indent: -9999px
+
+            &__map-name
+                width: 110px
+                display: inline-block
+                float: left
+                font-size: 13px
+                font-weight: bold
+
+            &__select--float
+                float: left
+                margin-right: 22px
 
 
         

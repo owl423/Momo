@@ -11,15 +11,15 @@
         <div class="map-register__list">
             <strong class="map-register__list__title">내 지도 목록</strong>
             <ul>
-                <li v-for ="(map, index) in map_list">
-                    <strong class="map-register__list__map-name">{{map.map_name}}</strong>
+                <li class="map-register__list__items" v-for ="(map, index) in map_list">
+                    <strong class="map-register__list__items__map-name">{{map.map_name}}</strong>
                     <span>{{map.description}}</span>
-                    <button class="map-register__list__button__remove"
+                    <button class="map-register__list__items__button__remove"
                         @click="mapRemove({axios: $http, map_index: index})">
                         삭제하기
                     </button>
                 </li>
-                <li class="map-register__list-nomap" v-if="map_list.length === 0">지도를 추가해주세요</li>
+                <li class="map-register__list__items--nomap" v-if="map_list.length === 0">지도를 추가해주세요</li>
             </ul>
         </div>
     </div>
