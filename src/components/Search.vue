@@ -3,7 +3,7 @@
         <div class="search-bar">
             <span class="search-bar__button search-bar__input--text">
                 <button class="button--user" 
-                        type="button" @click="setUserMenuState(true)" 
+                        type="button" @click="userMemuClick" 
                         aria-label="사용자 메뉴">
                     유저메뉴
                 </button>
@@ -54,13 +54,19 @@ export default {
     },
     computed : {
         ...mapGetters([
-            'is_user_menu_state'
+            'is_user_menu_state',
+            'is_side_menu_state'
         ]),
     },
     methods : {
         ...mapMutations([
             'setUserMenuState',
+            'setSideState'
         ]),
+        userMemuClick(){
+            this.setSideState(false);
+            this.setUserMenuState(true);
+        },
         searchPlace(){
             let _this = this;
             let url = this.$store.state.url + '/api/search/place/';

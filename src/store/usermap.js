@@ -4,6 +4,7 @@ export default {
     state: {
       map_list: [], // 서버에서 제공 받은 유저의 맵리스트
       map_pk: null, // 서버에 저장돼 있는 해당 map의 pk 값
+      current_marker: null, // 현재 유저가 선택한 마커.
       markers: [],  // google map api의 new google.maps.Marker() 으로 생성한 marker 객체 리스트
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
@@ -20,6 +21,9 @@ export default {
       },
       lat_lng(state){
         return state.lat_lng;
+      },
+      current_marker(state){
+        return state.current_marker;
       }
     },
     mutations: { // 지역(모듈 내) state를 관리하는 함수 정의
@@ -45,6 +49,19 @@ export default {
       setLatLng(state, lat_lng){
         state.lat_lng = lat_lng;
       },
+      // 하나의 마커를 화면상 지도에만 찍음
+      setCurrentMarker(state, marker){
+        marker.setMap(state.map);
+      },
+      removeCurrentMarker(state, marker){
+        marker.setMap(null);
+      },
+      // 마커list 를 화면상 지도에만 찍음
+      setMarkers(state){
+        state.markers.forEach(function(marker){
+          marker.setMap(state.map);
+        });
+      },
       // map_list에 새로 생성한 맵을 추가함
       pushMapList(state, user_map){
         state.map_list.push(user_map);
@@ -57,17 +74,13 @@ export default {
       popMarker(state, marker){
         state.markers.pop();
       },
-      // 마커를 화면상 지도에만 찍음
-      setMarkers(state){
-        state.markers.forEach(function(marker){
-          marker.setMap(state.map);
-        });
-      },
       // 마커를 화면상 지도에서만 지움
       removeMarkers(state){
-        state.markers.forEach(function(marker){
-          marker.setMap(null);
-        })
+        if(state.markers.length !== 0){
+          state.markers.forEach(function(marker){
+            marker.setMap(null);
+          })
+        }
       },
       mapListUpdate(state, axios){
         let user_id = sessionStorage.getItem('user_pk');
@@ -77,7 +90,7 @@ export default {
           state.map_list = res.data.map_list;
         })
         .catch(function(err){
-          console.error('mapListUpdate get error msg : ', err.response);
+          console.error('mapListUpdate get error msg : ', err);
         })
       },
       // 통신해서 받은 map list의 pin을 찍어줌
@@ -86,16 +99,19 @@ export default {
     actions: { // 전역 state 접근 가능한 함수 정의 (비동기 가능)
       addMarkerClickEvent({state, rootState}, marker){
         google.maps.event.addListener(marker, 'click', function(e){
+          rootState.view_state.is_user_menu_state = false;
           rootState.view_state.is_side_state = true;
           console.log('lat:', e.latLng.lat());
           console.log('lng:', e.latLng.lng());
           
         });
       },
-      mapPinMark({state, rootState, commit}){
+      mapPinMark({state, rootState, commit, dispatch}){
         commit('removeMarkers');
         state.map_list.forEach(function(map){
+          console.log(map.pin_list);
           map.pin_list.forEach(function(pin){
+            console.log('pin:', pin);
             let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
             let marker = new google.maps.Marker({
               position: lat_lng,
@@ -113,6 +129,7 @@ export default {
         let url = `${rootState.url}/api/member/${user_pk}`;
         axios.get(url)
         .then(function(res){
+          console.log('res:', res);
           state.map_list = res.data.map_list;
           dispatch('mapPinMark');
         })
@@ -140,17 +157,14 @@ export default {
         state.map.addListener('click', function(e){
           console.log(e);
           if(!rootState.view_state.is_pincheck_menu_state){
-            let marker = new google.maps.Marker({
+            state.current_marker = new google.maps.Marker({
               position: e.latLng,
-              map: state.map
             });
+            commit('setCurrentMarker', state.current_marker);
             commit('setLatLng', e.latLng)
-            commit('pushMarker', marker);
             rootState.view_state.is_pincheck_menu_state = true;
           }else{
-            commit('removeMarkers');
-            commit('popMarker');
-            commit('setMarkers');
+            commit('removeCurrentMarker', state.current_marker);
             rootState.view_state.is_pincheck_menu_state = false;            
           }
         })

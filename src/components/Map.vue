@@ -135,37 +135,6 @@ export default {
         this.mapListUpdateAction(this.$http);
         // 장소를 한번에 한개씩만 선택
         this.oneMarker();
-        /*$.get('http://localhost:3000/place_list', function(data, status, xhr){
-            data.forEach(function(item){
-                function toggleBounce() {
-                    if (marker.getAnimation() !== null) {
-                        marker.setAnimation(null);
-                    } else {
-                        marker.setAnimation(google.maps.Animation.BOUNCE);
-                    }
-                }
-                var lat_lag = new google.maps.LatLng(item.lat, item.lng);
-                var marker = new google.maps.Marker({
-                    position : lat_lag,
-                    map : _this.map,
-                    title : item.title
-                });
-                marker.addListener('click',toggleBounce);
-                var content_string = `<div>
-                                        <h2>${item.head}</h2>
-                                        <p>${item.desc}</p>
-                                        <a href="${item.link}" target="_blank">${item.link}</a>
-                                    </div>`;
-                var info_window = new google.maps.InfoWindow({
-                    content: content_string,
-                    maxWidth: 400
-                });
-                google.maps.event.addListener(marker, 'click', function(){
-                    info_window.open(_this.map, marker);
-                });
-                _this.markers.push(marker);
-            });
-        });*/
     },
 }
 </script>
