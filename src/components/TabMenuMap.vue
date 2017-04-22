@@ -1,11 +1,11 @@
 <template>
     <div class="tabmenu__view tabmenu__view--map">
         <button class="tabmenu__view__button__edit" 
-                @click="$store.state.main_state.is_modal_map_register_open = true">
+                @click="setModalMapRegisterState(true)">
             Edit
         </button>
         
-        <dl v-for="map in $store.state.map.map_list">
+        <dl v-for="map in map_list">
             <dt><input id="tabmenu__view--chk1" type="checkbox" checked>
                  <label for="tabmenu__view--chk1"> {{map.map_name}} </label>
             </dt>
@@ -15,16 +15,20 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
 export default {
     name: 'tab-menu-map',
-    components: {
+    computed : {
+        ...mapGetters([
+            'is_modal_map_register_state',
+            'map_list'
+        ])
     },
-    data (){
-        return {
-        }
-    },
-    mounted(){
-        console.log('mounted');
+    methods:{
+        ...mapMutations([
+            'setModalMapRegisterState',
+        ]),
     }
 }    
 </script>
