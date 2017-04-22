@@ -1,35 +1,35 @@
 <template>
 <div>
-    <div id='map' ref="map" @click="addMarker">
+    <div id='map' ref="map">
     </div>
     <!--<button type="button" class="side_button" @click="is_side_open=true"> > </button>-->
     <transition name="slide" mode="out-in">
         <Sidemenu 
-         v-if="$store.state.main_state.is_side_open"
+         v-if="is_side_state"
          ></Sidemenu>
     </transition>
-    <Modal v-if="$store.state.main_state.is_modal_pin_register_open">
+    <Modal v-if="is_modal_pin_register_state">
         <Modal-pin-register 
-         @closeModal="$store.state.main_state.is_modal_pin_register_open = false"
-         :lat_lng="lat_lng"></Modal-pin-register>
+         @closeModal="setModalPinRegisterState(false)">
+         </Modal-pin-register>
     </Modal>
-    <Modal v-if="$store.state.main_state.is_modal_image_register_open">
+    <Modal v-if="is_modal_image_register_state">
         <ModalImageRegister
-            @closeModal = "$store.state.main_state.is_modal_image_register_open = false"></ModalImageRegister>
+            @closeModal = "setModalImageRegisterState(false)"></ModalImageRegister>
     </Modal>
-    <Modal v-if="$store.state.main_state.is_modal_comment_register_open">
+    <Modal v-if="is_modal_comment_register_state">
         <ModalCommentRegister
-            @closeModal="$store.state.main_state.is_modal_comment_register_open = false"></ModalCommentRegister>
+            @closeModal="setModalCommentRegisterState(false)"></ModalCommentRegister>
     </Modal>
-    <Modal v-if="$store.state.main_state.is_modal_map_register_open">
-        <ModalMapRegister v-if="$store.state.main_state.is_modal_map_register_open">
+    <Modal v-if="is_modal_map_register_state">
+        <ModalMapRegister>
         </ModalMapRegister>
     </Modal>
     <Search></Search>
     <UserInfo></UserInfo>
-    <Carousel v-if="$store.state.main_state.is_carousel_open" @closeCarousel=" $store.state.main_state.is_carousel_open = false "></Carousel>
+    <Carousel v-if="is_carousel_state" @closeCarousel="setCarouselState(false)"></Carousel>
     <transition name="bottom-slide" mode="out-in">
-    <PinCheckMenu class="pin-check-menu" v-if="$store.state.main_state.is_pincheck_menu_open" @pinOK="$store.state.main_state.is_modal_pin_register_open = true" ></PinCheckMenu>
+    <PinCheckMenu class="pin-check-menu" v-if="is_pincheck_menu_state" @pinOK="setModalPinRegisterState(true)" ></PinCheckMenu>
     </transition>
 </div>
 </template>
@@ -46,6 +46,10 @@ import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 import Carousel from './Carousel.vue';
 import PinCheckMenu from './PinCheckMenu.vue';
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
+
 export default {
     name: 'map',
     components: {
@@ -60,31 +64,63 @@ export default {
         Carousel,
         PinCheckMenu
     },
+    computed: {
+        // vuex의 state변수를 간편하기 쓰기 위해 주입
+        ...mapGetters([
+            'is_side_state',
+            'is_modal_pin_register_state',
+            'is_modal_image_register_state',
+            'is_modal_map_register_state',
+            'is_modal_comment_register_state',
+            'is_pincheck_menu_state',
+            'is_carousel_state',
+            'map',
+            'map_list',
+            'markers'
+        ])
+    },
+    methods: {
+        // vuex의 map_list가 변경되면 업데이트 해주는 함수
+        ...mapActions([
+            'mapListUpdateAction',
+            'oneMarker'
+        ]),
+        // vuex의 state변경 mutations를 간편하기 쓰기 위해 주입
+        ...mapMutations([
+            'setSideState',
+            'setModalPinRegisterState',
+            'setModalImageRegisterState',
+            'setModalMapRegisterState',
+            'setModalCommentRegisterState',
+            'setPincheckMenuState',
+            'setCarouselState',
+            'setMap',
+            'pushMarker',
+            'popMarker',
+            'setMarkers',
+            'removeMarkers',
+            'mapListUpdate',
+            'mapPinMark'
+        ]),
+    },
     beforeRouteEnter (to, from, next) {
         next(function(vm){
             if(vm.$store.state.user.user_token || sessionStorage.getItem('user_token')){
-                console.log('route guard');
                 vm.$router.push('/map');
             }else{
                 vm.$router.push('/');
             }
         });
     },
-    data (){
-        return {
-            map: null,
-            markers: [],
-            check: false,
-            lat_lng: null
-        }
-    },
     mounted(){
+        // 로그인 후 initialize
         let _this = this;
         let user_token = window.sessionStorage.getItem('user_token');
+        // http 통신을 위해 헤더에 token 설정
         this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
         let lat = 37.516271;
         let lng = 127.020171;
-        let zoom		= 16;
+        let zoom = 16;
         let init_latlng = new google.maps.LatLng(lat, lng);
         let map_options = {
             zoom: zoom,
@@ -92,33 +128,13 @@ export default {
             mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        let url = this.$store.state.url + `/api/member/${sessionStorage.getItem('user_pk')}/`;
-        console.log(url);
-        this.map = new google.maps.Map(_this.$refs.map, map_options);
-        this.$http.get(url)
-        .then(function(res){
-            _this.$store.state.map.map_list = res.data.map_list;
-            res.data.map_list.forEach(function(map){
-                map.pin_list.forEach(function(pin){
-                    let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
-                    let marker = new google.maps.Marker({
-                        position: lat_lng,
-                        map : _this.map,
-                        title : map.map_name
-                    });
-                    _this.$store.state.map.markers.push(marker);
-                    console.log('marker', marker);
-                    google.maps.event.addListener(marker, 'click', function(e){
-                        console.log('markerinfo:', e);
-                        _this.$store.state.main_state.is_side_open = true;
-                    });
-                });
-            });
-        })
-        .catch(function(err){
-            console.log(err.response);
-        })
-        console.log(google.maps);
+        let map = new google.maps.Map(_this.$refs.map, map_options);
+        // usermap 모듈의 map 변수 세팅
+        this.setMap(map);
+        // 통신을 통해 가져온 map_list의 pin을 지도에 표시해주는 함수
+        this.mapListUpdateAction(this.$http);
+        // 장소를 한번에 한개씩만 선택
+        this.oneMarker();
         /*$.get('http://localhost:3000/place_list', function(data, status, xhr){
             data.forEach(function(item){
                 function toggleBounce() {
@@ -150,56 +166,6 @@ export default {
                 _this.markers.push(marker);
             });
         });*/
-        _this.map.addListener('click', function(e){
-            if(!_this.$store.state.main_state.is_pincheck_menu_open){
-                _this.lat_lng = e.latLng;
-                let marker = new google.maps.Marker({
-                    position: e.latLng,
-                    map: _this.map
-                });
-                _this.$store.state.map.markers.push(marker);
-                _this.$store.state.main_state.is_pincheck_menu_open = true;
-            } else{
-                console.log('marker_list:',_this.$store.state.map.markers);
-                _this.removeMarkers();
-                _this.$store.state.map.markers.pop();
-                _this.setMarkers();
-                _this.$store.state.main_state.is_pincheck_menu_open = false;
-            }
-        })
-        // });
     },
-    methods: {
-        addMarker : function(){
-            // var _this = this;
-            // if(!_this.check){
-            //     var marker = new google.maps.Marker({
-            //         position: _this.lat_lng,
-            //         map: _this.map
-            //     });
-            //     _this.markers.push(marker);
-            //     _this.check = true;
-            //     _this.$store.state.main_state.is_pincheck_menu_open = true;
-            // } else{
-            //     _this.$store.state.main_state.is_pincheck_menu_open = false;
-            //     _this.removeMarkers();
-            //     _this.markers.pop();
-            //     _this.setMarkers();
-            //     _this.check = false;
-            // }
-        },
-        setMarkers: function(){
-            var _this = this;
-            _this.$store.state.map.markers.forEach(function( marker ){
-                marker.setMap(_this.map);
-            });
-        },
-        removeMarkers: function(){
-            var _this = this;
-            _this.$store.state.map.markers.forEach(function( marker ){
-                marker.setMap(null);
-            });
-        },
-    }
 }
 </script>

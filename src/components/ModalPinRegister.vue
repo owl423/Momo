@@ -40,7 +40,7 @@
         <div class="pin-register__button">
             <button type="button"
                     class="pin-register__button__confirm"
-                    @click="pinRegister()">
+                    @click="pinRegister({axios : $http, pin_name, selected, selected_color})">
                 등록
             </button>        
 
@@ -54,15 +54,20 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapActions} from 'vuex';
+import {mapMutations} from 'vuex';
+
 export default {
     name: 'pin-register',
-    props:['lat_lng'],
+    computed: {
+        ...mapGetters([
+            'map_list',
+        ])
+    },
     data(){
         return {
-            map_id: '',
             pin_name: '',
-            map_list: [],
-            // mapping_pk: {},
             pin_color: [
                 '#ff6b6b',
                 '#ffa300', 
@@ -71,81 +76,20 @@ export default {
                 '#767cfe'
             ],
             selected_color: null,
-            is_map_empty : false,
             selected: ''      
         }
     },
-    mounted(){
-        let _this = this;
-        let user_id = sessionStorage.getItem('user_pk');
-        let url = this.$store.state.url + '/api/member/'+user_id;
-        this.$http.get(url)
-        .then(function(res){
-            let map_list = res.data.map_list;
-            //console.log(map_list.length);
-            if(map_list.length === 0){
-                console.log('true');
-                _this.is_map_empty = true;
-            }else{
-                /* 일일히 맵이름과 아이디를 맵핑해주는 함수를 사용하는 방법.
-                  map_list.forEach(function(item){
-                    console.log(item);
-                    let map_name = item.map_name;
-                    _this.mapping_pk[map_name] = item.id;
-                })*/
-                _this.map_list=map_list;
-            }
-        })
-        .catch(function(err){
-            // console.log(err.response);
-        });
-    },
     methods: {
+        ...mapMutations([
+            'setPincheckMenuState'
+        ]),
+        ...mapActions([
+            'pinRegister'
+        ]),
         closeModal(){
             this.$emit('closeModal');
-            this.$store.state.main_state.is_pincheck_menu_open = false;
+            this.setPincheckMenuState(false);
         },
-        pinRegister(){
-            let _this = this;
-            let url = this.$store.state.url + 'api/pin/';
-            let l = this.map_list.length;
-            let lat = this.lat_lng.lat();
-            let lng = this.lat_lng.lng();
-            for( let i = 0; i < l ; i++){
-                if(this.map_list[i].map_name === this.selected){
-                    this.map_id = this.map_list[i].id
-                    break;
-                }
-            }
-            console.log(this.map_id);
-            if( !this.selected || !this.pin_name.trim() || !this.map_id){
-                window.alert('카테고리, 핀이름, 지도를 선택했는지 확인해 주세요');
-                this.$store.commit('mapListUpdate', _this.$http);
-            }else {
-                this.$http.post(url, {
-                    pin:{
-                        pin_name: _this.pin_name,
-                        map: _this.map_id,
-                        pin_label: _this.selected_color,
-                    },
-                    place:{
-                        lat,
-                        lng
-                    }
-                })
-                .then(function(res){
-                    let user_id = sessionStorage.getItem('user_pk');
-                    let url = _this.$store.state.url + '/api/member/'+user_id;  
-                    _this.$http.get(url)
-                    .then(function(res){
-
-                    })
-                })
-                .catch(function(err){
-                    console.log(err.response);
-                })
-            }
-        }
     }
 }
 </script>
