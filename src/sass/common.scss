@@ -1,5 +1,6 @@
 
 @import 'config';
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 
 
 * {
@@ -11,7 +12,6 @@ fieldset  {
     border: none;
     background: #fff;
     border-radius: 20px;
-    padding: 15px;
 }
 
 legend {
@@ -37,24 +37,37 @@ input[type=text] {
     height: 100vh;
 }
 
-
-.container {
-    height: 100%;
-    background-image: -webkit-linear-gradient(bottom, #fff1eb 0%, $color-main 100%);
-    background-image: -moz-linear-gradient(bottom, #fff1eb 0%, $color-main 100%);
-    background-image: -o-linear-gradient(bottom, #fff1eb 0%, $color-main 100%);
-    background-image: linear-gradient(to top, #fff1eb 0%, $color-main 100%);
-
-
-    display: -webkit-flex;
-    display:         flex;
-    -webkit-align-items: center;
-            align-items: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    height: 100vh;
+section h1 {
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
+section p {
+    margin: 10px 0;
+}
+section label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #555
+}
+
+.logo {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+    margin-right: 20px;
+}
+.logo h1 {
+    font-size: 45px;
+    margin-bottom: 5px;
+    display: block;
+    font-family: 'Hanna', serif;
+    text-align: center;
+    letter-spacing: 13px;
+}
 
 .button__panel__close {
     position: absolute;

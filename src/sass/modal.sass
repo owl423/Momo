@@ -21,16 +21,23 @@
     box-sizing: border-box
     box-shadow: 0 6px 6px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)
     transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1)
+    
+    .register__form
+        .register__category-group
+            height: 53px
+            line-height: 53px
 
     button
         border: 0
         cursor: pointer
+        vertical-align: bottom
 
     input[type=text]
         height: 25px
         border: 1px #ddd solid
 
     select
+        width: 100px
         height: 25px
         border: 1px #ddd solid   
 
@@ -57,10 +64,9 @@
     position: absolute
     top: 0
     right: 0
-    border: 0
-    cursor: pointer
     padding: 20px
     background: #fff url(./assets/button_close.png) no-repeat center center
+    text-indent: -9999px
 
 .button__register
     margin: 15px auto 0

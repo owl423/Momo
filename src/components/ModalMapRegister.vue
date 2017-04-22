@@ -1,7 +1,7 @@
 <template>
     <div class="map-register">
         <button class="map-register__button__close
-                       button__close" 
+                       button__modal__close" 
                 @click="$store.state.main_state.is_modal_map_register_open = false">
         </button>
         <!--

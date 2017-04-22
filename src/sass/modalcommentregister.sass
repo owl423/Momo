@@ -6,14 +6,27 @@
         display: block
 
 
-    &__button--close
-        position: absolute
-        top: 0
-        right: 0
-    &__list
-        margin-top: 20px
-
-        &--title
+    &__form
+        &__title
             width: 100px
             display: inline-block
+            float: left
+            clear: left
+            line-height: 25px
             margin-right: 10px
+
+
+        &__select
+            &--float
+                float: left
+                margin-right: 20px
+
+        &__category-group
+            button
+                width: 35px
+                height: 40px
+                border-radius: 50%
+                line-height: 40px
+                margin-right: 10px
+                display: inline-block
+                box-sizing: content-box

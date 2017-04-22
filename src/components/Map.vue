@@ -5,7 +5,6 @@
     <!--<button type="button" class="side_button" @click="is_side_open=true"> > </button>-->
     <transition name="slide" mode="out-in">
         <Sidemenu 
-         v-if="$store.state.main_state.is_side_open"
          ></Sidemenu>
     </transition>
     <Modal v-if="$store.state.main_state.is_modal_pin_register_open">

@@ -22,7 +22,8 @@
             <dd class="pin-register__form__select">
                 <select v-model="selected" 
                         id="map-select" 
-                        class="map-select">
+                        class="map-select"
+                        name="">
                     <option v-for="map of map_list">
                         {{map.map_name}}
                     </option>
@@ -30,10 +31,15 @@
 
                 <!--<p>선택!!!! {{selected}}</p>-->
             </dd>
-            <dt class="pin-register__form__title">카테고리 선택</dt>
+            <dt class="pin-register__form__title">
+                <label for="pin-register_category-group">
+                    카테고리 선택
+                </label>
+            </dt>
             <dd>
                 <div role="group" id="pin-register_category-group" 
-                    class="pin-register__form__category-group">
+                    class="pin-register__form__category-group
+                           register__category-group">
                     <button @click="selected_color=0" :class="['food-btn', {'selected' : selected_color === 0}]">음식</button>
                     <button @click="selected_color=1" :class="['shopping-btn', {'selected' : selected_color === 1}]">쇼핑</button>
                     <button @click="selected_color=2" :class="['stay-btn', {'selected' : selected_color === 2}]">숙박</button>
@@ -41,6 +47,7 @@
                     <button @click="selected_color=4" :class="['etc-btn', {'selected' : selected_color === 4}]">기타</button>
                 </div>
             </dd>
+            <!--
             <dt class="pin-register__form__title">공개 여부</dt>
             <dd class="pin-register__form__select--float">
                 <label for="chk_public">공개</label>
@@ -50,6 +57,7 @@
                 <label for="chk_private">비공개</label>
                 <input name="chk" id="chk_private" type="radio">
             </dd>
+            -->
         </dl>
         <div class="pin-register__button__submit
                     button__submit">
