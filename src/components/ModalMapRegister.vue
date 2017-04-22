@@ -17,9 +17,9 @@
                         <span>{{map.description}}</span>
                     </a>
                 </li>
+                <li class="map-register__list-nomap" v-if="map_list.length === 0">지도를 추가해주세요</li>
             </ul>
         </div>
-        <p v-if="map_list.length === 0">지도를 추가해주세요</p>
     </div>
 </template>
 
