@@ -29,14 +29,28 @@
             border-radius: 5px
 
             li 
+                padding: 7px
+                position: relative
+
+                &.nomap
+                    margin: 20px 0 
+
                 &:first-child
                     margin-top: 0
-                a 
-                    display: block
-                    padding: 7px
 
-                    &:hover
-                        background: $color-main-bright
+                &:hover
+                    background: $color-main-bright
+
+                button
+                    background: url(./assets/button_list_close2.png) no-repeat center center
+                    position: absolute
+                    top: 50% 
+                    margin-top: -10px
+                    right: 2px
+                    background-size: 100%
+                    width: 20px
+                    height: 20px
+                    text-indent: -9999px
 
         &__map-name
             width: 110px

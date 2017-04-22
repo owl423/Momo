@@ -35,9 +35,20 @@
                     accept="image/*">
         </p>
 
-        <ul class="image-register__droplist">
-            <li></li>
-        </ul>
+
+        <button type="button"
+                class="button__register"
+                @click="imageRegister">
+            등록
+        </button> 
+        <!--       
+        <button type="button"
+                class="image-register__button__cancel"
+                @click="$emit('closeModal')">
+            취소
+        </button>
+        -->
+
     </div>
 </template>
 
@@ -71,6 +82,9 @@ export default {
             reader.onload=function(){
                 _this.file_url = reader.result;
             }
+        }, 
+        closeModal(){
+            this.$emit('closeModal');
         }
     }
 
