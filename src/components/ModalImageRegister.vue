@@ -1,23 +1,43 @@
 <template>
     <div class="image-register">
-        <h2 class="image-register--heading">사진을 추가해 주세요</h2>
-        <p class="image-register--param"> 파일을 드래그 하거나 선택할 수 있습니다.</p>
-        <div @dragover.stop.prevent="dragFile" @drop.stop.prevent="dropFile" class="image-register--drop--zone">
-            <span 
-            v-if="!file_url" 
-            class="image-register--drop--zone--inner">+</span>
-            <div class="image-register--image" v-else-if="file_url">
-                <img
-                class="image-register--image--inner" 
-                :src="file_url" alt="">
-            </div>
-            <p class="image-register--image--desc">{{file_name}}</p>
-            <input @change="selectedFile" type="file" name="filename" accept="image/*">
+        <button class="image-register__button__close
+                       button__modal__close" 
+                @click="$emit('closeModal')">
+                닫기버튼
+        </button>
+
+        <div class="image-register__heading">
+            <strong class="image-register__heading__title">
+                사진을 추가해 주세요
+            </strong>
+            <p class="image-register__heading__message">
+                파일을 드래그 하거나 선택할 수 있습니다.
+            </p>
         </div>
-        <ul class="image-register--drop--list">
+
+        <div @dragover.stop.prevent="dragFile" 
+             @drop.stop.prevent="dropFile" 
+             class="image-register__dropzone">
+            <strong v-if="!file_url" 
+                  class="image-register__dropzone__message">
+                  Drag and Drop Here
+            </strong>
+            <div class="image-register__dropzone__image"
+                 v-else-if="file_url">
+                <img :src="file_url" alt="">
+            </div>
+        </div>
+
+
+        <p class="image-register__desc">
+            <input @change="selectedFile" 
+                    type="file" name="filename" 
+                    accept="image/*">
+        </p>
+
+        <ul class="image-register__droplist">
             <li></li>
         </ul>
-        <button class="image-register--button--close" @click="$emit('closeModal')">X</button>
     </div>
 </template>
 

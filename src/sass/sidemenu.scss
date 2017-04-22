@@ -1,27 +1,20 @@
 @import 'config';
 
 .sidemenu-wrap {
+    width: $side-menu-size;
     position: absolute;
     top: 0;
-    width: $side-menu-size;
     height: 100%;
     padding-right: 30px;
     transition: all 0.3s ease-in-out; 
     z-index: 999;
 }
 .sidemenu {
-    background: #fff; 
-    width: 100%;     
-    height: 100%;
-    position:relative;
+    width: $side-menu-size - 25px;
+    height: 100vh;
+    background: #fff;
     box-shadow: 2px 0px 20px 2px #aaa;
-}
-.sidemenu__button {
-    position: absolute;
-    right: -30px;
-    width: 30px;
-    height: 60px;
-    cursor: pointer;
+    overflow-y: scroll;
 }
 .pin-info__header {
     position: relative;
@@ -53,6 +46,7 @@
     padding-left: 10px;
     background: #fff;
     letter-spacing: 5px;
+    cursor: pointer;
 }
 .pin-info__header--title {
     color: #fff;
@@ -75,7 +69,6 @@
     font-size: 14px; 
     display: inline-block;
 }
-
 
 .pin-info__view {
     padding: 40px;
@@ -113,6 +106,8 @@
     position: absolute;
     top: 0;
     right: 0;
+    color: darken($color-main, 10%);
+    font-weight: 600;
 }
 
 .pin-info__view--review__photo--view {
@@ -127,6 +122,13 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 10px;
+    background:  $color-main;
+    padding: 5px 11px;
+    border-radius: 5px;
+    color: #fff;
 }
 .pin-info__view--review--comment--list {
     height: 100px;
@@ -134,5 +136,11 @@
 }
 
 .pin-info__view--review--comment--list li {
+    font-size: 12px;
     margin-bottom: 6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal !important;
+    display: block;
 }

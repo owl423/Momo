@@ -1,19 +1,42 @@
 <template>
     <div class="container">
-        <section class="signup">
-            <h1>Sign Up</h1>
-            <div class="signup--form">
+        <bgVideo></bgVideo>
+        <section class="signup member_wrap">
+            <div class="logo">
+                <h1>MoMo</h1>
+                <p class="logo_desc">Map Of My Oasis - </p>
+            </div>
+            
+            <div class="signup__form member_form">
+                <h1>Sign Up</h1>
                 <form action="">
-                    <legend>Sign Up</legend><!-- css 숨김(position) -->
+                    <legend>Sign Up</legend>
                     <fieldset>
-                        <p><label for="">아이디</label> <input v-model="username" type="text" required></p>
+                        <p><label for="signup_id">I  D</label> 
+                            <input v-model="username" 
+                                   id="signup_id"
+                                   type="text" required>
+                        </p>
                         <p>{{error_msg_id}}</p>
-                        <p><label for="">이메일</label> <input v-model="email" type="email" required></p>
+                        <p><label for="signup_email">Email</label>
+                            <input v-model="email" 
+                                   id="signup_email"
+                                   type="email" required>
+                        </p>
                         <p>{{error_msg_email}}</p>
-                        <p><label for="">비밀번호</label> <input v-model="password" type="password" required></p>
+                        <p><label for="signup_password">Password</label>
+                            <input v-model="password"
+                                   id="signup_password"
+                                   type="password" required>
+                        </p>
                     </fieldset>
-                    <button type="button" @click="signUpSubmit"> 동의하고 회원가입 </button>
-                    <router-link to="/" tag="button"> 취소</router-link>
+                    <button type="button" 
+                            @click="signUpSubmit">
+                        동의하고 회원가입
+                    </button>
+                    <router-link to="/" tag="button">
+                        취소
+                    </router-link>
                 </form>
             </div>
         </section>
@@ -21,8 +44,14 @@
 </template>
 
 <script>
+
+import bgVideo from './bgVideo.vue';
+
 export default {
     name: 'SignUp',
+    components: {
+        bgVideo
+    },
     data(){
         return {
             username : '',
