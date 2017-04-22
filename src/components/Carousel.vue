@@ -11,7 +11,7 @@
       </div>
       <Indicator :slide_item="slide_item" :slide_index="slide_index" @indicatorIndex="setSlideIndex">
       </Indicator>
-      <button class="carousel--close--btn" @click="$emit('closeCarousel')"> X </button>
+      <button class="carousel__button__close button__modal__close" @click="$emit('closeCarousel')"> X </button>
     </div>
 </template>
 
@@ -93,7 +93,7 @@ body
   top: 0
   z-index: 99999
   background: #181818
-  &--close--btn
+  &__button__modal__close
     position: absolute
     right: 0
     top: 0
