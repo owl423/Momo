@@ -1,26 +1,64 @@
 <template>
     <div class="container">
-        <section class="signin">
-            <h1>signin</h1>
-            <div class="signin--form">
+        <bgVideo></bgVideo>
+        <section class="signin member_wrap">
+            <div class="logo">
+                <h1>MoMo</h1>
+                <p class="logo_desc">Map Of My Oasis - </p>
+            </div>
+
+            <div class="signin__form member_form">
+                <h1>Sign In</h1>
                 <form action="">
                     <legend>Sign in</legend>
                     <fieldset>
-                        <p><label for="signin_id">아이디</label><input id="signin_id" type="email" placeholder v-model="input_id" required></p>
-                        <p><label for="signin_password">비밀번호</label><input id="signin_password" type="password" v-model="input_pw" required></p>
+                        <p><label for="signin_id">I  D</label>
+                            <input id="signin_id" 
+                                    type="text" 
+                                    placeholder="Id을 입력해주세요"
+                                    v-model="input_id" required>
+                        </p>
+                        <p><label for="signin_password">Password</label>
+                            <input id="signin_password" 
+                                    type="password" 
+                                    placeholder="Password를 입력해주세요"
+                                    v-model="input_pw" required>
+                        </p>
+                        <!--
+                        <p><label for="signin_email">Email</label>
+                            <input id="signin_email" 
+                                    type="email" 
+                                    placeholder="Email을 입력해주세요"
+                                    v-model="input_email" required>
+                        </p>
+                        -->
                     </fieldset>
-                    <button class="signin__btn--signin" type="button" @click="signInCheck"> 로그인 </button>
-                    <router-link to="/signup" tag="button"> 회원가입 </router-link>
+                    <button type="button" 
+                            @click="signInCheck"> 
+                        Sign In
+                    </button>
+                    <router-link to="/signup" tag="button">
+                        Sign Up 
+                    </router-link>
                 </form>
+                <button class="signin__facebook"
+                        @click="facebookLogin">
+                    Facebook Sign In
+                </button>
             </div>
-            <button type="button" @click="facebookLogin">페이스북 로그인 버튼</button>
         </section>
     </div>
 </template>
 
 <script>
+
+import bgVideo from './bgVideo.vue';
+
 export default {
     name: 'SignIn',
+    components: {
+        bgVideo
+    },
     data(){
             return{
                 input_id: null,

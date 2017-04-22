@@ -1,7 +1,9 @@
 <template>
     <div class="sidemenu-wrap">
         <div class="sidemenu">
-            <button class="sidemenu__button" @click="setSideState(false)"> < </button>
+            <button class="sidemenu__button button__panel__close" 
+                    @click="setSideState(false)">
+            </button>
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">

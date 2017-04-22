@@ -1,8 +1,9 @@
 <template>
     <div class="tabmenu__view tabmenu__view--map">
-        <button 
-        class="tabmenu__view__button__edit" 
-        @click="setModalMapRegisterState(true)">Edit</button>
+        <button class="tabmenu__view__button__edit" 
+                @click="setModalMapRegisterState(true)">
+            Edit
+        </button>
         
         <dl v-for="map in map_list">
             <dt><input id="tabmenu__view--chk1" type="checkbox" checked>

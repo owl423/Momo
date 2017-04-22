@@ -1,7 +1,7 @@
 <template>
     <div class="map-register">
         <button class="map-register__button__close
-                       button__close" 
+                       button__modal__close" 
                 @click="setModalMapRegisterState(false)">
         </button>
         <ModalMapRegisterForm 

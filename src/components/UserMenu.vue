@@ -3,7 +3,7 @@
         <div class="usermenu">
             <div class="usermenu__header">
                 <h1>나의 장소</h1>
-                <button class="usermenu__button" @click="setUserMenuState(false)"> < </button>
+                <button class="usermenu__button button__panel__close" @click="setUserMenuState(false)"> < </button>
             </div>
             <div class="usermenu__view">
                 <Tabmenu></Tabmenu>
