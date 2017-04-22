@@ -69,7 +69,7 @@
 
             <button type="button"
                     class="pin-register__button__cancel"
-                    @click="$emit('closeModal')">
+                    @click="closeModal">
                 취소
             </button>
         </div>
@@ -86,6 +86,7 @@ export default {
     computed: {
         ...mapGetters([
             'map_list',
+            'current_marker'
         ])
     },
     data(){
@@ -104,14 +105,17 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setPincheckMenuState'
+            'setPincheckMenuState',
+            'removeCurrentMarker'
         ]),
         ...mapActions([
             'pinRegister'
         ]),
         closeModal(){
-            this.$emit('closeModal');
             this.setPincheckMenuState(false);
+            this.removeCurrentMarker(this.current_marker);
+            this.$emit('closeModal');
+            
         },
     }
 }
