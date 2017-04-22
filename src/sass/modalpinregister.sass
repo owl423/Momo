@@ -1,31 +1,31 @@
 .pin-register
-    &__name
-        font-size: 20px
-        font-weight: bold
-        margin-bottom: 20px
-        display: block
 
+    &__form
 
-    &__button--close
-        position: absolute
-        top: 0
-        right: 0
-    &__list
-        margin-top: 10px
-
-        label
+        &__title
             width: 100px
             display: inline-block
+            float: left
+            clear: left
+            line-height: 25px
             margin-right: 10px
 
-    .category-group
+        &__select
+            &--float
+                float: left
+                margin-right: 20px
+
+        &__category-group
             button
-                border: 0
-                border-radius: 100%
-                width: 50px
-                height: 50px
-                margin: 10px
-                outline: none
+                width: 35px
+                height: 40px
+                border-radius: 50%
+                line-height: 40px
+                margin-right: 10px
+                display: inline-block
+                box-sizing: content-box
+
+
 
 .food-btn
     background: #ff6b6b
@@ -46,7 +46,8 @@
     background: #767cfe
     
 
-.select
+.selected
     position: relative
-    top: -10px
-    border: 3px solid #333 !important
+    top: 3px
+    border: 3px solid #ccc !important
+    font-weight: bold

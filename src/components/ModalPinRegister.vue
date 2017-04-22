@@ -1,54 +1,96 @@
 <template>
-    <div class='pin-register'>
-        <strong class="pin-register__name">{{ this.place_name }}</strong>
-        <button class="pin-register__button--close" @click="$emit('closeModal')">X</button>
+    <div class="pin-register">
+        <button class="pin-register__button__close
+                       button__modal__close" 
+                @click="closeModal">
+        </button>
+        <dl class="pin-register__form register__form">
+            <dt class="pin-register__form__title">
+                <label for="pin-register_name">
+                    핀이름
+                </label>
+            </dt>
+            <dd>
+                <input v-model="pin_name"
+                        id="pin-register_name"
+                        class="pin-register__name"
+                        type="text">
+            </dd>
+            <dt class="pin-register__form__title">
+                <label for="map-select">지도선택</label>
+            </dt>
+            <dd class="pin-register__form__select">
+                <select v-model="selected" 
+                        id="map-select" 
+                        class="map-select"
+                        name="">
+                    <option v-for="map of map_list">
+                        {{map.map_name}}
+                    </option>
+                </select>
 
-        <p class="pin-register__list pin-register__select--map">
-            <label for="map-select">지도선택</label>
-            <select id="map-select" class="map-select">
-                <option v-for="map of map_list">{{map}}</option>
-            </select>
-        </p>
-        <p class="pin-register__list pin-register__select--category">
-            <label for="category-group">
-                카테고리 선택
-            </label>
-            <div role="group" id="category-group" class="category-group">
-                <button @click="selected_color=0" :class="['food-btn', {'select' : selected_color === 0}]">음식</button>
-                <button @click="selected_color=1" :class="['shopping-btn', {'select' : selected_color === 1}]">쇼핑</button>
-                <button @click="selected_color=2" :class="['stay-btn', {'select' : selected_color === 2}]">숙박</button>
-                <button @click="selected_color=3" :class="['cafe-btn', {'select' : selected_color === 3}]">카페</button>
-                <button @click="selected_color=4" :class="['etc-btn', {'select' : selected_color === 4}]">기타</button>
-            </div>
-        </p>
-        <p>
-            <label for="">공개 여부</label>
+                <!--<p>선택!!!! {{selected}}</p>-->
+            </dd>
+            <dt class="pin-register__form__title">
+                <label for="pin-register_category-group">
+                    카테고리 선택
+                </label>
+            </dt>
+            <dd>
+                <div role="group" id="pin-register_category-group" 
+                    class="pin-register__form__category-group
+                           register__category-group">
+                    <button @click="selected_color=0" :class="['food-btn', {'selected' : selected_color === 0}]">음식</button>
+                    <button @click="selected_color=1" :class="['shopping-btn', {'selected' : selected_color === 1}]">쇼핑</button>
+                    <button @click="selected_color=2" :class="['stay-btn', {'selected' : selected_color === 2}]">숙박</button>
+                    <button @click="selected_color=3" :class="['cafe-btn', {'selected' : selected_color === 3}]">카페</button>
+                    <button @click="selected_color=4" :class="['etc-btn', {'selected' : selected_color === 4}]">기타</button>
+                </div>
+            </dd>
+            <!--
+            <dt class="pin-register__form__title">공개 여부</dt>
+            <dd class="pin-register__form__select--float">
+                <label for="chk_public">공개</label>
+                <input name="chk" id="chk_public" type="radio">
+            </dd>
+            <dd>
+                <label for="chk_private">비공개</label>
+                <input name="chk" id="chk_private" type="radio">
+            </dd>
+            -->
+        </dl>
+        <div class="pin-register__button__submit
+                    button__submit">
+            <button type="button"
+                    class="pin-register__button__confirm"
+                    @click="pinRegister({axios : $http, pin_name, selected, selected_color})">
+                등록
+            </button>        
 
-            <span>
-                <label for="chk_open">공개</label>
-                <input id="chk_open" type="checkbox">
-            </span>
-
-            <span>
-                <label for="chk_close">비공개</label>
-                <input id="chk_close" type="checkbox">
-            </span>
-        </p>
-        <p>
-            <button type="button" class="ok_btn">등록</button>
-            <button type="button" class="cancel-btn" @click="$emit('closeModal')">취소</button>
-        </p>
+            <button type="button"
+                    class="pin-register__button__cancel"
+                    @click="$emit('closeModal')">
+                취소
+            </button>
+        </div>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapActions} from 'vuex';
+import {mapMutations} from 'vuex';
+
 export default {
     name: 'pin-register',
+    computed: {
+        ...mapGetters([
+            'map_list',
+        ])
+    },
     data(){
         return {
-            place_name: '수수커피',
-            my_place_name: null,
-            map_list: ['맛집', '여행', '쇼핑', '기타'],
+            pin_name: '',
             pin_color: [
                 '#ff6b6b',
                 '#ffa300', 
@@ -56,9 +98,21 @@ export default {
                 '#bc7fff',
                 '#767cfe'
             ],
-            selected_color: null
+            selected_color: null,
+            selected: ''      
         }
-        
+    },
+    methods: {
+        ...mapMutations([
+            'setPincheckMenuState'
+        ]),
+        ...mapActions([
+            'pinRegister'
+        ]),
+        closeModal(){
+            this.$emit('closeModal');
+            this.setPincheckMenuState(false);
+        },
     }
 }
 </script>

@@ -1,29 +1,19 @@
 @import 'config';
 
 .usermenu-wrap {
+    width: $side-menu-size;
     position: absolute;
     top: 0;
-    width: $side-menu-size;
-    height: 100%;
+    height: 100vh;
     transition: all 0.3s ease-in-out; 
     z-index: 999;
-    box-sizing: border-box;
 }
 .usermenu {
-    width: 100%;     
-    height: 100%;
-    position:relative;
+    width: $side-menu-size - 25px;
+    height: 100vh;
+    background: #ddd;
     box-shadow: 2px 0px 20px 2px #aaa;
-    box-sizing: border-box;
-    background: #eee;
-}
-.usermenu__button {
-    position: absolute;
-    top: 0;
-    right: -30px;
-    width: 30px;
-    height: 60px;
-    cursor: pointer;
+    overflow-y: scroll;
 }
 .usermenu__header {
     background: $color-main; 
@@ -36,8 +26,6 @@
 
 .usermenu__view {
     padding: $menu-padding; 
-    background: #ddd;
-    height: 100%;
 }
 
 .usermenu__view h2 {
@@ -46,8 +34,6 @@
 }
 .tabmenu-wrap {
     border-bottom: 1px #aaa solid;
-}
-.tabmenu__navi {
 }
 .tabmenu__navi ul {
     overflow: hidden;
@@ -60,10 +46,10 @@
     border-top: 1px #aaa solid;
     border-radius: 10px 10px 0 0;
     box-sizing: border-box; 
-    background: #0075bf;
+    background: $color-main;
 }
 
- .tabmenu__navi li:first-child {
+.tabmenu__navi li:first-child {
     border-left: 1px #aaa solid;
 }
 
@@ -85,13 +71,53 @@
 }
 
 .tabmenu__view {
-    padding: 20px;
+    padding: 30px;
     border-left: 1px #aaa solid;
     border-right: 1px #aaa solid;
     background: #fff;
+    position: relative;
 }
 
-.tabmenu__view--map li {
-    margin-top: 10px;
+.tabmenu__view dl {
+    margin-top: 25px;
+}
+.tabmenu__view dl:first-child {
+    margin-top: 0;
+}
+
+.tabmenu__view dl dd {
     font-size: 12px;
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+.tabmenu__view dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.tabmenu__view__button__edit {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    right: 20px;
+}
+
+.tabmenu__view--image ul {
+    overflow: hidden
+}
+.tabmenu__view--image li {
+    width: 48%;
+    float: left;
+}
+.tabmenu__view--image li:nth-child(odd){
+    margin-right: 4%;
+}
+
+.tabmenu__view--image li img {
+    width: 100%;
+}
+
+.tabmenu__view--image li:first-child {
 }

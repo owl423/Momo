@@ -1,0 +1,74 @@
+.map-register
+    &__name
+        font-size: 20px
+        font-weight: bold
+        margin-bottom: 20px
+        display: block
+
+
+    &__button__add
+        position: absolute
+        top: 45px
+        right: 30px
+        padding: 4px 7px
+
+    &__list
+        margin-top: 20px
+
+        &__title
+            color: darken($color-main, 20%)
+            font-size: 14px
+            font-weight: bold
+            margin-bottom: 7px
+            display: block  
+
+        ul        
+            padding: 16px
+            font-size: 12px
+            border: 1px $color-main solid
+            border-radius: 5px
+
+            li 
+                &:first-child
+                    margin-top: 0
+                a 
+                    display: block
+                    padding: 7px
+
+                    &:hover
+                        background: $color-main-bright
+
+        &__map-name
+            width: 110px
+            display: inline-block
+            float: left
+            font-size: 13px
+            font-weight: bold
+
+        &__select--float
+            float: left
+            margin-right: 22px
+
+
+        
+    &__add-group
+        margin-top: 20px
+        dl
+            padding: 20px
+            border-radius: 5px
+            background: #eee
+            overflow: hidden
+
+        &__name
+            width: 150px
+        &__desc
+            width: 300px
+
+        &__title
+            float: left
+            margin-right: 10px
+            clear: left
+            width: 100px
+            line-height: 25px
+        dd
+            float: left

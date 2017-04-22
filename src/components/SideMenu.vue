@@ -1,7 +1,9 @@
 <template>
     <div class="sidemenu-wrap">
         <div class="sidemenu">
-            <button class="sidemenu__button" @click="$emit('sideClose')"> < </button>
+            <button class="sidemenu__button button__panel__close" 
+                    @click="setSideState(false)">
+            </button>
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">
@@ -12,7 +14,7 @@
                     </p>
                     <button
                     class="post-register"
-                    @click="$emit('pinRegister')"> Pin </button>
+                    @click="setModalPinRegisterState(true)"> Pin </button>
                 </div>
 
                 <div class="pin-info__view">
@@ -23,16 +25,16 @@
                     <div class="pin-info__view--review">
                         <div class="pin-info__view--review--photo">
                             <strong>사진</strong>
-                            <button type="button">사진관리</button>
-                            
+                            <button type="button" @click="setModalImageRegisterState(true)">사진관리</button>
                             <a class="pin-info__view--review__photo--view"
-                                title="전체 사진 슬라이드로 보기">
+                            title="전체 사진 슬라이드로 보기" 
+                            @click="setCarouselState(true)">
                                 대표사진
                             </a>
                         </div>
                         <div class="pin-info__view--review__comment">
                             <strong>코멘트</strong>
-                            <button type="button">코멘트 관리</button>
+                            <button type="button" @click="setModalCommentRegisterState(true)">코멘트 관리</button>
                             <a class="pin-info__view--review__comment--view" href="">
                                 전체 코멘트보기
                             </a>                                             
@@ -52,16 +54,23 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
 export default {
   name: 'side-menu',
-  props: ['is_modal'],
-  data (){
-      return {
-
-      }
+  computed: {
+      ...mapGetters([
+          'is_side_state'
+      ])
   },
   methods: {
-
-  }
+    ...mapMutations([
+        'setSideState',
+        'setModalPinRegisterState',
+        'setModalImageRegisterState',
+        'setModalCommentRegisterState',
+        'setCarouselState',
+    ])
+  },
 }
 </script>

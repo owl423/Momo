@@ -11,6 +11,7 @@
       </div>
       <Indicator :slide_item="slide_item" :slide_index="slide_index" @indicatorIndex="setSlideIndex">
       </Indicator>
+      <button class="carousel--close--btn" @click="$emit('closeCarousel')"> X </button>
     </div>
 </template>
 
@@ -19,7 +20,7 @@ import Indicator from './Carousel-Indicator.vue';
 import ButtonSet from './Carousel-button.vue';
 import Slide from './Carousel-slide.vue';
 export default {
-  name: 'app',
+  name: 'carousel',
   data () {
     return {
       slide_index: 0,
@@ -85,8 +86,17 @@ body
   margin: 0
   padding: 0 
 .carousel
+  width: 100%
+  height: 100vh
   // overflow: hidden
+  position: absolute
+  top: 0
+  z-index: 99999
   background: #181818
+  &--close--btn
+    position: absolute
+    right: 0
+    top: 0
 .carousel-inner
   position: relative
   width: 100%

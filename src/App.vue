@@ -14,10 +14,6 @@ export default {
     return {
     }
   },
-  components : {
-  },
-  methods: {
-  }
 }
 </script>
 

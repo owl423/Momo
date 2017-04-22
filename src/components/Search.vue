@@ -1,44 +1,87 @@
 <template>
     <div>
         <div class="search-bar">
-            <button class="search-bar__button--user" 
-                    type="button" @click="is_menu_open=true" 
-                    aria-label="사용자 메뉴">
-                유저메뉴
-            </button>
-            <p class="input-box">
-                <input type="text" v-model="search_val"> 
-                <button class="search-bar__button--search" type="button" aria-label="검색">검색</button>
+            <span class="search-bar__button search-bar__input--text">
+                <button class="button--user" 
+                        type="button" @click="setUserMenuState(true)" 
+                        aria-label="사용자 메뉴">
+                    유저메뉴
+                </button>
+            </span>
+            <p class="search-bar__input--text">
+                <input type="text" placeholder="지도 검색"
+                        v-model="search_val" @input="searchPlace"> 
             </p>
+            <span class="search-bar__button search-bar__button--search">
+                <button class="button--search"
+                        type="button"
+                        aria-label="검색">
+                    검색
+                </button>
+            </span>
             <ul>
-                <li><a href="">수수커피</a></li>
-                <li><a href="">에머이</a></li>
-                <li><a href="">생어거스틴</a></li>
+                <li v-for="search of search_list">
+                    <a href="">
+                        <span class="name">{{search.name}}</span> 
+                        <span class="address">{{search.address}}</span> 
+                    </a>
+                </li>
             </ul>
         </div>
         <transition name="slide" mode="out-in">
-            <Usermenu v-if="is_menu_open" @menuClose="is_menu_open=false"></Usermenu>
+            <Usermenu v-if="is_user_menu_state"></Usermenu>
         </transition>
     </div>
 </template>
 
 <script>
-    import Usermenu from './UserMenu.vue';
+import Usermenu from './UserMenu.vue';
+import {mapMutations} from 'vuex';
+import {mapGetters} from 'vuex';
 
-    export default {
-        name: 'search',
-        components: {
-            Usermenu
-        },
-        data () {
-            return {
-                is_menu_open: false,
-                search_val: null
-            }
-        },
-        updated(){
-            console.log('update');
+export default {
+    name: 'Search',
+    components: {
+        Usermenu
+    },
+    data () {
+        return {
+            search_val: '',
+            search_list: []
         }
-            
+    },
+    updated(){
+    },
+    computed : {
+        ...mapGetters([
+            'is_user_menu_state'
+        ]),
+    },
+    methods : {
+        ...mapMutations([
+            'setUserMenuState',
+        ]),
+        searchPlace(){
+            let _this = this;
+            let url = this.$store.state.url + '/api/search/place/';
+            if(_this.search_val !== ''){
+                let keyword = '?keyword='+_this.search_val;
+                url += keyword;
+
+                // axios에서 헤더 인증정보 토큰 설정
+                let user_token = window.sessionStorage.getItem('user_token');
+                this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
+                this.$http.get(url)
+                .then(function(res){
+                    console.log(res);
+                    _this.search_list = res.data;
+                })
+                .catch(function(err){
+                    console.log(err.response);
+                });
+            }
+        }
     }
+        
+}
 </script>
