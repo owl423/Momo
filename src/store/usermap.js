@@ -8,7 +8,7 @@ export default {
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
     },
-    getters: {
+    getters: { // data 가져오는 함수들 정의 한 곳
       map_list(state){
         return state.map_list;
       },
@@ -22,7 +22,7 @@ export default {
         return state.lat_lng;
       }
     },
-    mutations: {
+    mutations: { // 지역(모듈 내) state를 관리하는 함수 정의
       setMap(state, map){
         state.map = map;
       },
@@ -84,8 +84,9 @@ export default {
       // 통신해서 받은 map list의 pin을 찍어줌
       
     },
-    actions: {
-      mapPinMark({state, rootState}){
+    actions: { // 전역 state 접근 가능한 함수 정의 (비동기 가능)
+      mapPinMark({state, rootState, commit}){
+        commit('removeMarkers');
         state.map_list.forEach(function(map){
           map.pin_list.forEach(function(pin){
             let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
@@ -183,6 +184,15 @@ export default {
             console.log(err.response);
           });
         }
+      },
+      mapRemove({state, rootState, dispatch}, payload){
+        let url = `${rootState.url}/api/map/${state.map_list[payload.map_index].pk}`;
+        payload.axios.delete(url)
+        .then(function(res){
+          console.log(res);
+          dispatch('mapListUpdateAction', payload.axios);
+        })
+
       }
     }
 }
