@@ -9,9 +9,8 @@
             
             <div class="signup__form member_form">
                 <h1>Sign Up</h1>
-                <form action="">
-                    <legend>Sign Up</legend>
-                    <fieldset>
+                <div class="form">
+                    <div class="fieldset">
                         <p><label for="signup_id">I  D</label> 
                             <input v-model="username" 
                                    id="signup_id"
@@ -42,8 +41,8 @@
                                     to="/" tag="button">
                             취소
                         </router-link>
-                    </fieldset>
-                </form>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
