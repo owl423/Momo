@@ -10,20 +10,22 @@
             </span>
             <p class="search-bar__input--text">
                 <input type="text" placeholder="지도 검색"
-                        v-model="search_val" @input="searchPlace"> 
+                        v-model="search_val" @input="" @keydown.enter="search"> 
             </p>
             <span class="search-bar__button search-bar__button--search">
                 <button class="button--search"
                         type="button"
-                        aria-label="검색">
+                        aria-label="검색"
+                        @click=""
+                        >
                     검색
                 </button>
             </span>
             <ul>
-                <li v-for="search of search_list">
-                    <a href="">
-                        <span class="name">{{search.name}}</span> 
-                        <span class="address">{{search.address}}</span> 
+                <li v-for="(place, index) of search_result" v-if="index < 10">
+                    <a href="" @click.prevent="selectedPlace({place})">
+                        <span class="name">{{place.name}}</span> 
+                        <span class="address">{{place.address}}</span> 
                     </a>
                 </li>
             </ul>
@@ -36,8 +38,7 @@
 
 <script>
 import Usermenu from './UserMenu.vue';
-import {mapMutations} from 'vuex';
-import {mapGetters} from 'vuex';
+import {mapMutations, mapGetters, mapActions} from 'vuex';
 
 export default {
     name: 'Search',
@@ -47,46 +48,31 @@ export default {
     data () {
         return {
             search_val: '',
-            search_list: []
         }
-    },
-    updated(){
     },
     computed : {
         ...mapGetters([
             'is_user_menu_state',
-            'is_side_menu_state'
+            'is_side_menu_state',
+            'search_result',
         ]),
     },
     methods : {
         ...mapMutations([
             'setUserMenuState',
-            'setSideState'
+            'setSideState',
+        ]),
+        ...mapActions([
+            'searchPlaceAction',
+            'selectedPlace'
         ]),
         userMemuClick(){
             this.setSideState(false);
             this.setUserMenuState(true);
         },
-        searchPlace(){
-            let _this = this;
-            let url = this.$store.state.url + '/api/search/place/';
-            if(_this.search_val !== ''){
-                let keyword = '?keyword='+_this.search_val;
-                url += keyword;
-
-                // axios에서 헤더 인증정보 토큰 설정
-                let user_token = window.sessionStorage.getItem('user_token');
-                this.$http.defaults.headers.common['Authorization'] = "Token "+ user_token;
-                this.$http.get(url)
-                .then(function(res){
-                    console.log(res);
-                    _this.search_list = res.data;
-                })
-                .catch(function(err){
-                    console.log(err.response);
-                });
-            }
-        }
+        search(){
+            this.searchPlaceAction({search_val: this.search_val, axios: this.$http});
+        },
     }
         
 }

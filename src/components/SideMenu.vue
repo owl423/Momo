@@ -7,10 +7,10 @@
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">
-                    <h1 class="pin-info__header--title">수수커피</h1>
+                    <h1 class="pin-info__header--title">{{current_pin.pin_name}}</h1>
                     <p>
-                        <span class="pin-info__header--category">카페</span>
-                        <span class="pin-info__header--nick">'내가 젤 조아하는 티라미슈 맛집'</span>
+                        <span class="pin-info__header--category">{{label_name}}</span>
+                        <!--<span class="pin-info__header--nick">'내가 젤 조아하는 티라미슈 맛집'</span>-->
                     </p>
                     <button
                     class="post-register"
@@ -19,8 +19,8 @@
 
                 <div class="pin-info__view">
                     <ul class="pin-info__view--core">
-                        <li>주소 : 서울시 강남구 신사동 블라블라~</li>
-                        <li>번호 : 010-2345-1123 </li>
+                        <li>address : {{current_pin.place.address}}</li>
+                        <li>created : {{current_pin.created_date}}</li>
                     </ul>
                     <div class="pin-info__view--review">
                         <div class="pin-info__view--review--photo">
@@ -58,9 +58,35 @@ import {mapGetters} from 'vuex';
 import {mapMutations} from 'vuex';
 export default {
   name: 'side-menu',
+  data(){
+      return {
+          label_name : ''
+      }
+  },
+  mounted(){
+    console.log(this.current_pin.pin_label)
+    switch(+this.current_pin.pin_label){
+        case 0: 
+            this.label_name = "장소";
+        break;
+        case 1: 
+            this.label_name = "음식";
+        break;
+        case 2: 
+            this.label_name = "카페";
+        break;
+        case 3: 
+            this.label_name = "쇼핑";
+        break;
+        case 4:
+            this.label_name = "기타";
+        break;
+      }
+  },
   computed: {
       ...mapGetters([
-          'is_side_state'
+          'is_side_state',
+          'current_pin'
       ])
   },
   methods: {
