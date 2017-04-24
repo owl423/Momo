@@ -120,7 +120,6 @@
 
 .tabmenu__view--image li img {
     width: 100%;
-}
-
-.tabmenu__view--image li:first-child {
+    height: 100px;
+    object-fit: cover;
 }

@@ -1,8 +1,8 @@
 <template>
     <div class="tabmenu__view tabmenu__view--image">
         <!--<button class="tabmenu__view__button__edit">Edit</button>-->
-        <ul>
-            <li v-for="image in all_images">
+        <ul class="grid">
+            <li class="grid-item" v-for="image in all_images">
                 <a href="" @click.prevent = "setCarouselState(true)">
                     <img :src="image" alt="">
                 </a>
@@ -38,4 +38,18 @@ export default {
         this.setAllImages([]);
     }
 }    
+
+    var elem = document.querySelector('.grid');
+    var msnry = new Masonry( elem, {
+    // options
+    itemSelector: '.grid-item',
+    columnWidth: 200
+    });
+
+    // element argument can be a selector string
+    //   for an individual element
+    var msnry = new Masonry( '.grid', {
+    // options
+    });
+
 </script>
