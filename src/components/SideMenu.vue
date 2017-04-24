@@ -76,24 +76,10 @@ export default {
       }
   },
   mounted(){
-    console.log(this.current_pin.pin_label)
-    switch(+this.current_pin.pin_label){
-        case 0: 
-            this.label_name = "장소";
-        break;
-        case 1: 
-            this.label_name = "음식";
-        break;
-        case 2: 
-            this.label_name = "카페";
-        break;
-        case 3: 
-            this.label_name = "쇼핑";
-        break;
-        case 4:
-            this.label_name = "기타";
-        break;
-      }
+    this.labelNameUpdate(+this.current_pin.pin_label);    
+  },
+  updated(){
+    this.labelNameUpdate(+this.current_pin.pin_label);
   },
   computed: {
       ...mapGetters([
@@ -108,7 +94,26 @@ export default {
         'setModalImageRegisterState',
         'setModalCommentRegisterState',
         'setCarouselState',
-    ])
+    ]),
+    labelNameUpdate(pin_label){
+        switch(pin_label){
+            case 0: 
+                this.label_name = "장소";
+            break;
+            case 1: 
+                this.label_name = "음식";
+            break;
+            case 2: 
+                this.label_name = "카페";
+            break;
+            case 3: 
+                this.label_name = "쇼핑";
+            break;
+            case 4:
+                this.label_name = "기타";
+            break;
+      }
+    }
   },
 }
 </script>

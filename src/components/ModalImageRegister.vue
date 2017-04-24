@@ -15,7 +15,7 @@
             </p>
         </div>
 
-        <div @dragover.stop.prevent="dragFile" 
+        <div @dragover.stop.prevent="" 
              @drop.stop.prevent="dropFile" 
              class="image-register__dropzone">
             <strong v-if="!file_url" 
@@ -38,7 +38,7 @@
 
         <button type="button"
                 class="button__register"
-                @click="imageRegister">
+                @click="callImageRegister">
             등록
         </button> 
         <!--       
@@ -53,36 +53,57 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 export default {
     name: 'image-register',
     data(){
         return{
             file_url: '',
             file_name:'',
+            flie: null
         }
     },
     methods: {
-        dragFile(e){
+        ...mapActions([
+            'imageRegister'
+        ]),
+        checkImage(file){
+            if(/.*\.(gif)|(jpeg)|(jpg)|(png)$/.test(file.name.toLowerCase())){
+                return true;
+            }
         },
         dropFile(e){
             let _this = this;
             let reader = new FileReader();
-            reader.readAsDataURL(e.dataTransfer.files[0]);
-            this.file_name= e.dataTransfer.files[0].name;
-            reader.onload=function(){
-                _this.file_url = reader.result;
+            if(this.checkImage(e.dataTransfer.files[0])){
+                this.file = e.dataTransfer.files[0];
+                reader.readAsDataURL(e.dataTransfer.files[0]);
+                this.file_name= e.dataTransfer.files[0].name;
+                reader.onload=function(){
+                    _this.file_url = reader.result;
+                }
             }
         },
         selectedFile(e){
-            console.log(e.target.files[0]);
             let _this = this;
             let reader = new FileReader();
-            reader.readAsDataURL(e.target.files[0]);
-            this.file_name = e.target.files[0].name;
-            reader.onload=function(){
-                _this.file_url = reader.result;
+            if(this.checkImage(e.target.files[0])){
+                this.file = e.target.files[0];
+                reader.readAsDataURL(e.target.files[0]);
+                this.file_name = e.target.files[0].name;
+                reader.onload=function(){
+                    _this.file_url = reader.result;
+                }
             }
-        }, 
+        },
+        callImageRegister(){
+            let _this = this;
+            let reader = new FileReader();
+            reader.readAsDataURL(this.file);
+            reader.onload = function (){
+                _this.imageRegister({axios: _this.$http, file: this.result});
+            }
+        },
         closeModal(){
             this.$emit('closeModal');
         }

@@ -55,6 +55,7 @@ export default {
       },
       // 하나의 마커를 화면상 지도에만 찍음
       setCurrentMarker(state, marker){
+        state.current_marker = marker;
         marker.setMap(state.map);
       },
       removeCurrentMarker(state, marker){
@@ -171,10 +172,10 @@ export default {
         state.map.addListener('click', function(e){
           console.log(e);
           if(!rootState.view_state.is_pincheck_menu_state){
-            state.current_marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
               position: e.latLng,
             });
-            commit('setCurrentMarker', state.current_marker);
+            commit('setCurrentMarker', marker);
             commit('setLatLng', e.latLng)
             rootState.view_state.is_pincheck_menu_state = true;
           }else{
@@ -205,7 +206,7 @@ export default {
           })
           .then(function(res){
             commit('setMapPin', {map_pk : state.map_pk, pin : res.data});
-            commit('removeCurrnetMarker', state.current_marker);
+            commit('removeCurrentMarker', state.current_marker);
             let marker = new google.maps.Marker({
               position: state.lat_lng,
               map: state.map,
@@ -265,6 +266,20 @@ export default {
       moveMapPinPlace({state, rootState, dispatch, commit}, {place}){
         let lat_lng = new google.maps.LatLng(place.lat, place.lng);
         state.map.panTo(lat_lng);
+      },
+      imageRegister({state, rootState, dispatch, commit}, {axios, file}){
+        let url = `${rootState.url}/api/post/`;
+        axios.post(url, {
+          pin: state.current_pin.pk,
+          photo: file,
+        })
+        .then(function(res){
+          console.log(res);
+          dispatch('mapListUpdateAction', axios);
+        })
+        .catch(function(err){
+          console.log(err.response);
+        })
       }
     }
 }
