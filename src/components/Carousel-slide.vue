@@ -1,7 +1,7 @@
 
 <template>
     <div class="slide">
-        <img :src="item.url" alt="" class="big-img">
+        <img :src="item" alt="" class="big-img">
     </div>
 </template>
 
