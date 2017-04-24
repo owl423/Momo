@@ -110,8 +110,8 @@ export default {
                         _this.$http.post(url, {
                             access_token
                         }).then(function(res){
-                            console.log(res);
-                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
+                            console.log('facebook post res',res);
+                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.auth_token, res.data.pk);
                             //_this.$store.commit('setUserInfo', user_session);
                             _this.setUserInfo(user_session);
                             _this.$router.push({path: '/map'});
@@ -128,7 +128,7 @@ export default {
                                 access_token
                             }).then(function(res){
                                 console.log(res);
-                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
+                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.auth_token, res.data.pk);
                                 // _this.$store.commit('setUserInfo', user_session);
                                 _this.setUserInfo(user_session);
                                 _this.$router.push({path: '/map'});
