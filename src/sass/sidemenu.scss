@@ -27,7 +27,8 @@
 
 .pin-info__bg {
     height: 200px;
-    background: url(./assets/sample_cafe.jpg) no-repeat 50% 30%;
+    background-image: url(./assets/sample_cafe.jpg);
+    background-repeat: no-repeat;
     background-size: cover;    
     width: 100%;
 }
