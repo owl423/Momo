@@ -47,8 +47,8 @@
                             </a>                                             
 
                             <ul class="pin-info__view__review__comment__list">
-                                <li v-if="index < 4" v-for="(desc, index) in current_pin.post_list">
-                                    {{ desc.description }}
+                                <li v-if="index < 4" v-for="(pin, index) in current_pin.post_list">
+                                    {{ pin.description }}
                                     <!--
                                     <a href="">{{current_pin.post_list.description}}</a>
                                     -->

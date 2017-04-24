@@ -5,7 +5,7 @@
                 @click="$emit('closeModal')">
         </button>
         <strong class="comment-register__name">
-            {{ this.pin_name }}
+            {{ current_pin.pin_name }}
         </strong>
         
         <dl class="comment-register__form register__form">
@@ -17,7 +17,7 @@
             <dd>
                 <input v-model="comment_name"
                         id="comment-register_mapname"
-                        class="comment-register__name"
+                        class="comment-register__nick"
                         type="text">
             </dd>
             <dt class="comment-register__form__title">
@@ -35,10 +35,6 @@
                     </option>
                 </select>
             </dd>
-            <dt class="comment-register__form__title">
-                <label for="comment-register_nick">나만의 이름</label>
-            </dt>
-            <dd><input id="comment-register_nick" type="text"></dd>
             <dt class="comment-register__form__title">
                 <label for="comment-register_category-group">
                     핀종류 선택
@@ -61,12 +57,12 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
 export default {
     name: 'comment-register',
     data() {
-        return {   
-            pin_name: '수수커피',
-            comment_name: null,
+        return {
             map_list: [],
             // mapping_pk: {},
             pin_color: [
@@ -80,6 +76,11 @@ export default {
             is_map_empty : false,
             selected: ''      
         }
+    },
+    computed: {
+        ...mapGetters([
+            'current_pin'
+        ])
     },
     methods: {
 
