@@ -10,7 +10,10 @@ export default {
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
     },
-    getters: { // data 가져오는 함수들 정의 한 곳
+    getters: {
+      // 다음 두 가지 경우에 쓰면 좋다.
+      // 1. filter를 해서 가지고 올때,
+      // 2. state에 있는 data값를 가져올 때
       map_list(state){
         return state.map_list;
       },
@@ -28,6 +31,25 @@ export default {
       },
       current_pin(state){
         return state.current_pin;
+      },
+      current_pin_map_desc(state){ // pin에 해당하는 map의 설명 가져오기
+        for(let i = 0, m_l = state.map_list.length; i < m_l; i++){
+          for (let j = 0, p_l = state.map_list[i].pin_list.length; j < p_l; j++){
+            if ( state.map_list[i].pk === state.map_list[i].pin_list[j].map ){
+              return state.map_list[i].description;              
+            }
+          }
+        }
+      },
+      current_pin_map_name(state){ // pin에 해당하는 map의 이름 가져오기
+        for(let i = 0, m_l = state.map_list.length; i < m_l; i++){
+          for (let j = 0, p_l = state.map_list[i].pin_list.length; j < p_l; j++){
+            
+            if ( state.map_list[i].pk === state.map_list[i].pin_list[j].map ){
+              return state.map_list[i].map_name;              
+            }
+          }
+        }
       }
     },
     mutations: { // 지역(모듈 내) state를 관리하는 함수 정의
