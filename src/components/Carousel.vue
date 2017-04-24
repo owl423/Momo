@@ -27,7 +27,8 @@ export default {
       'emoi_image_url',
       'soosoocoffee_image_url',
       'jjoo_image_url',
-      'current_pin'
+      'current_pin',
+      'all_images'
     ])
   },
   mounted(){
@@ -62,6 +63,9 @@ export default {
       this.slide_index = index;
     },
     imageBind(){
+      if(this.all_images.length !== 0){
+        this.slide_item = this.all_images;
+      }else{
         if(this.current_pin.pin_name === '쮸즈'){
             this.slide_item = this.jjoo_image_url;
         }else if(this.current_pin.pin_name === '에머이'){
@@ -71,6 +75,7 @@ export default {
         }else{
             this.slide_item = '';
         }
+      }
     },
   }
 }

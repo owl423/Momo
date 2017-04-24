@@ -24,7 +24,15 @@
                         id="map-select" 
                         class="map-select"
                         name="">
-                    <option v-for="map of map_list">
+                    <option selected 
+                    v-if="map_list.length !== 0"
+                    value="지도를 선택해 주세요.">
+                        지도를 선택해 주세요.
+                    </option>
+                    <option v-else>
+                        선택 할 지도가 없습니다.
+                    </option>
+                    <option v-for="map of map_list" :value="map.map_name">
                         {{map.map_name}}
                     </option>
                 </select>

@@ -16,7 +16,7 @@
                 <button class="button--search"
                         type="button"
                         aria-label="검색"
-                        @click=""
+                        @click="search"
                         >
                     검색
                 </button>
@@ -71,6 +71,8 @@ export default {
             this.setUserMenuState(true);
         },
         search(){
+            this.setUserMenuState(false);
+            this.setSideState(false);
             this.searchPlaceAction({search_val: this.search_val, axios: this.$http});
         },
     }

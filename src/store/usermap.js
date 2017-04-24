@@ -9,6 +9,7 @@ export default {
       markers: [],  // google map api의 new google.maps.Marker() 으로 생성한 marker 객체 리스트
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null, // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
+      all_images: null,
       soosoocoffee_image_url_list : [
         './src/assets/soosoocoffee/soosoocoffee.jpeg',
         './src/assets/soosoocoffee/soosoocoffee1.jpg',
@@ -87,6 +88,9 @@ export default {
             }
           }
         }
+      },
+      all_images(state){
+        return state.all_images;
       }
     },
     mutations: { // 지역(모듈 내) state를 관리하는 함수 정의
@@ -125,6 +129,9 @@ export default {
         state.markers.forEach(function(marker){
           marker.setMap(state.map);
         });
+      },
+      setAllImages(state, all_img){
+        state.all_images = all_img;
       },
       // map_list에 새로 생성한 맵을 추가함
       pushMapList(state, user_map){
