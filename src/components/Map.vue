@@ -46,9 +46,7 @@ import Modal from './Modal.vue';
 import UserInfo from './UserInfo.vue';
 import Carousel from './Carousel.vue';
 import PinCheckMenu from './PinCheckMenu.vue';
-import {mapGetters} from 'vuex';
-import {mapMutations} from 'vuex';
-import {mapActions} from 'vuex';
+import {mapGetters, mapMutations, mapActions} from 'vuex';
 
 export default {
     name: 'map',

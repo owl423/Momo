@@ -5,6 +5,7 @@ export default {
       map_list: [], // 서버에서 제공 받은 유저의 맵리스트
       map_pk: null, // 서버에 저장돼 있는 해당 map의 pk 값
       current_marker: null, // 현재 유저가 선택한 마커.
+      current_pin: null,
       markers: [],  // google map api의 new google.maps.Marker() 으로 생성한 marker 객체 리스트
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
@@ -24,6 +25,9 @@ export default {
       },
       current_marker(state){
         return state.current_marker;
+      },
+      current_pin(state){
+        return state.current_pin;
       }
     },
     mutations: { // 지역(모듈 내) state를 관리하는 함수 정의
@@ -82,36 +86,42 @@ export default {
           })
         }
       },
-      mapListUpdate(state, axios){
-        let user_id = sessionStorage.getItem('user_pk');
-        let url = `http://eb-client.ap-northeast-2.elasticbeanstalk.com/api/member/${user_id}`;
-        axios.get(url)
-        .then(function(res){
-          state.map_list = res.data.map_list;
-        })
-        .catch(function(err){
-          console.error('mapListUpdate get error msg : ', err);
-        })
-      },
-      // 통신해서 받은 map list의 pin을 찍어줌
-      
     },
     actions: { // 전역 state 접근 가능한 함수 정의 (비동기 가능)
-      addMarkerClickEvent({state, rootState}, marker){
+      selectedPinInfo({state}, {lat, lng}){
+        return new Promise(function(resolve, reject){
+          console.log('selectedPinInfo')
+          state.map_list.forEach(function(map){
+            map.pin_list.forEach(function(pin){
+              // 문자열 값을 숫자로 변환 하여 비교
+              let place_lat = (+pin.place.lat).toFixed(5);
+              let place_lng = (+pin.place.lng).toFixed(5);
+              if( (place_lat === lat.toFixed(5)) && ( place_lng === lng.toFixed(5) ) ){
+                console.log('pin', pin);
+                state.current_pin = pin;
+                resolve();
+              }
+            })
+          });
+        })
+      },
+      addMarkerClickEvent({state, rootState, commit, dispatch}, marker){
         google.maps.event.addListener(marker, 'click', function(e){
-          rootState.view_state.is_user_menu_state = false;
-          rootState.view_state.is_side_state = true;
-          console.log('lat:', e.latLng.lat());
-          console.log('lng:', e.latLng.lng());
-          
+          let lat = e.latLng.lat();
+          let lng = e.latLng.lng();
+          console.log('lat, lng: ', lat, ', ', lng);
+          dispatch('selectedPinInfo', {lat, lng}).then(function(){
+            rootState.view_state.is_user_menu_state = false;
+            rootState.view_state.is_side_state = true;
+          }).catch(function(){
+            console.log('xxxxxx');
+          })
         });
       },
       mapPinMark({state, rootState, commit, dispatch}){
         commit('removeMarkers');
         state.map_list.forEach(function(map){
-          console.log(map.pin_list);
           map.pin_list.forEach(function(pin){
-            console.log('pin:', pin);
             let lat_lng = new google.maps.LatLng(pin.place.lat, pin.place.lng);
             let marker = new google.maps.Marker({
               position: lat_lng,
@@ -129,7 +139,6 @@ export default {
         let url = `${rootState.url}/api/member/${user_pk}`;
         axios.get(url)
         .then(function(res){
-          console.log('res:', res);
           state.map_list = res.data.map_list;
           dispatch('mapPinMark');
         })
@@ -169,6 +178,7 @@ export default {
           }
         })
       },
+      // 핀 등록 action
       pinRegister({state, commit, rootState, dispatch}, payload){
         let url = `${rootState.url}/api/pin/`;
         let lat = state.lat_lng.lat();
@@ -205,6 +215,7 @@ export default {
           });
         }
       },
+      // 지도 삭제 action
       mapRemove({state, rootState, dispatch}, payload){
         let url = `${rootState.url}/api/map/${state.map_list[payload.map_index].pk}`;
         payload.axios.delete(url)
@@ -212,7 +223,23 @@ export default {
           console.log(res);
           dispatch('mapListUpdateAction', payload.axios);
         })
-
+      },
+      // 검색한 장소 선택 action
+      selectedPlace({state, rootState, dispatch, commit}, {place}){
+        console.log('place', place);
+        // 현재 선택된 마커가 있으면 지우고
+        if(state.current_marker){
+          commit('removeCurrentMarker', state.current_marker);
+        }
+        // 검색된 장소의 위도 경도값으로 객체 만듦
+        let lat_lng = new google.maps.LatLng(place.lat, place.lng);
+        // 마커 위치 지정해주고
+        let marker = new google.maps.Marker({position: lat_lng});
+        state.current_marker = marker;
+        commit('setLatLng', lat_lng);
+        commit('setCurrentMarker', marker);
+        state.map.panTo(lat_lng);
+        rootState.view_state.is_pincheck_menu_state = true;
       }
     }
 }

@@ -40,10 +40,10 @@
                 <div role="group" id="pin-register_category-group" 
                     class="pin-register__form__category-group
                            register__category-group">
-                    <button @click="selected_color=0" :class="['food-btn', {'selected' : selected_color === 0}]">음식</button>
-                    <button @click="selected_color=1" :class="['shopping-btn', {'selected' : selected_color === 1}]">쇼핑</button>
-                    <button @click="selected_color=2" :class="['stay-btn', {'selected' : selected_color === 2}]">숙박</button>
-                    <button @click="selected_color=3" :class="['cafe-btn', {'selected' : selected_color === 3}]">카페</button>
+                    <button @click="selected_color=0" :class="['stay-btn', {'selected' : selected_color === 0}]">장소</button>
+                    <button @click="selected_color=1" :class="['food-btn', {'selected' : selected_color === 1}]">음식</button>
+                    <button @click="selected_color=2" :class="['cafe-btn', {'selected' : selected_color === 2}]">카페</button>
+                    <button @click="selected_color=3" :class="['shopping-btn', {'selected' : selected_color === 3}]">쇼핑</button>
                     <button @click="selected_color=4" :class="['etc-btn', {'selected' : selected_color === 4}]">기타</button>
                 </div>
             </dd>
