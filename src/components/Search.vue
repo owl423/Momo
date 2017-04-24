@@ -16,14 +16,13 @@
                 <button class="button--search"
                         type="button"
                         aria-label="검색"
-                        @click="search"
-                        >
+                        @click="search">
                     검색
                 </button>
             </span>
-            <ul>
+            <ul v-if="is_search_result_state">
                 <li v-for="(place, index) of search_result" v-if="index < 10">
-                    <a href="" @click.prevent="selectedPlace({place})">
+                    <a href="" @click.prevent="moveSelectedPlace(place)">
                         <span class="name">{{place.name}}</span> 
                         <span class="address">{{place.address}}</span> 
                     </a>
@@ -55,12 +54,14 @@ export default {
             'is_user_menu_state',
             'is_side_menu_state',
             'search_result',
+            'is_search_result_state'
         ]),
     },
     methods : {
         ...mapMutations([
             'setUserMenuState',
             'setSideState',
+            'setSearchResultState'
         ]),
         ...mapActions([
             'searchPlaceAction',
@@ -71,10 +72,15 @@ export default {
             this.setUserMenuState(true);
         },
         search(){
+            this.setSearchResultState(true);
             this.setUserMenuState(false);
             this.setSideState(false);
             this.searchPlaceAction({search_val: this.search_val, axios: this.$http});
         },
+        moveSelectedPlace(place){
+            this.selectedPlace({place});
+            this.setSearchResultState(false);
+        }
     }
         
 }

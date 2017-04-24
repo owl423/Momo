@@ -161,14 +161,12 @@ export default {
     actions: { // 전역 state 접근 가능한 함수 정의 (비동기 가능)
       selectedPinInfo({state}, {lat, lng}){
         return new Promise(function(resolve, reject){
-          console.log('selectedPinInfo')
           state.map_list.forEach(function(map){
             map.pin_list.forEach(function(pin){
               // 문자열 값을 숫자로 변환 하여 비교
               let place_lat = (+pin.place.lat).toFixed(5);
               let place_lng = (+pin.place.lng).toFixed(5);
               if( (place_lat === lat.toFixed(5)) && ( place_lng === lng.toFixed(5) ) ){
-                console.log('pin', pin);
                 state.current_pin = pin;
                 resolve();
               }
@@ -180,7 +178,6 @@ export default {
         google.maps.event.addListener(marker, 'click', function(e){
           let lat = e.latLng.lat();
           let lng = e.latLng.lng();
-          console.log('lat, lng: ', lat, ', ', lng);
           dispatch('selectedPinInfo', {lat, lng}).then(function(){
             rootState.view_state.is_user_menu_state = false;
             rootState.view_state.is_side_state = true;
@@ -236,7 +233,6 @@ export default {
       // 지도에 마커를 찍을 때 해당 마커를 하나씩만 찍게 해주는 함수
       oneMarker({state, commit, rootState, dispatch}){
         state.map.addListener('click', function(e){
-          console.log(e);
           if(!rootState.view_state.is_pincheck_menu_state){
             let marker = new google.maps.Marker({
               position: e.latLng,
@@ -310,13 +306,11 @@ export default {
         let url = `${rootState.url}/api/map/${state.map_list[payload.map_index].pk}`;
         payload.axios.delete(url)
         .then(function(res){
-          console.log(res);
           dispatch('mapListUpdateAction', payload.axios);
         })
       },
       // 검색한 장소 선택 action
       selectedPlace({state, rootState, dispatch, commit}, {place}){
-        console.log('place', place);
         // 현재 선택된 마커가 있으면 지우고
         if(state.current_marker){
           commit('removeCurrentMarker', state.current_marker);
@@ -342,7 +336,6 @@ export default {
           photo: file,
         })
         .then(function(res){
-          console.log(res);
           dispatch('mapListUpdateAction', axios);
         })
         .catch(function(err){
