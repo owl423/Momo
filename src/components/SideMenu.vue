@@ -5,7 +5,7 @@
                     @click="setSideState(false)">
             </button>
             <div class="pin-info">
-                <div class="pin-info__bg" :style="{fontSize: 20 +'px', background : `url(${img_src_cover}) no-repeat 50% 30%`, backgroundSize: 'cover'}"></div>
+                <div class="pin-info__bg" :style="{fontSize: 20 +'px', backgroundImage : `url(${img_src_cover})`}"></div>
                 <div class="pin-info__header">
                     <h1 class="pin-info__header__title">{{current_pin.pin_name}}</h1>
                     <p>
@@ -114,8 +114,8 @@ export default {
             this.img_src_cover = this.emoi_image_url[0];
             this.img_src = this.emoi_image_url[1];
         }else if(this.current_pin.pin_name === '수수커피'){
-            this.img_src_cover = this.soosoocoffee_image_url[0];
-            this.img_src = this.soosoocoffee_image_url[1];
+            this.img_src_cover = this.soosoocoffee_image_url[2];
+            this.img_src = this.soosoocoffee_image_url[5];
         }else{
             this.img_src_cover = './src/assets/no_thumb.png';
             this.img_src = './src/assets/no_thumb.png';
