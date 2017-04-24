@@ -9,7 +9,7 @@ export default {
       markers: [],  // google map api의 new google.maps.Marker() 으로 생성한 marker 객체 리스트
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
       lat_lng : null, // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
-      all_images: null,
+      all_images: [],
       soosoocoffee_image_url_list : [
         './src/assets/soosoocoffee/soosoocoffee.jpeg',
         './src/assets/soosoocoffee/soosoocoffee1.jpg',
