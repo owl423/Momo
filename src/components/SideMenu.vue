@@ -7,10 +7,12 @@
             <div class="pin-info">
                 <div class="pin-info__bg"></div>
                 <div class="pin-info__header">
-                    <h1 class="pin-info__header--title">{{current_pin.pin_name}}</h1>
+                    <h1 class="pin-info__header__title">{{current_pin.pin_name}}</h1>
                     <p>
-                        <span class="pin-info__header--category">{{label_name}}</span>
-                        <!--<span class="pin-info__header--nick">'내가 젤 조아하는 티라미슈 맛집'</span>-->
+                        <span class="pin-info__header__category">{{label_name}}</span>
+                        <span class="pin-info__header__nick">
+                            
+                        </span>
                     </p>
                     <button
                     class="post-register"
@@ -18,32 +20,39 @@
                 </div>
 
                 <div class="pin-info__view">
-                    <ul class="pin-info__view--core">
-                        <li>address : {{current_pin.place.address}}</li>
-                        <li>created : {{current_pin.created_date}}</li>
+                    <ul class="pin-info__view__core">
+                        <li><strong>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</strong>
+                            {{current_pin.place.address}}
+                        </li>
+                        <li>
+                            <strong>등록날짜</strong>
+                            {{current_pin.created_date}}
+                        </li>
                     </ul>
-                    <div class="pin-info__view--review">
-                        <div class="pin-info__view--review--photo">
+                    <div class="pin-info__view__review">
+                        <div class="pin-info__view__review__photo">
                             <strong>사진</strong>
                             <button type="button" @click="setModalImageRegisterState(true)">사진관리</button>
-                            <a class="pin-info__view--review__photo--view"
-                            title="전체 사진 슬라이드로 보기" 
-                            @click="setCarouselState(true)">
+                            <a class="pin-info__view__review__photo__view"
+                                title="전체 사진 슬라이드로 보기" 
+                                @click="setCarouselState(true)">
                                 대표사진
                             </a>
                         </div>
-                        <div class="pin-info__view--review__comment">
+                        <div class="pin-info__view__review__comment">
                             <strong>코멘트</strong>
                             <button type="button" @click="setModalCommentRegisterState(true)">코멘트 관리</button>
-                            <a href="" class="pin-info__view--review__comment--view" href="">
+                            <a href="" class="pin-info__view__review__comment__view" href="">
                                 전체 코멘트보기
                             </a>                                             
 
-                            <ul class="pin-info__view--review--comment--list">
-                                <li><a href="">asdfsdfdsfsfsf  sfetetsetst werw</a></li>
-                                <li><a href="">코멘트코멘트트트트 testestetset</a></li>
-                                <li><a href="">큐멘으랑릉라ㅣ testestse asdfdfd</a></li>
-                                <li><a href="">큐멘으랑릉라ㅣ testestsets erewx </a></li>
+                            <ul class="pin-info__view__review__comment__list">
+                                <li v-if="index < 4" v-for="(desc, index) in current_pin.post_list">
+                                    {{ desc.description }}
+                                    <!--
+                                    <a href="">{{current_pin.post_list.description}}</a>
+                                    -->
+                                </li>
                             </ul> 
                         </div>
                     </div>
