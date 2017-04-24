@@ -67,7 +67,7 @@ export default {
         }else if(this.current_pin.pin_name === '에머이'){
             this.slide_item = this.emoi_image_url;
         }else if(this.current_pin.pin_name === '수수커피'){
-            this.slide_item = this.jjoo_image_url;
+            this.slide_item = this.soosoocoffee_image_url;
         }else{
             this.slide_item = '';
         }
