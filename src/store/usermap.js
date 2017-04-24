@@ -291,6 +291,8 @@ export default {
         .then(function(res){
           console.log(res.data);
           commit('pushCommentList', res.data);
+          window.alert('코멘트가 등록 됐습니다.');
+          rootState.view_state.is_modal_comment_register_state = false;
         })
         .catch(function(err){
           console.log(err.response);
