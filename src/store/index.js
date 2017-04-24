@@ -16,5 +16,12 @@ export default new Vuex.Store({
   },
   state: {
     url : 'http://eb-client.ap-northeast-2.elasticbeanstalk.com',
+    icon_color:[
+      'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
+      'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+      'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+    ]
   },
 });

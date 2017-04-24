@@ -126,7 +126,8 @@ export default {
             let marker = new google.maps.Marker({
               position: lat_lng,
               map : state.map,
-              title : map.map_name
+              title : map.map_name,
+              icon : rootState.icon_color[pin.pin_label]
             });
             state.markers.push(marker);
             dispatch('addMarkerClickEvent', marker);
@@ -200,10 +201,12 @@ export default {
           })
           .then(function(res){
             commit('setMapPin', {map_pk : state.map_pk, pin : res.data});
+            commit('removeCurrnetMarker', state.current_marker);
             let marker = new google.maps.Marker({
               position: state.lat_lng,
               map: state.map,
-              title: payload.selected
+              title: payload.selected,
+              icon: rootState.icon_color[res.data.pin_label]
             });
             dispatch('addMarkerClickEvent', marker);
             window.alert('위치가 등록 됐습니다.');
@@ -240,6 +243,10 @@ export default {
         commit('setCurrentMarker', marker);
         state.map.panTo(lat_lng);
         rootState.view_state.is_pincheck_menu_state = true;
+      },
+      moveMapPinPlace({state, rootState, dispatch, commit}, {place}){
+        let lat_lng = new google.maps.LatLng(place.lat, place.lng);
+        state.map.panTo(lat_lng);
       }
     }
 }
