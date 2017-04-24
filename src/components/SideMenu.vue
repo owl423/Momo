@@ -42,7 +42,7 @@
                         <div class="pin-info__view__review__comment">
                             <strong>코멘트</strong>
                             <button type="button" @click="setModalCommentRegisterState(true)">코멘트 관리</button>
-                            <a href="" class="pin-info__view__review__comment__view" href="">
+                            <a v-if="current_pin.post_list.length !== 0" href="" class="pin-info__view__review__comment__view">
                                 전체 코멘트보기
                             </a>                                             
 
@@ -52,6 +52,9 @@
                                     <!--
                                     <a href="">{{current_pin.post_list.description}}</a>
                                     -->
+                                </li>
+                                <li class="no-list" v-if="current_pin.post_list.length === 0">
+                                    등록된 코멘트가 없습니다.
                                 </li>
                             </ul> 
                         </div>
