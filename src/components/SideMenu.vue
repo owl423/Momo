@@ -24,11 +24,11 @@
                 <div class="pin-info__view">
                     <ul class="pin-info__view__core">
                         <li><strong>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</strong>
-                            {{current_pin.place.address}}
+                            <span>{{current_pin.place.address}}</span>
                         </li>
                         <li>
                             <strong>등록날짜</strong>
-                            {{current_pin.created_date}}
+                            <span>{{current_pin.created_date}}</span>
                         </li>
                     </ul>
                     <div class="pin-info__view__review">
