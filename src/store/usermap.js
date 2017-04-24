@@ -86,6 +86,10 @@ export default {
           })
         }
       },
+      // comment_list에 비동기로 뿌려줌
+      pushCommentList(state, pin){
+        state.current_pin.post_list.push(pin);
+      }
     },
     actions: { // 전역 state 접근 가능한 함수 정의 (비동기 가능)
       selectedPinInfo({state}, {lat, lng}){
@@ -217,6 +221,20 @@ export default {
             console.log(err.response);
           });
         }
+      },
+      commentRegister({state, commit, rootState, dispatch}, {axios, comment_name}){
+        let url = `${rootState.url}/api/post/`;
+        axios.post(url, {
+          description : comment_name,
+          pin: state.current_pin.pk
+        })
+        .then(function(res){
+          console.log(res.data);
+          commit('pushCommentList', res.data);
+        })
+        .catch(function(err){
+          console.log(err.response);
+        });
       },
       // 지도 삭제 action
       mapRemove({state, rootState, dispatch}, payload){
