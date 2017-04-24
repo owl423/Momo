@@ -10,7 +10,7 @@
         >
             <img
             class="small-img"
-            :src="item.url"
+            :src="item"
             alt=""
             >
         </a>

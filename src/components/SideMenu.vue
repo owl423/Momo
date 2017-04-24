@@ -38,7 +38,7 @@
                             <a class="pin-info__view__review__photo__view"
                                 title="전체 사진 슬라이드로 보기" 
                                 @click="setCarouselState(true)">
-                                대표사진
+                                <img :src="img_src" alt="">
                             </a>
                         </div>
                         <div class="pin-info__view__review__comment">
@@ -74,19 +74,25 @@ export default {
   name: 'side-menu',
   data(){
       return {
-          label_name : ''
+          label_name : '',
+          img_src: '',
       }
   },
   mounted(){
-    this.labelNameUpdate(+this.current_pin.pin_label);    
+    this.labelNameUpdate(+this.current_pin.pin_label);
+    this.imageSrcBind();
   },
   updated(){
     this.labelNameUpdate(+this.current_pin.pin_label);
+    this.imageSrcBind();
   },
   computed: {
       ...mapGetters([ // usermap.js의 getters 안에있는 함수들을 불러오는 곳
           'is_side_state',
           'current_pin',
+          'soosoocoffee_image_url',
+          'emoi_image_url',
+          'jjoo_image_url'
           'current_pin_map_desc',
           'current_pin_map_name'
       ])
@@ -99,6 +105,17 @@ export default {
         'setModalCommentRegisterState',
         'setCarouselState',
     ]),
+    imageSrcBind(){
+        if(this.current_pin.pin_name === '쮸즈'){
+            this.img_src = this.jjoo_image_url[0];
+        }else if(this.current_pin.pin_name === '에머이'){
+            this.img_src = this.emoi_image_url[0];
+        }else if(this.current_pin.pin_name === '수수커피'){
+            this.img_src = this.jjoo_image_url[0];
+        }else{
+            this.img_src = './src/assets/no_thumb.png';
+        }
+    },
     labelNameUpdate(pin_label){
         switch(pin_label){
             case 0: 

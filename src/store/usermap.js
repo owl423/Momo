@@ -8,12 +8,49 @@ export default {
       current_pin: null,
       markers: [],  // google map api의 new google.maps.Marker() 으로 생성한 marker 객체 리스트
       map : null, // google map api의 new google.maps.Map() 으로 생성한 google.map객체
-      lat_lng : null // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
+      lat_lng : null, // google map api의  new google.maps.LatLng() 으로 생성한 google.LatLng객체
+      soosoocoffee_image_url_list : [
+        './src/assets/soosoocoffee/soosoocoffee.jpeg',
+        './src/assets/soosoocoffee/soosoocoffee1.jpg',
+        './src/assets/soosoocoffee/soosoocoffee2.jpg',
+        './src/assets/soosoocoffee/soosoocoffee3.jpg',
+        './src/assets/soosoocoffee/soosoocoffee4.jpeg',
+        './src/assets/soosoocoffee/soosoocoffee5.jpeg',
+        './src/assets/soosoocoffee/soosoocoffee6.jpg',
+        './src/assets/soosoocoffee/soosoocoffee7.jpg',
+        './src/assets/soosoocoffee/soosoocoffee8.jpeg',
+        './src/assets/soosoocoffee/soosoocoffee9.jpeg',
+      ],
+      emoi_image_url_list : [
+        './src/assets/emoi/emoi1.jpg',
+        './src/assets/emoi/emoi2.jpeg',
+        './src/assets/emoi/emoi3.jpeg',
+        './src/assets/emoi/emoi4.jpeg',
+        './src/assets/emoi/emoi5.jpeg',
+        './src/assets/emoi/emoi6.jpg',
+        './src/assets/emoi/emoi7.jpeg',
+      ],
+      jjoo_image_url_list : [
+        './src/assets/jjoo/jjoo1.jpeg',
+        './src/assets/jjoo/jjoo2.jpeg',
+        './src/assets/jjoo/jjoo3.jpg',
+        './src/assets/jjoo/jjoo4.jpeg',
+        './src/assets/jjoo/jjoo5.jpg',
+      ]
     },
-    getters: {
+    getters: { 
       // 다음 두 가지 경우에 쓰면 좋다.
       // 1. filter를 해서 가지고 올때,
       // 2. state에 있는 data값를 가져올 때
+      soosoocoffee_image_url(state){
+        return state.soosoocoffee_image_url_list;
+      },
+      emoi_image_url(state){
+        return state.emoi_image_url_list;
+      },
+      jjoo_image_url(state){
+        return state.jjoo_image_url_list;
+      },
       map_list(state){
         return state.map_list;
       },
