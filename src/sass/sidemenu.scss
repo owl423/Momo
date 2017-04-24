@@ -61,13 +61,19 @@
     background: $color-main-bright;
     padding: 2px 5px;
     border-radius: 4px;
-    margin-right: 3px;
+    margin-right: 5px;
     font-weight: bold;
 }
-.pin-info__header__nick {
+.pin-info__header__mapinfo {
     color: #fff;
     font-size: 14px; 
     display: inline-block;
+}
+
+.pin-info__header__mapinfo .map_name::after {
+    content: '>';
+    color: $color-main-dark;
+    margin: 0 3px 0 6px;
 }
 
 .pin-info__view {

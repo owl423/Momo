@@ -10,9 +10,11 @@
                     <h1 class="pin-info__header__title">{{current_pin.pin_name}}</h1>
                     <p>
                         <span class="pin-info__header__category">{{label_name}}</span>
-                        <span class="pin-info__header__nick">
-                            
-                        </span>
+
+                        <span class="pin-info__header__mapinfo">
+                            <em class="map_name">{{current_pin_map_name}}</em>
+                            <em class="map_desc">{{current_pin_map_desc}}</em>
+                        </span> 
                     </p>
                     <button
                     class="post-register"
@@ -85,12 +87,14 @@ export default {
     this.imageSrcBind();
   },
   computed: {
-      ...mapGetters([
+      ...mapGetters([ // usermap.js의 getters 안에있는 함수들을 불러오는 곳
           'is_side_state',
           'current_pin',
           'soosoocoffee_image_url',
           'emoi_image_url',
           'jjoo_image_url'
+          'current_pin_map_desc',
+          'current_pin_map_name'
       ])
   },
   methods: {

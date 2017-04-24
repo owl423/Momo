@@ -9,9 +9,8 @@
 
             <div class="signin__form member_form">
                 <h1>Sign In</h1>
-                <form action="">
-                    <legend>Sign in</legend>
-                    <fieldset>
+                <div class="form">
+                    <div class="fieldset">
                         <p><label for="signin_id">I  D</label>
                             <input id="signin_id" 
                                     type="text" 
@@ -33,7 +32,7 @@
                                     v-model="input_email" required>
                         </p>
                         -->
-                    </fieldset>
+                    </div>
                     <button class="member__button"
                             type="button" 
                             @click="signInCheck"> 
@@ -47,7 +46,7 @@
                             @click="facebookLogin">
                         Facebook Sign In
                     </button>
-                </form>
+                </div>
             </div>
         </section>
     </div>
