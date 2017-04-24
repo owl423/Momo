@@ -87,6 +87,7 @@ export default {
         ...mapMutations([
             'setUserInfo'
         ]),
+        // session유지를 위해 백엔드api에서 불러온 코드
         setUserSession(name, profile, token, pk){
             window.sessionStorage.setItem('user_name', name);
             window.sessionStorage.setItem('user_profile', profile);
