@@ -5,7 +5,7 @@
                     @click="setSideState(false)">
             </button>
             <div class="pin-info">
-                <div class="pin-info__bg"></div>
+                <div class="pin-info__bg" :style="{fontSize: 20 +'px', background : `url(${img_src_cover}) no-repeat 50% 30%`, backgroundSize: 'cover'}"></div>
                 <div class="pin-info__header">
                     <h1 class="pin-info__header__title">{{current_pin.pin_name}}</h1>
                     <p>
@@ -75,6 +75,7 @@ export default {
   data(){
       return {
           label_name : '',
+          img_src_cover: '',
           img_src: '',
       }
   },
@@ -92,7 +93,7 @@ export default {
           'current_pin',
           'soosoocoffee_image_url',
           'emoi_image_url',
-          'jjoo_image_url'
+          'jjoo_image_url',
           'current_pin_map_desc',
           'current_pin_map_name'
       ])
@@ -107,12 +108,16 @@ export default {
     ]),
     imageSrcBind(){
         if(this.current_pin.pin_name === '쮸즈'){
-            this.img_src = this.jjoo_image_url[0];
+            this.img_src_cover = this.jjoo_image_url[0];
+            this.img_src = this.jjoo_image_url[1];
         }else if(this.current_pin.pin_name === '에머이'){
-            this.img_src = this.emoi_image_url[0];
+            this.img_src_cover = this.emoi_image_url[0];
+            this.img_src = this.emoi_image_url[1];
         }else if(this.current_pin.pin_name === '수수커피'){
-            this.img_src = this.jjoo_image_url[0];
+            this.img_src_cover = this.soosoocoffee_image_url[0];
+            this.img_src = this.soosoocoffee_image_url[1];
         }else{
+            this.img_src_cover = './src/assets/no_thumb.png';
             this.img_src = './src/assets/no_thumb.png';
         }
     },
