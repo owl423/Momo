@@ -1,7 +1,7 @@
 <template>
     <div id="video-container">
       <video autoplay loop>
-        <source src="./src/assets/momo2.mp4" type="video/mp4">
+        <source :src="videoSrcMP4" type="video/mp4">
       </video>
     </div>
 </template>
@@ -9,8 +9,10 @@
 <script>
     export default {
         name: 'bgVideo',
-        data(){
-            return {}
+        computed:{
+            videoSrcMP4(){
+                return require('../assets/momo2.mp4');
+            }
         }
     }
 </script>

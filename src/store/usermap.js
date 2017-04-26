@@ -330,12 +330,17 @@ export default {
         state.map.panTo(lat_lng);
       },
       imageRegister({state, rootState, dispatch, commit}, {axios, file}){
+        console.log('file:', file);
         let url = `${rootState.url}/api/post/`;
-        axios.post(url, {
-          pin: state.current_pin.pk,
-          photo: file,
-        })
+        var data = new FormData();
+        data.append('pin', state.current_pin.pk);
+        data.append('photo', file);
+        for (var entry of data.entries()) {
+          console.log('entry', entry);
+        }
+        axios.post(url, data)
         .then(function(res){
+          console.log(res);
           dispatch('mapListUpdateAction', axios);
         })
         .catch(function(err){
