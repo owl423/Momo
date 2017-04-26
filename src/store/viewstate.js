@@ -10,8 +10,12 @@ export default {
     is_modal_comment_register_state: false,
     is_pincheck_menu_state: false,
     is_carousel_state: false,
+    is_search_result_state: false
   },
   getters: {
+    is_search_result_state(state){
+      return state.is_search_result_state;
+    },
     is_user_menu_state(state){
       return state.is_user_menu_state;
     },
@@ -39,6 +43,9 @@ export default {
   },
   mutations: {
     // state를 변경해 주는 함수
+    setSearchResultState(state, bool){
+      state.is_search_result_state = bool;
+    },
     setUserMenuState(state, bool){
       state.is_user_menu_state = bool;
     },

@@ -24,7 +24,15 @@
                         id="map-select" 
                         class="map-select"
                         name="">
-                    <option v-for="map of map_list">
+                    <option selected 
+                    v-if="map_list.length !== 0"
+                    value="지도를 선택해 주세요.">
+                        지도를 선택해 주세요.
+                    </option>
+                    <option v-else>
+                        선택 할 지도가 없습니다.
+                    </option>
+                    <option v-for="map of map_list" :value="map.map_name">
                         {{map.map_name}}
                     </option>
                 </select>
@@ -40,10 +48,10 @@
                 <div role="group" id="pin-register_category-group" 
                     class="pin-register__form__category-group
                            register__category-group">
-                    <button @click="selected_color=0" :class="['food-btn', {'selected' : selected_color === 0}]">음식</button>
-                    <button @click="selected_color=1" :class="['shopping-btn', {'selected' : selected_color === 1}]">쇼핑</button>
-                    <button @click="selected_color=2" :class="['stay-btn', {'selected' : selected_color === 2}]">숙박</button>
-                    <button @click="selected_color=3" :class="['cafe-btn', {'selected' : selected_color === 3}]">카페</button>
+                    <button @click="selected_color=0" :class="['stay-btn', {'selected' : selected_color === 0}]">장소</button>
+                    <button @click="selected_color=1" :class="['food-btn', {'selected' : selected_color === 1}]">음식</button>
+                    <button @click="selected_color=2" :class="['cafe-btn', {'selected' : selected_color === 2}]">카페</button>
+                    <button @click="selected_color=3" :class="['shopping-btn', {'selected' : selected_color === 3}]">쇼핑</button>
                     <button @click="selected_color=4" :class="['etc-btn', {'selected' : selected_color === 4}]">기타</button>
                 </div>
             </dd>
@@ -69,7 +77,7 @@
 
             <button type="button"
                     class="pin-register__button__cancel"
-                    @click="$emit('closeModal')">
+                    @click="closeModal">
                 취소
             </button>
         </div>
@@ -86,6 +94,7 @@ export default {
     computed: {
         ...mapGetters([
             'map_list',
+            'current_marker'
         ])
     },
     data(){
@@ -104,14 +113,17 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setPincheckMenuState'
+            'setPincheckMenuState',
+            'removeCurrentMarker'
         ]),
         ...mapActions([
             'pinRegister'
         ]),
         closeModal(){
-            this.$emit('closeModal');
             this.setPincheckMenuState(false);
+            this.removeCurrentMarker(this.current_marker);
+            this.$emit('closeModal');
+            
         },
     }
 }

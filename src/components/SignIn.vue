@@ -9,9 +9,8 @@
 
             <div class="signin__form member_form">
                 <h1>Sign In</h1>
-                <form action="">
-                    <legend>Sign in</legend>
-                    <fieldset>
+                <div class="form">
+                    <div class="fieldset">
                         <p><label for="signin_id">I  D</label>
                             <input id="signin_id" 
                                     type="text" 
@@ -22,7 +21,8 @@
                             <input id="signin_password" 
                                     type="password" 
                                     placeholder="Password를 입력해주세요"
-                                    v-model="input_pw" required>
+                                    v-model="input_pw" 
+                                    required>
                         </p>
                         <!--
                         <p><label for="signin_email">Email</label>
@@ -32,19 +32,21 @@
                                     v-model="input_email" required>
                         </p>
                         -->
-                    </fieldset>
-                    <button type="button" 
+                    </div>
+                    <button class="member__button"
+                            type="button" 
                             @click="signInCheck"> 
                         Sign In
                     </button>
-                    <router-link to="/signup" tag="button">
+                    <router-link class="member__button"
+                            to="/signup" tag="button">
                         Sign Up 
                     </router-link>
-                </form>
-                <button class="signin__facebook"
-                        @click="facebookLogin">
-                    Facebook Sign In
-                </button>
+                    <button class="signin__facebook"
+                            @click="facebookLogin">
+                        Facebook Sign In
+                    </button>
+                </div>
             </div>
         </section>
     </div>
@@ -53,6 +55,7 @@
 <script>
 
 import bgVideo from './bgVideo.vue';
+import {mapMutations} from 'vuex';
 
 export default {
     name: 'SignIn',
@@ -66,6 +69,9 @@ export default {
             };
     },
     created(){
+        
+    },
+    mounted(){
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1343238479083683',
@@ -76,10 +82,11 @@ export default {
             });
         };
     },
-    mounted(){
-        console.log(this.$store.state.user);
-    },
     methods: {
+        ...mapMutations([
+            'setUserInfo'
+        ]),
+        // session유지를 위해 백엔드api에서 불러온 코드
         setUserSession(name, profile, token, pk){
             window.sessionStorage.setItem('user_name', name);
             window.sessionStorage.setItem('user_profile', profile);
@@ -103,9 +110,10 @@ export default {
                         _this.$http.post(url, {
                             access_token
                         }).then(function(res){
-                            console.log(res);
-                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
-                            _this.$store.commit('setUserInfo', user_session);
+                            console.log('facebook post res',res);
+                            let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.auth_token, res.data.pk);
+                            //_this.$store.commit('setUserInfo', user_session);
+                            _this.setUserInfo(user_session);
                             _this.$router.push({path: '/map'});
                         }).catch(function(err){
                             console.log(err.response.data);
@@ -120,8 +128,9 @@ export default {
                                 access_token
                             }).then(function(res){
                                 console.log(res);
-                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.token, res.data.pk);
-                                _this.$store.commit('setUserInfo', user_session);
+                                let user_session = _this.setUserSession(response.name, response.picture_small.data.url, res.data.auth_token, res.data.pk);
+                                // _this.$store.commit('setUserInfo', user_session);
+                                _this.setUserInfo(user_session);
                                 _this.$router.push({path: '/map'});
                             }).catch(function(err){
                                 console.log(err.response.data);

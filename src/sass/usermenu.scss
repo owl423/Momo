@@ -71,6 +71,7 @@
 }
 
 .tabmenu__view {
+    min-height: 450px;
     padding: 30px;
     border-left: 1px #aaa solid;
     border-right: 1px #aaa solid;
@@ -79,22 +80,24 @@
 }
 
 .tabmenu__view dl {
-    margin-top: 25px;
-}
-.tabmenu__view dl:first-child {
-    margin-top: 0;
+    margin-top: 45px;
 }
 
 .tabmenu__view dl dd {
-    font-size: 12px;
-    margin-top: 8px;
-    margin-left: 20px;
+    font-size: 13px;
+    margin-top: 15px;
+    margin-left: 23px;
 }
 
 .tabmenu__view dl dt {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     margin-top: 5px;
+    color: darken($color-main, 50%)
+}
+
+.tabmenu__view dl dt input[type=checkbox] {
+   margin-right: 5px
 }
 
 .tabmenu__view__button__edit {
@@ -117,7 +120,6 @@
 
 .tabmenu__view--image li img {
     width: 100%;
-}
-
-.tabmenu__view--image li:first-child {
+    height: 100px;
+    object-fit: cover;
 }

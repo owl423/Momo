@@ -11,7 +11,7 @@
       </div>
       <Indicator :slide_item="slide_item" :slide_index="slide_index" @indicatorIndex="setSlideIndex">
       </Indicator>
-      <button class="carousel--close--btn" @click="$emit('closeCarousel')"> X </button>
+      <button class="carousel__button__close button__modal__close" @click="$emit('closeCarousel')"> X </button>
     </div>
 </template>
 
@@ -19,42 +19,28 @@
 import Indicator from './Carousel-Indicator.vue';
 import ButtonSet from './Carousel-button.vue';
 import Slide from './Carousel-slide.vue';
+import {mapGetters} from 'vuex';
 export default {
   name: 'carousel',
+  computed : {
+    ...mapGetters([
+      'emoi_image_url',
+      'soosoocoffee_image_url',
+      'jjoo_image_url',
+      'current_pin',
+      'all_images'
+    ])
+  },
+  mounted(){
+    this.imageBind();
+  },
+  updated(){
+    this.imageBind();
+  },
   data () {
     return {
       slide_index: 0,
       slide_item : [
-        { 
-          url : 'http://lorempixel.com/300/300/'
-        },
-        { 
-          url : 'http://lorempixel.com/400/300/'
-        },
-        {
-          url : 'http://lorempixel.com/350/350/'
-        },
-        {
-          url : 'http://lorempixel.com/400/400/'
-        },
-        {
-          url : 'http://lorempixel.com/400/350/'
-        },
-        {
-          url : 'http://lorempixel.com/400/500/'
-        },
-        {
-          url : 'http://lorempixel.com/500/500/'
-        },
-        {
-          url : 'http://lorempixel.com/1000/500/'
-        },
-        {
-          url : 'http://lorempixel.com/500/600/'
-        },
-        {
-          url : 'http://lorempixel.com/500/550/'
-        },
       ]
     }
   },
@@ -75,7 +61,22 @@ export default {
     },
     setSlideIndex(index){
       this.slide_index = index;
-    }
+    },
+    imageBind(){
+      if(this.all_images.length !== 0){
+        this.slide_item = this.all_images;
+      }else{
+        if(this.current_pin.pin_name === '쮸즈'){
+            this.slide_item = this.jjoo_image_url;
+        }else if(this.current_pin.pin_name === '에머이'){
+            this.slide_item = this.emoi_image_url;
+        }else if(this.current_pin.pin_name === '수수커피'){
+            this.slide_item = this.soosoocoffee_image_url;
+        }else{
+            this.slide_item = '';
+        }
+      }
+    },
   }
 }
 </script>
@@ -93,7 +94,7 @@ body
   top: 0
   z-index: 99999
   background: #181818
-  &--close--btn
+  &__button__modal__close
     position: absolute
     right: 0
     top: 0

@@ -22,32 +22,49 @@
             margin-bottom: 7px
             display: block  
 
-        ul        
+        ul       
             padding: 16px
             font-size: 12px
             border: 1px $color-main solid
             border-radius: 5px
 
-            li 
-                &:first-child
-                    margin-top: 0
-                a 
-                    display: block
-                    padding: 7px
 
-                    &:hover
-                        background: $color-main-bright
+        &__items 
+            padding: 7px
+            position: relative
 
-        &__map-name
-            width: 110px
-            display: inline-block
-            float: left
-            font-size: 13px
-            font-weight: bold
+            &:first-child
+                margin-top: 0
 
-        &__select--float
-            float: left
-            margin-right: 22px
+            &:hover
+                background: $color-main-bright
+
+            &--nomap 
+                text-align: center
+                padding: 7px 
+
+
+            button
+                background: url(./assets/button_list_close2.png) no-repeat center center
+                position: absolute
+                top: 50% 
+                margin-top: -10px
+                right: 2px
+                background-size: 100%
+                width: 20px
+                height: 20px
+                text-indent: -9999px
+
+            &__map-name
+                width: 110px
+                display: inline-block
+                float: left
+                font-size: 13px
+                font-weight: bold
+
+            &__select--float
+                float: left
+                margin-right: 22px
 
 
         
