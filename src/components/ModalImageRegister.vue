@@ -48,12 +48,11 @@
             취소
         </button>
         -->
-
     </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import {mapActions, mapMutations} from 'vuex';
 export default {
     name: 'image-register',
     data(){
@@ -74,9 +73,14 @@ export default {
         },
         dropFile(e){
             let _this = this;
+            console.log(e);
             let reader = new FileReader();
             if(this.checkImage(e.dataTransfer.files[0])){
+                console.log(e.dataTransfer.files[0]);
                 this.file = e.dataTransfer.files[0];
+                
+                // let form_data = new FormData();
+                // form_data.append('photo', this.flie);
                 reader.readAsDataURL(e.dataTransfer.files[0]);
                 this.file_name= e.dataTransfer.files[0].name;
                 reader.onload=function(){
@@ -98,11 +102,12 @@ export default {
         },
         callImageRegister(){
             let _this = this;
-            let reader = new FileReader();
-            reader.readAsDataURL(this.file);
-            reader.onload = function (){
-                _this.imageRegister({axios: _this.$http, file: this.result});
-            }
+            // let reader = new FileReader();
+            // reader.readAsDataURL(this.file);
+            // reader.onload = function (){
+                _this.imageRegister({axios: _this.$http, file: this.file});
+                _this.$emit('closeModal');
+            // }
         },
         closeModal(){
             this.$emit('closeModal');
