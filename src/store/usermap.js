@@ -216,11 +216,11 @@ export default {
         })
       },
       // 맵 이름과 맵 설명 등록하는 함수
-      mapRegister({state, commit, rootState}, payload){
+      mapRegister({state, commit, rootState}, {axios, map_name, map_description}){
         let url = `${rootState.url}/api/map/`;
-        payload.axios.post(url, {
-          map_name : payload.map_name,
-          description : payload.map_description,
+        axios.post(url, {
+          map_name : map_name,
+          description : map_description,
           is_private: false
         })
         .then(function(res){
