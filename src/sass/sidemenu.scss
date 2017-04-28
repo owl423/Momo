@@ -101,10 +101,12 @@
             line-height: 20px;  
             margin-right: 11px;
             float: left;
-            margin-bottom: 30px;
+            display: block;
         }
         span {
             line-height: 20px;
+            display: block;
+            padding-left: 60px;
         }
     }
 }
