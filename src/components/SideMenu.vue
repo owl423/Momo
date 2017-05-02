@@ -5,7 +5,10 @@
                     @click="setSideState(false)">
             </button>
             <div class="pin-info">
+                <!-- 대표 이미지 -->
                 <div class="pin-info__bg" :style="{fontSize: 20 +'px', backgroundImage : `url(${img_src_cover})`}"></div>
+
+                <!-- 헤더 -->
                 <div class="pin-info__header">
                     <h1 class="pin-info__header__title">{{current_pin.pin_name}}</h1>
                     <p>
@@ -17,11 +20,14 @@
                         </span> 
                     </p>
                     <button
-                    class="post-register"
+                    class="pin-info__header__button__register"
                     @click="setModalPinRegisterState(true)"> Pin </button>
                 </div>
 
+                <!-- 뷰 -->
                 <div class="pin-info__view">
+
+                    <!-- 뷰 > 중요 정보(주소, 등록날짜) -->
                     <ul class="pin-info__view__core">
                         <li><strong>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</strong>
                             <span>{{current_pin.place.address}}</span>
@@ -31,11 +37,13 @@
                             <span>{{current_pin.created_date}}</span>
                         </li>
                     </ul>
+
+                    <!-- 뷰 > 리뷰 -->
                     <div class="pin-info__view__review">
                         <div class="pin-info__view__review__photo">
                             <strong>사진</strong>
                             <button type="button" @click="setModalImageRegisterState(true)">사진관리</button>
-                            <a class="pin-info__view__review__photo__view"
+                            <a class="pin-info__view__review__photo__button"
                                 title="전체 사진 슬라이드로 보기" 
                                 @click="setCarouselState(true)">
                                 <img :src="img_src" alt="">
@@ -44,18 +52,21 @@
                         <div class="pin-info__view__review__comment">
                             <strong>코멘트</strong>
                             <button type="button" @click="setModalCommentRegisterState(true)">코멘트 관리</button>
-                            <a v-if="current_pin.post_list.length !== 0" href="" class="pin-info__view__review__comment__view">
+                            <a v-if="current_pin.post_list.length !== 0" 
+                               class="pin-info__view__review__comment__button">
                                 전체 코멘트보기
                             </a>                                             
 
                             <ul class="pin-info__view__review__comment__list">
-                                <li v-if="index < 4" v-for="(pin, index) in current_pin.post_list">
+                                <li v-if="index < 4" 
+                                    v-for="(pin, index) in current_pin.post_list">
                                     {{ pin.description }}
                                     <!--
                                     <a href="">{{current_pin.post_list.description}}</a>
                                     -->
                                 </li>
-                                <li class="no-list" v-if="current_pin.post_list.length === 0">
+                                <li class="no-list" 
+                                    v-if="current_pin.post_list.length === 0">
                                     등록된 코멘트가 없습니다.
                                 </li>
                             </ul> 
