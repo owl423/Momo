@@ -1,26 +1,26 @@
 <template>
     <div>
         <div class="search-bar">
-            <span class="search-bar__button search-bar__input--text">
-                <button class="button--user" 
+            <span class="search-bar__user">
+                <button class="search-bar__user_button" 
                         type="button" @click="userMemuClick" 
                         aria-label="사용자 메뉴">
                     유저메뉴
                 </button>
             </span>
-            <p class="search-bar__input--text">
+            <p class="search-bar__typing">
                 <input type="text" placeholder="지도 검색"
                         v-model="search_val" @input="" @keydown.enter="search"> 
             </p>
-            <span class="search-bar__button search-bar__button--search">
-                <button class="button--search"
+            <span class="search-bar__search">
+                <button class="search-bar__search__button"
                         type="button"
                         aria-label="검색"
                         @click="search">
                     검색
                 </button>
             </span>
-            <ul v-if="is_search_result_state">
+            <ul class="search-bar__result" v-if="is_search_result_state">
                 <li v-for="(place, index) of search_result" v-if="index < 10">
                     <a href="" @click.prevent="moveSelectedPlace(place)">
                         <span class="name">{{place.name}}</span> 
