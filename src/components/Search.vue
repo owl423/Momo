@@ -1,13 +1,9 @@
 <template>
     <div>
         <div class="search-bar">
-            <span class="search-bar__user">
-                <button class="search-bar__user_button" 
-                        type="button" @click="userMemuClick" 
-                        aria-label="사용자 메뉴">
+            <button class="search-bar__user" type="button" @click="userMemuClick">
                     유저메뉴
-                </button>
-            </span>
+            </button>
             <p class="search-bar__typing">
                 <input type="text" placeholder="지도 검색"
                         v-model="search_val" @input="" @keydown.enter="search"> 
@@ -68,6 +64,7 @@ export default {
             'selectedPlace'
         ]),
         userMemuClick(){
+            console.log('click');
             this.setSideState(false);
             this.setUserMenuState(true);
         },
