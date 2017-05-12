@@ -8,6 +8,10 @@
          v-if="is_side_state"
          ></Sidemenu>
     </transition>
+    <transition name="slide" mode="out-in">
+        <UserMenu v-if="is_user_menu_state">
+        </UserMenu>
+    </transition>
     <Modal v-if="is_modal_pin_register_state">
         <Modal-pin-register 
          @closeModal="setModalPinRegisterState(false)">
@@ -36,7 +40,7 @@
 
 <script>
 import Sidemenu from './SideMenu.vue';
-import Usermenu from './UserMenu.vue';
+import UserMenu from './UserMenu.vue';
 import Search from './Search.vue';
 import ModalPinRegister from './ModalPinRegister.vue';
 import ModalImageRegister from'./ModalImageRegister.vue';
@@ -53,6 +57,7 @@ export default {
     components: {
         Sidemenu,
         Modal,
+        UserMenu,
         ModalPinRegister,
         ModalImageRegister,
         ModalCommentRegister,
@@ -66,6 +71,7 @@ export default {
         // vuex의 state변수를 간편하기 쓰기 위해 주입
         ...mapGetters([
             'is_side_state',
+            'is_user_menu_state',
             'is_modal_pin_register_state',
             'is_modal_image_register_state',
             'is_modal_map_register_state',
